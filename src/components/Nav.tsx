@@ -3,9 +3,9 @@ import { asset } from '../lib/asset'
 
 const links = [
   { href: '#klub', label: 'Klub' },
+  { href: '#czlonkostwo', label: 'Członkostwo' },
   { href: '#przywileje', label: 'Przywileje' },
-  { href: '#doswiadczenia', label: 'Doświadczenia' },
-  { href: '#karta', label: 'Karta' },
+  { href: '#zasady', label: 'Zasady' },
 ]
 
 export default function Nav() {
@@ -22,7 +22,7 @@ export default function Nav() {
             <a key={l.href} href={l.href}>{l.label}</a>
           ))}
         </div>
-        <a className="nav-cta" href="#aplikuj">Aplikuj</a>
+        <a className="nav-cta" href="#aplikuj">Dołącz</a>
       </div>
     </nav>
   )

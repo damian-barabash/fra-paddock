@@ -4,7 +4,7 @@ Super-premium, invitation-only club dla klientów Fastline. Landing (PL) z formu
 zgłoszeń o członkostwo.
 
 **Stack:** React + Vite + TypeScript, framer-motion, Supabase (backend zgłoszeń).
-Estetyka: złoto na ciemnym tle, karbon z umiarem, Bodoni Moda + Chakra Petch + Manrope.
+Estetyka: złoto na ciemnym tle, karbon z umiarem, Fraunces + Manrope.
 
 ## Rozwój lokalny
 
@@ -50,5 +50,9 @@ i na własnej domenie (np. `paddock.fastlineracingacademy.pl` — dodaj wtedy pl
 - `Logo.png` / `public/assets/logo.webp` — herb klubu (złoto na przezroczystym tle).
 - `public/assets/car.webp` — render auta z góry (element dekoracyjny, rezerwa).
 - `public/assets/og.png` — obrazek social (logo na ciemnym tle).
-- Zdjęcia ze zlotów (`20240*.jpg`) **nie są używane** w designie (decyzja: nie pasują
-  do premium visual).
+- `public/assets/meet-1.webp` / `meet-2.webp` / `hero-cars.webp` — zdjęcia ze zlotów
+  (Maserati MC20 z logo klubu + supersamochody), użyte jako tła sekcji pod ciemnym
+  gradientem. Wygenerowane ze zdjęć `20240*.jpg` (korekta EXIF + WebP).
+
+> **Regulamin PDF**: przycisk „Pobierz Regulamin" jest zaślepką — wgraj plik do
+> `public/regulamin.pdf` i podmień `href` w `src/components/Rules.tsx`.

@@ -15,9 +15,10 @@ export default function Footer() {
           </div>
           <div className="footer-col">
             <h4>Klub</h4>
+            <a href="#klub">O Klubie</a>
+            <a href="#czlonkostwo">Poziomy członkostwa</a>
             <a href="#przywileje">Przywileje</a>
-            <a href="#doswiadczenia">Doświadczenia</a>
-            <a href="#karta">Karta członkowska</a>
+            <a href="#zasady">Zasady i Regulamin</a>
             <a href="#aplikuj">Aplikuj</a>
           </div>
           <div className="footer-col">

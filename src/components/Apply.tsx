@@ -4,7 +4,7 @@ import { submitApplication, isSupabaseReady, type ApplicationInput } from '../li
 
 const CONTACT_EMAIL = 'klub@fastlineracingacademy.pl'
 
-const empty: ApplicationInput = { full_name: '', email: '', phone: '', car: '', message: '' }
+const empty: ApplicationInput = { full_name: '', email: '', phone: '', car: '', tier: 'Paddock Club', message: '' }
 
 export default function Apply() {
   const intro = useReveal<HTMLDivElement>()
@@ -13,12 +13,13 @@ export default function Apply() {
   const [status, setStatus] = useState<'idle' | 'sending' | 'done' | 'error'>('idle')
   const [err, setErr] = useState('')
 
-  const set = (k: keyof ApplicationInput) => (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
-    setData((d) => ({ ...d, [k]: e.target.value }))
+  const set = (k: keyof ApplicationInput) => (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>,
+  ) => setData((d) => ({ ...d, [k]: e.target.value }))
 
   const mailtoFallback = () => {
     const body = encodeURIComponent(
-      `Imię i nazwisko: ${data.full_name}\nE-mail: ${data.email}\nTelefon: ${data.phone}\nSamochód: ${data.car}\n\n${data.message}`,
+      `Imię i nazwisko: ${data.full_name}\nE-mail: ${data.email}\nTelefon: ${data.phone}\nPoziom: ${data.tier}\nSamochód: ${data.car}\n\n${data.message}`,
     )
     window.location.href = `mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent('Zgłoszenie — Paddock Club')}&body=${body}`
   }
@@ -48,10 +49,10 @@ export default function Apply() {
       <div className="wrap">
         <div className="apply-intro reveal" ref={intro}>
           <span className="eyebrow">Aplikacja</span>
-          <h2>Złóż zgłoszenie o&nbsp;członkostwo.</h2>
+          <h2>Dołącz do Fastline Paddock Club.</h2>
           <p>
-            Wypełnij wniosek. Odpowiadamy w ciągu 48 godzin — każdą aplikację
-            czyta człowiek, nie algorytm.
+            Wypełnij wniosek. Odpowiadamy w ciągu 48 godzin — każdą aplikację czyta
+            człowiek, nie algorytm.
           </p>
           <div className="apply-note">
             Rozpatrzenie: 48h<br />
@@ -71,7 +72,7 @@ export default function Apply() {
               <h3>Zgłoszenie przyjęte</h3>
               <p>
                 Dziękujemy. Skontaktujemy się z Tobą w ciągu 48 godzin pod podanym
-                adresem. Do zobaczenia za barierą.
+                adresem. Do zobaczenia w Klubie.
               </p>
             </div>
           ) : (
@@ -92,9 +93,19 @@ export default function Apply() {
                   <input id="em" type="email" required value={data.email} onChange={set('email')} placeholder="jan@domena.pl" autoComplete="email" />
                 </div>
                 <div className="field">
-                  <label htmlFor="car">Samochód</label>
-                  <input id="car" value={data.car} onChange={set('car')} placeholder="Maserati GranTurismo" />
+                  <label htmlFor="tier">Interesujący poziom</label>
+                  <div className="select-wrap">
+                    <select id="tier" value={data.tier} onChange={set('tier')}>
+                      <option>Paddock Club</option>
+                      <option>Paddock Club VIP</option>
+                      <option>Jeszcze nie wiem</option>
+                    </select>
+                  </div>
                 </div>
+              </div>
+              <div className="field">
+                <label htmlFor="car">Samochód</label>
+                <input id="car" value={data.car} onChange={set('car')} placeholder="Maserati MC20" />
               </div>
               <div className="field">
                 <label htmlFor="msg">Kilka słów o sobie</label>

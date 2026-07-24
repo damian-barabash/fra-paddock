@@ -1,9 +1,15 @@
 import Nav from './components/Nav'
 import Hero from './components/Hero'
-import Manifesto from './components/Manifesto'
-import Privileges from './components/Privileges'
-import Experiences from './components/Experiences'
-import Membership from './components/Membership'
+import About from './components/About'
+import Ecosystem from './components/Ecosystem'
+import Tiers from './components/Tiers'
+import Path from './components/Path'
+import Pillars from './components/Pillars'
+import Comparison from './components/Comparison'
+import Program from './components/Program'
+import Standards from './components/Standards'
+import Partners from './components/Partners'
+import Rules from './components/Rules'
 import Apply from './components/Apply'
 import Footer from './components/Footer'
 
@@ -13,10 +19,16 @@ export default function App() {
       <Nav />
       <main>
         <Hero />
-        <Manifesto />
-        <Privileges />
-        <Experiences />
-        <Membership />
+        <About />
+        <Ecosystem />
+        <Tiers />
+        <Path />
+        <Pillars />
+        <Comparison />
+        <Program />
+        <Standards />
+        <Partners />
+        <Rules />
         <Apply />
       </main>
       <Footer />

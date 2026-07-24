@@ -15,6 +15,7 @@ export interface ApplicationInput {
   email: string
   phone: string
   car: string
+  tier: string
   message: string
 }
 
@@ -25,6 +26,7 @@ export async function submitApplication(input: ApplicationInput): Promise<void> 
     email: input.email,
     phone: input.phone,
     car: input.car,
+    tier: input.tier,
     message: input.message,
     source: 'paddock-club-web',
   })
