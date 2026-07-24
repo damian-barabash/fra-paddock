@@ -144,13 +144,30 @@ button { font-family: inherit; cursor: pointer; }
   letter-spacing: 0.02em;
 }
 
-/* carbon weave — used sparingly on a couple of panels */
+/* real carbon-fibre twill texture — used on premium surfaces */
+:root {
+  --carbon-tex: url(../assets/carbon.webp);
+}
 .carbon {
-  background-color: #0c0d0f;
+  background-color: #0b0c0e;
   background-image:
-    linear-gradient(27deg, rgba(255, 255, 255, 0.035) 12.5%, transparent 12.5%, transparent 50%, rgba(255, 255, 255, 0.035) 50%, rgba(255, 255, 255, 0.035) 62.5%, transparent 62.5%),
-    linear-gradient(-27deg, rgba(255, 255, 255, 0.035) 12.5%, transparent 12.5%, transparent 50%, rgba(255, 255, 255, 0.035) 50%, rgba(255, 255, 255, 0.035) 62.5%, transparent 62.5%);
-  background-size: 7px 7px;
+    linear-gradient(rgba(11, 12, 14, 0.55), rgba(11, 12, 14, 0.68)),
+    var(--carbon-tex);
+  background-size: auto, 300px 300px;
+  background-position: center;
+}
+/* reusable subtle carbon overlay for cards/panels */
+.carbon-skin { position: relative; }
+.carbon-skin::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  background: var(--carbon-tex);
+  background-size: 220px 220px;
+  opacity: 0.10;
+  z-index: 0;
 }
 
 /* ---------- layout ---------- */
@@ -794,9 +811,12 @@ section { position: relative; }
 /* ---------- apply / join ---------- */
 .apply {
   border-top: 1px solid var(--line);
-  background:
-    radial-gradient(90% 60% at 50% 0%, rgba(198, 161, 91, 0.07), transparent 60%),
-    var(--void);
+  background-color: var(--void);
+  background-image:
+    radial-gradient(90% 60% at 50% 0%, rgba(198, 161, 91, 0.08), transparent 60%),
+    linear-gradient(rgba(10, 10, 11, 0.9), rgba(10, 10, 11, 0.93)),
+    var(--carbon-tex);
+  background-size: auto, auto, 260px 260px;
 }
 .apply .wrap {
   display: grid;
@@ -894,7 +914,9 @@ section { position: relative; }
 .footer {
   border-top: 1px solid var(--line);
   padding-block: clamp(3.5rem, 8vh, 6rem) 2.5rem;
-  background: var(--carbon);
+  background-color: #0b0c0e;
+  background-image: linear-gradient(rgba(11, 12, 14, 0.72), rgba(11, 12, 14, 0.82)), var(--carbon-tex);
+  background-size: auto, 300px 300px;
 }
 .footer-top {
   display: grid;
@@ -1074,12 +1096,13 @@ section { position: relative; }
 .tier-card {
   display: flex;
   flex-direction: column;
-  background: var(--carbon);
+  background-color: var(--carbon);
+  background-image: linear-gradient(rgba(14, 15, 18, 0.85), rgba(14, 15, 18, 0.9)), var(--carbon-tex);
+  background-size: auto, 200px 200px;
   border: 1px solid var(--line-soft);
   border-radius: 6px;
   padding: 2.8rem 2.2rem 2.4rem;
   position: relative;
-  overflow: hidden;
   color: inherit;
   transform-style: preserve-3d;
   transform: perspective(1600px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg)) translateY(0);
@@ -1092,6 +1115,7 @@ section { position: relative; }
 .tier-glow {
   position: absolute;
   inset: 0;
+  border-radius: inherit;
   pointer-events: none;
   opacity: 0;
   transition: opacity 0.4s var(--ease);
@@ -1101,9 +1125,12 @@ section { position: relative; }
 .tier-card > * { position: relative; z-index: 1; }
 .tier-card.featured {
   border-color: rgba(198, 161, 91, 0.42);
-  background:
-    radial-gradient(120% 80% at 50% 0%, rgba(198,161,91,0.09), transparent 55%),
-    var(--ink);
+  background-color: var(--ink);
+  background-image:
+    radial-gradient(120% 80% at 50% 0%, rgba(198,161,91,0.11), transparent 55%),
+    linear-gradient(rgba(20, 21, 26, 0.8), rgba(20, 21, 26, 0.86)),
+    var(--carbon-tex);
+  background-size: auto, auto, 200px 200px;
   box-shadow: 0 30px 70px -40px rgba(198,161,91,0.4);
 }
 .tier-badge {
@@ -1514,4 +1541,77 @@ section[id], header[id] { scroll-margin-top: 84px; }
 
 @media (max-width: 980px) {
   .model { grid-template-columns: 1fr; gap: 1rem; }
+}
+
+/* ============================================================
+   v4 — richer motion (respects prefers-reduced-motion globally)
+   ============================================================ */
+
+/* animated metallic shimmer on gold text (prices, accents) */
+.gold-text {
+  animation: goldShimmer 7s ease-in-out infinite;
+}
+@keyframes goldShimmer {
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* badge: breathing glow + light sweep, and room so it never clips */
+.tier-badge {
+  overflow: hidden;
+  box-shadow: 0 6px 20px -6px rgba(198,161,91,0.6);
+  animation: badgePulse 3.2s ease-in-out infinite;
+}
+.tier-badge::after {
+  content: '';
+  position: absolute;
+  top: 0; left: -80%;
+  width: 55%; height: 100%;
+  background: linear-gradient(100deg, transparent, rgba(255,255,255,0.7), transparent);
+  transform: skewX(-18deg);
+  animation: badgeSweep 3.6s ease-in-out infinite;
+}
+@keyframes badgePulse {
+  0%, 100% { box-shadow: 0 6px 20px -6px rgba(198,161,91,0.45); }
+  50%      { box-shadow: 0 8px 26px -6px rgba(198,161,91,0.85); }
+}
+@keyframes badgeSweep {
+  0%, 70% { left: -80%; }
+  100%    { left: 160%; }
+}
+.tier-grid { padding-top: 14px; }
+
+/* featured card: slow ambient light drift behind the content */
+.tier-card.featured::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  z-index: 0;
+  pointer-events: none;
+  background: linear-gradient(115deg, transparent 35%, rgba(231,205,142,0.10) 50%, transparent 65%);
+  background-size: 250% 250%;
+  animation: sheenDrift 6s ease-in-out infinite;
+}
+@keyframes sheenDrift {
+  0%   { background-position: 120% 0%; }
+  100% { background-position: -20% 0%; }
+}
+
+/* hero: breathing halo + gently floating logo */
+.hero-halo { animation: haloBreath 7s ease-in-out infinite; }
+@keyframes haloBreath {
+  0%, 100% { opacity: 0.85; transform: translate(-50%, -50%) scale(1); }
+  50%      { opacity: 1;    transform: translate(-50%, -50%) scale(1.06); }
+}
+/* eyebrow: the gold tick grows on reveal-in */
+.reveal .eyebrow::before { transform: scaleX(0.4); transform-origin: left; transition: transform 0.8s var(--ease) 0.2s; }
+.reveal.in .eyebrow::before { transform: scaleX(1); }
+
+/* buttons: gold shine loops subtly even at rest on the primary CTA in hero */
+.hero .btn-gold::after { animation: ctaSweep 5.5s ease-in-out infinite; }
+@keyframes ctaSweep {
+  0%, 78% { left: -60%; }
+  100%    { left: 130%; }
 }
