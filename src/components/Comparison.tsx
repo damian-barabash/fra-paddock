@@ -1,5 +1,5 @@
 import { useReveal } from '../lib/hooks'
-import { comparison } from '../content'
+import { comparison, copy } from '../content'
 
 function Cell({ v }: { v: string }) {
   if (v === '✓')
@@ -21,8 +21,7 @@ export default function Comparison() {
     <section className="section comparison" id="zakres">
       <div className="wrap">
         <div className="section-head reveal" ref={head}>
-          <span className="eyebrow">Zakres członkostwa</span>
-          <h2>Co obejmuje każdy z poziomów.</h2>
+          <span className="eyebrow">{copy.zakresTitle}</span>
         </div>
 
         <div className="cmp reveal" ref={wrap}>

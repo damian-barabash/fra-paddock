@@ -1,14 +1,18 @@
 import { motion } from 'framer-motion'
 import { asset } from '../lib/asset'
+import { useParallax } from '../lib/hooks'
+import { copy } from '../content'
 
 const ease = [0.22, 1, 0.36, 1] as const
 
 export default function Hero() {
+  const photo = useParallax<HTMLDivElement>(80)
   return (
     <header className="hero" id="top">
       <div className="hero-bg" aria-hidden="true">
         <div
           className="hero-photo"
+          ref={photo}
           style={{ backgroundImage: `url(${asset('assets/hero-cars.webp')})` }}
         />
         <div className="hero-scrim" />
@@ -39,7 +43,7 @@ export default function Hero() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.9, ease, delay: 0.45 }}
         >
-          Wspólna pasja jest początkiem <em>każdej relacji</em>.
+          {copy.heroTitle}
         </motion.h1>
 
         <motion.p
@@ -48,8 +52,7 @@ export default function Hero() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.9, ease, delay: 0.6 }}
         >
-          Prywatny klub dla osób, które łączy pasja do sportowych samochodów oraz
-          wyjątkowy styl życia, jaki im towarzyszy.
+          {copy.heroSub}
         </motion.p>
 
         <motion.div

@@ -1,5 +1,5 @@
 import { useReveal } from '../lib/hooks'
-import { statusPoints, balance } from '../content'
+import { statusPoints, balance, copy } from '../content'
 
 export default function Program() {
   const head = useReveal<HTMLDivElement>()
@@ -8,12 +8,9 @@ export default function Program() {
     <section className="section program carbon" id="program">
       <div className="wrap">
         <div className="section-head reveal" ref={head}>
-          <span className="eyebrow">Status Points</span>
-          <h2>Zaangażowanie, które się opłaca.</h2>
-          <p>
-            Aktywność Członków nagradzana jest Punktami Zaangażowania. Odzwierciedlają
-            poziom uczestnictwa w świecie Fastline i wpływają na rozwój członkostwa.
-          </p>
+          <span className="eyebrow">{copy.statusTitle}</span>
+          <p className="lead">{copy.statusLead[0]}</p>
+          <p className="lead-soft">{copy.statusLead[1]}</p>
         </div>
 
         <div className="program-cols reveal" ref={cols}>
@@ -53,11 +50,7 @@ export default function Program() {
                 ))}
               </tbody>
             </table>
-            <p className="prog-foot">
-              *Symulacja poglądowa przy założeniu średniej wartości preferencyjnych
-              warunków na poziomie 10%. Rzeczywisty zakres korzyści zależy od aktywności
-              Członka.
-            </p>
+            <p className="prog-foot">{copy.balanceNote}</p>
           </div>
         </div>
       </div>
