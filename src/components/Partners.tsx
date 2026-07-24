@@ -1,21 +1,20 @@
-import { useReveal, useParallax } from '../lib/hooks'
+import { useReveal } from '../lib/hooks'
 import { asset } from '../lib/asset'
 import { copy } from '../content'
 
 export default function Partners() {
   const ref = useReveal<HTMLDivElement>()
-  const photo = useParallax<HTMLDivElement>(70)
   return (
     <section className="section partners" id="partnerzy">
       <div
         className="partners-photo"
-        ref={photo}
+        data-parallax="150"
         style={{ backgroundImage: `url(${asset('assets/meet-1.webp')})` }}
         aria-hidden="true"
       />
       <div className="partners-scrim" aria-hidden="true" />
       <div className="wrap reveal" ref={ref}>
-        <div className="partners-inner">
+        <div className="partners-inner" data-parallax="-38">
           <span className="eyebrow">{copy.partnersTitle}</span>
           <p className="partners-lead">{copy.partners[0]}</p>
           <p className="partners-soft">{copy.partners[1]}</p>

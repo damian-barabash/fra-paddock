@@ -1,25 +1,23 @@
 import { motion } from 'framer-motion'
 import { asset } from '../lib/asset'
-import { useParallax } from '../lib/hooks'
 import { copy } from '../content'
 
 const ease = [0.22, 1, 0.36, 1] as const
 
 export default function Hero() {
-  const photo = useParallax<HTMLDivElement>(80)
   return (
     <header className="hero" id="top">
       <div className="hero-bg" aria-hidden="true">
         <div
           className="hero-photo"
-          ref={photo}
+          data-parallax="140"
           style={{ backgroundImage: `url(${asset('assets/hero-cars.webp')})` }}
         />
         <div className="hero-scrim" />
         <div className="hero-halo" />
       </div>
 
-      <div className="wrap hero-content">
+      <div className="wrap hero-content" data-parallax="-60">
         <motion.span
           className="eyebrow center"
           initial={{ opacity: 0, y: 14 }}

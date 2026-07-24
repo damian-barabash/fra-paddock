@@ -7,7 +7,7 @@ export default function Standards() {
     <section className="section standards" id="standardy">
       <div className="wrap reveal" ref={ref}>
         <span className="eyebrow center">{copy.standardsTitle}</span>
-        <blockquote className="standards-quote">{copy.standardsQuote}</blockquote>
+        <blockquote className="standards-quote" data-parallax="50">{copy.standardsQuote}</blockquote>
         <p className="standards-body">{copy.standards[0]}</p>
         <p className="standards-body">{copy.standards[1]}</p>
       </div>

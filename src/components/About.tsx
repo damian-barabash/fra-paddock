@@ -10,7 +10,7 @@ export default function About() {
           <div className="about-mark">
             <span className="eyebrow">O Klubie</span>
           </div>
-          <div className="about-body">
+          <div className="about-body" data-parallax="-34">
             <p className="about-lead">{copy.about[0]}</p>
             <p>{copy.about[1]}</p>
             <p>{copy.about[2]}</p>
