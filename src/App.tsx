@@ -7,6 +7,7 @@ import Tiers from './components/Tiers'
 import Path from './components/Path'
 import Pillars from './components/Pillars'
 import Comparison from './components/Comparison'
+import Plate from './components/Plate'
 import Program from './components/Program'
 import Standards from './components/Standards'
 import Partners from './components/Partners'
@@ -30,6 +31,7 @@ export default function App() {
         <Path />
         <Pillars />
         <Comparison />
+        <Plate />
         <Program />
         <Standards />
         <Partners />
