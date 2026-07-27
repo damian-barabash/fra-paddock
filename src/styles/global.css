@@ -491,8 +491,8 @@ section[id], header[id] { scroll-margin-top: 84px; }
   position: absolute;
   inset: -10% 0;
   background-size: cover;
-  background-position: center 78%;
-  filter: saturate(0.8) contrast(1.05) brightness(1.02);
+  background-position: center 62%;
+  filter: saturate(0.92) contrast(1.03) brightness(1.02);
   transform: translate3d(0, var(--pary, 0px), 0);
   will-change: transform;
 }

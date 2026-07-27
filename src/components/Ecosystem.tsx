@@ -20,9 +20,12 @@ export default function Ecosystem() {
         <div
           className="eco-photo"
           data-parallax="90"
-          style={{ backgroundImage: `url(${asset('assets/meet-2.webp')})` }}
+          style={{
+            backgroundImage: `url(${asset('assets/meet-2.webp')})`,
+            backgroundPosition: 'center 60%',
+          }}
           role="img"
-          aria-label="Panorama Warszawy w złotym świetle zachodu słońca"
+          aria-label="Czerwone Porsche 911 na ulicy Warszawy o zachodzie słońca"
         />
         <figcaption>
           <div className="wrap">
