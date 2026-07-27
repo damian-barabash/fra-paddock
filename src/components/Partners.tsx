@@ -11,15 +11,18 @@ export default function Partners() {
         <Chapter no="IX" label={copy.partnersTitle} />
 
         <div className="partners-grid reveal" ref={grid}>
-          <div className="partners-frame">
-            <div
-              className="partners-photo"
-              data-parallax="70"
-              style={{ backgroundImage: `url(${asset('assets/meet-1.webp')})` }}
-              role="img"
-              aria-label="Wejście do Casino de Monte-Carlo wieczorem"
-            />
-          </div>
+          <figure style={{ margin: 0 }}>
+            <div className="partners-frame">
+              <div
+                className="partners-photo"
+                data-parallax="70"
+                style={{ backgroundImage: `url(${asset('assets/meet-1.webp')})` }}
+                role="img"
+                aria-label="Kolekcjonerski garaż supersamochodów, auto pod pokrowcem"
+              />
+            </div>
+            <figcaption className="photo-cap">Garaż kolekcjonerski</figcaption>
+          </figure>
           <div className="partners-copy">
             <p>{copy.partners[0]}</p>
             <p>{copy.partners[1]}</p>

@@ -22,11 +22,11 @@ export default function Ecosystem() {
           data-parallax="90"
           style={{ backgroundImage: `url(${asset('assets/meet-2.webp')})` }}
           role="img"
-          aria-label="Port i mariny Monako — świat doświadczeń Fastline"
+          aria-label="Panorama Warszawy w złotym świetle zachodu słońca"
         />
         <figcaption>
           <div className="wrap">
-            <span>Monako · Świat doświadczeń Fastline</span>
+            <span>Warszawa · Dom Fastline</span>
           </div>
         </figcaption>
       </figure>
@@ -42,10 +42,10 @@ export default function Ecosystem() {
                 data-parallax="50"
                 style={{ backgroundImage: `url(${asset('assets/duo-1.webp')})` }}
                 role="img"
-                aria-label="Supersamochody przed Casino de Monte-Carlo"
+                aria-label="Czarny samochód sportowy przed Pałacem Kultury i Nauki w Warszawie"
               />
             </div>
-            <figcaption className="photo-cap">Casino de Monte-Carlo</figcaption>
+            <figcaption className="photo-cap">Warszawa · Pałac Kultury i Nauki</figcaption>
           </figure>
           <figure>
             <div className="frame" ref={duo2}>

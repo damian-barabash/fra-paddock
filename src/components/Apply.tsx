@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { useReveal } from '../lib/hooks'
+import { asset } from '../lib/asset'
 import Chapter from './Chapter'
 import { submitApplication, isSupabaseReady, type ApplicationInput } from '../lib/supabase'
 
@@ -9,6 +10,7 @@ const empty: ApplicationInput = { full_name: '', email: '', phone: '', car: '', 
 
 export default function Apply() {
   const intro = useReveal<HTMLDivElement>()
+  const band = useReveal<HTMLElement>({ threshold: 0.2 })
   const formWrap = useReveal<HTMLDivElement>()
   const [data, setData] = useState<ApplicationInput>(empty)
   const [status, setStatus] = useState<'idle' | 'sending' | 'done' | 'error'>('idle')
@@ -47,6 +49,20 @@ export default function Apply() {
 
   return (
     <section className="section apply" id="aplikuj">
+      <figure className="eco-band apply-band" ref={band}>
+        <div
+          className="eco-photo"
+          data-parallax="90"
+          style={{ backgroundImage: `url(${asset('assets/road-fastline.webp')})` }}
+          role="img"
+          aria-label="Porsche Fastline Racing Academy na górskim serpentynie"
+        />
+        <figcaption>
+          <div className="wrap">
+            <span>Fastline Racing Academy</span>
+          </div>
+        </figcaption>
+      </figure>
       <div className="wrap">
         <div className="apply-head reveal" ref={intro}>
           <Chapter no="XI" label="Aplikacja" center />

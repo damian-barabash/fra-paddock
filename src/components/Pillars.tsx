@@ -1,9 +1,20 @@
 import { useReveal } from '../lib/hooks'
+import { asset } from '../lib/asset'
 import Chapter from './Chapter'
 import { pillars, copy } from '../content'
 
+const strip = [
+  { img: 'assets/strip-1.webp', cap: 'Warszawa · Porsche GT3', alt: 'Białe Porsche GT3 na warszawskich numerach' },
+  { img: 'assets/strip-2.webp', cap: 'Garaż nocą', alt: 'Ferrari w ciemnym garażu w złotym świetle' },
+  { img: 'assets/strip-3.webp', cap: 'Detal nadwozia', alt: 'Detal przedniej lampy granatowego supersamochodu' },
+] as const
+
 export default function Pillars() {
   const grid = useReveal<HTMLDivElement>()
+  const s0 = useReveal<HTMLDivElement>()
+  const s1 = useReveal<HTMLDivElement>()
+  const s2 = useReveal<HTMLDivElement>()
+  const refs = [s0, s1, s2]
   return (
     <section className="section pillars" id="przywileje">
       <div className="wrap">
@@ -15,6 +26,23 @@ export default function Pillars() {
               <h3>{p.title}</h3>
               <p>{p.desc}</p>
             </article>
+          ))}
+        </div>
+
+        <div className="pillar-strip">
+          {strip.map((s, i) => (
+            <figure key={s.img}>
+              <div className="frame" ref={refs[i]}>
+                <div
+                  className="frame-photo"
+                  data-parallax={String(40 + i * 15)}
+                  style={{ backgroundImage: `url(${asset(s.img)})` }}
+                  role="img"
+                  aria-label={s.alt}
+                />
+              </div>
+              <figcaption className="photo-cap">{s.cap}</figcaption>
+            </figure>
           ))}
         </div>
       </div>
