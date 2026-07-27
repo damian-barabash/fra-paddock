@@ -1,20 +1,17 @@
 import { useReveal } from '../lib/hooks'
+import Chapter from './Chapter'
 import { pillars, copy } from '../content'
 
 export default function Pillars() {
-  const head = useReveal<HTMLDivElement>()
   const grid = useReveal<HTMLDivElement>()
   return (
     <section className="section pillars" id="przywileje">
       <div className="wrap">
-        <div className="section-head reveal" ref={head}>
-          <span className="eyebrow">{copy.pillarsTitle}</span>
-        </div>
+        <Chapter no="V" label={copy.pillarsTitle} />
 
         <div className="pillar-grid reveal" ref={grid}>
           {pillars.map((p, i) => (
-            <article className="pillar-card" key={p.title} style={{ transitionDelay: `${i * 80}ms` }}>
-              <span className="pillar-idx data">{String(i + 1).padStart(2, '0')}</span>
+            <article className="pillar" key={p.title} style={{ transitionDelay: `${i * 100}ms` }}>
               <h3>{p.title}</h3>
               <p>{p.desc}</p>
             </article>

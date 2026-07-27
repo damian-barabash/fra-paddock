@@ -1,30 +1,27 @@
 import { useReveal } from '../lib/hooks'
+import Chapter from './Chapter'
 import { pathSteps, copy } from '../content'
 
+const roman = ['I', 'II', 'III', 'IV', 'V']
+
 export default function Path() {
-  const head = useReveal<HTMLDivElement>()
   const list = useReveal<HTMLOListElement>()
+  const note = useReveal<HTMLParagraphElement>()
   return (
     <section className="section path" id="sciezka">
       <div className="wrap">
-        <div className="section-head reveal" ref={head}>
-          <span className="eyebrow">{copy.pathTitle}</span>
-          <p className="lead">{copy.pathLead}</p>
-        </div>
+        <Chapter no="IV" label={copy.pathTitle} title={copy.pathLead} />
 
-        <ol className="path-list reveal" ref={list}>
+        <ol className="path-rows reveal" ref={list}>
           {pathSteps.map((s, i) => (
-            <li className="path-step" key={s.stage} style={{ transitionDelay: `${i * 90}ms` }}>
-              <span className="path-num data">{String(i + 1).padStart(2, '0')}</span>
-              <div className="path-dot" aria-hidden="true" />
-              <div className="path-body">
-                <h3>{s.stage}</h3>
-                <p>{s.desc}</p>
-              </div>
+            <li className="path-row" key={s.stage} style={{ transitionDelay: `${i * 110}ms` }}>
+              <span className="path-no">{roman[i]}</span>
+              <h3>{s.stage}</h3>
+              <p>{s.desc}</p>
             </li>
           ))}
         </ol>
-        <p className="path-note">{copy.pathNote}</p>
+        <p className="path-note reveal" ref={note}>{copy.pathNote}</p>
       </div>
     </section>
   )

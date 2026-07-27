@@ -1,4 +1,5 @@
 import { useReveal } from '../lib/hooks'
+import Chapter from './Chapter'
 import { rules, copy } from '../content'
 
 export default function Rules() {
@@ -7,10 +8,10 @@ export default function Rules() {
   return (
     <section className="section rules" id="zasady">
       <div className="wrap">
-        <div className="rules-grid">
-          <div className="section-head reveal" ref={head}>
-            <span className="eyebrow">{copy.zasadyTitle}</span>
-            <p className="lead">{copy.zasadyLead}</p>
+        <Chapter no="X" label={copy.zasadyTitle} title={copy.zasadyLead} />
+
+        <div className="rules-grid" style={{ marginTop: 'clamp(4rem, 8vw, 6rem)' }}>
+          <div className="rules-head reveal" ref={head}>
             <p className="rules-reg">{copy.regulamin}</p>
             <a
               className="btn rules-download"

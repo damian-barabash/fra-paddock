@@ -1,17 +1,17 @@
 import { useReveal } from '../lib/hooks'
+import Chapter from './Chapter'
 import { statusPoints, balance, copy } from '../content'
 
 export default function Program() {
-  const head = useReveal<HTMLDivElement>()
+  const lead = useReveal<HTMLParagraphElement>()
   const cols = useReveal<HTMLDivElement>()
   return (
-    <section className="section program carbon" id="program">
+    <section className="section program" id="program">
       <div className="wrap">
-        <div className="section-head reveal" ref={head}>
-          <span className="eyebrow">{copy.statusTitle}</span>
-          <p className="lead">{copy.statusLead[0]}</p>
-          <p className="lead-soft">{copy.statusLead[1]}</p>
-        </div>
+        <Chapter no="VII" label={copy.statusTitle} title={copy.statusLead[0]} />
+        <p className="eco-after reveal" ref={lead} style={{ marginTop: '2.2rem' }}>
+          {copy.statusLead[1]}
+        </p>
 
         <div className="program-cols reveal" ref={cols}>
           <div className="prog-panel">

@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { useReveal } from '../lib/hooks'
+import Chapter from './Chapter'
 import { submitApplication, isSupabaseReady, type ApplicationInput } from '../lib/supabase'
 
 const CONTACT_EMAIL = 'klub@fastlineracingacademy.pl'
@@ -47,17 +48,17 @@ export default function Apply() {
   return (
     <section className="section apply" id="aplikuj">
       <div className="wrap">
-        <div className="apply-intro reveal" ref={intro}>
-          <span className="eyebrow">Aplikacja</span>
+        <div className="apply-head reveal" ref={intro}>
+          <Chapter no="XI" label="Aplikacja" center />
           <h2>Dołącz do Fastline Paddock Club.</h2>
           <p>
             Wypełnij wniosek. Odpowiadamy w ciągu 48 godzin — każdą aplikację czyta
             człowiek, nie algorytm.
           </p>
-          <div className="apply-note">
-            Rozpatrzenie: 48h<br />
-            Kontakt: {CONTACT_EMAIL}<br />
-            Miejsca limitowane
+          <div className="apply-meta">
+            <span>Rozpatrzenie 48h</span>
+            <span>Miejsca limitowane</span>
+            <span>{CONTACT_EMAIL}</span>
           </div>
         </div>
 

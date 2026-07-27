@@ -1,5 +1,3 @@
-import ScrollProgress from './components/ScrollProgress'
-import ParallaxField from './components/ParallaxField'
 import { useGlobalParallax } from './lib/parallax'
 import Nav from './components/Nav'
 import Hero from './components/Hero'
@@ -20,8 +18,7 @@ export default function App() {
   useGlobalParallax()
   return (
     <>
-      <ScrollProgress />
-      <ParallaxField />
+      <div className="page-frame" aria-hidden="true" />
       <Nav />
       <main>
         <Hero />

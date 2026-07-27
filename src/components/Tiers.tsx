@@ -1,47 +1,25 @@
-import { useReveal, prefersReducedMotion } from '../lib/hooks'
+import { useReveal } from '../lib/hooks'
+import Chapter from './Chapter'
 import { tiers, copy } from '../content'
 
 export default function Tiers() {
-  const head = useReveal<HTMLDivElement>()
-  const grid = useReveal<HTMLDivElement>()
+  const block = useReveal<HTMLDivElement>()
   const model = useReveal<HTMLDivElement>()
-
-  const onMove = (e: React.MouseEvent<HTMLAnchorElement>) => {
-    if (prefersReducedMotion()) return
-    const el = e.currentTarget
-    const r = el.getBoundingClientRect()
-    const px = (e.clientX - r.left) / r.width - 0.5
-    const py = (e.clientY - r.top) / r.height - 0.5
-    el.style.setProperty('--rx', `${(-py * 6).toFixed(2)}deg`)
-    el.style.setProperty('--ry', `${(px * 7).toFixed(2)}deg`)
-    el.style.setProperty('--mx', `${(px * 100 + 50).toFixed(1)}%`)
-    el.style.setProperty('--my', `${(py * 100 + 50).toFixed(1)}%`)
-  }
-  const onLeave = (e: React.MouseEvent<HTMLAnchorElement>) => {
-    const el = e.currentTarget
-    el.style.setProperty('--rx', '0deg')
-    el.style.setProperty('--ry', '0deg')
-  }
   return (
     <section className="section tiers" id="czlonkostwo">
       <div className="wrap">
-        <div className="section-head reveal" ref={head}>
-          <span className="eyebrow">{copy.tiersTitle}</span>
-          <p className="lead">{copy.tiersLead}</p>
-        </div>
+        <Chapter no="III" label={copy.tiersTitle} title={copy.tiersLead} />
 
-        <div className="tier-grid reveal" ref={grid}>
-          {tiers.map((t) => (
-            <a
-              className={`tier-card${'featured' in t && t.featured ? ' featured' : ''}`}
-              key={t.key}
-              href="#aplikuj"
-              onMouseMove={onMove}
-              onMouseLeave={onLeave}
-            >
-              <span className="tier-glow" aria-hidden="true" />
-              {'featured' in t && t.featured && <span className="tier-badge">Najczęściej wybierany</span>}
-              <div className="tier-top">
+        <div className="tier-block reveal" ref={block}>
+          {tiers.map((t) => {
+            const featured = 'featured' in t && t.featured
+            return (
+              <a
+                className={`tier-col${featured ? ' featured' : ''}`}
+                key={t.key}
+                href="#aplikuj"
+              >
+                <span className="tier-flag">{featured ? 'Najczęściej wybierany' : ' '}</span>
                 <span className="tier-tagline">{t.tagline}</span>
                 <h3>{t.name}</h3>
                 <div className="tier-price">
@@ -49,23 +27,23 @@ export default function Tiers() {
                     <span className="tier-invite">Na zaproszenie</span>
                   ) : (
                     <>
-                      <span className="tier-amount gold-text">{t.price}</span>
-                      <span className="tier-period">{t.period}</span>
+                      <span className="tier-amount">{t.price}</span>
+                      <span className="tier-period">rocznie</span>
                     </>
                   )}
                 </div>
                 <p className="tier-desc">{t.desc}</p>
-              </div>
-              <ul className="tier-features">
-                {t.features.map((f) => (
-                  <li key={f}>{f}</li>
-                ))}
-              </ul>
-              <span className={`btn ${t.invite ? '' : 'btn-gold'} tier-cta`}>
-                {t.invite ? 'Dowiedz się więcej' : 'Wybieram'} <span className="btn-arrow">→</span>
-              </span>
-            </a>
-          ))}
+                <ul className="tier-features">
+                  {t.features.map((f) => (
+                    <li key={f}>{f}</li>
+                  ))}
+                </ul>
+                <span className="link-line tier-cta">
+                  {t.invite ? 'Dowiedz się więcej' : 'Wybieram'} <span className="btn-arrow">→</span>
+                </span>
+              </a>
+            )
+          })}
         </div>
 
         <div className="model reveal" ref={model}>

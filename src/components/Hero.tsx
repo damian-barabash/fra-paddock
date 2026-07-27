@@ -3,6 +3,11 @@ import { asset } from '../lib/asset'
 import { copy } from '../content'
 
 const ease = [0.22, 1, 0.36, 1] as const
+const up = (delay: number) => ({
+  initial: { opacity: 0, y: 18 },
+  animate: { opacity: 1, y: 0 },
+  transition: { duration: 1.1, ease, delay },
+})
 
 export default function Hero() {
   return (
@@ -10,61 +15,45 @@ export default function Hero() {
       <div className="hero-bg" aria-hidden="true">
         <div
           className="hero-photo"
-          data-parallax="140"
+          data-parallax="110"
           style={{ backgroundImage: `url(${asset('assets/hero-cars.webp')})` }}
         />
         <div className="hero-scrim" />
-        <div className="hero-halo" />
       </div>
 
-      <div className="wrap hero-content" data-parallax="-60">
-        <motion.span
-          className="eyebrow center"
-          initial={{ opacity: 0, y: 14 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease, delay: 0.1 }}
-        >
+      <div className="wrap hero-content">
+        <motion.span className="hero-eyebrow" {...up(0.25)}>
           Prywatny klub · Fastline Racing Academy
         </motion.span>
 
-        <motion.img
-          className="hero-logo"
-          src={asset('assets/logo.webp')}
-          alt="Fastline Paddock Club"
-          initial={{ opacity: 0, y: 20, filter: 'blur(6px)' }}
-          animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
-          transition={{ duration: 1.1, ease, delay: 0.2 }}
-        />
-
-        <motion.h1
-          initial={{ opacity: 0, y: 18 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.9, ease, delay: 0.45 }}
-        >
-          {copy.heroTitle}
+        <motion.h1 {...up(0.5)}>
+          Wspólna <em>pasja</em> jest początkiem każdej relacji.
         </motion.h1>
 
-        <motion.p
-          className="hero-sub"
-          initial={{ opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.9, ease, delay: 0.6 }}
-        >
+        <motion.p className="hero-sub" {...up(0.68)}>
           {copy.heroSub}
         </motion.p>
 
-        <motion.div
-          className="hero-actions"
-          initial={{ opacity: 0, y: 14 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.9, ease, delay: 0.75 }}
-        >
-          <a className="btn btn-gold" href="#czlonkostwo">
-            Zostań Członkiem <span className="btn-arrow">→</span>
+        <motion.div className="hero-actions" {...up(0.84)}>
+          <a className="btn btn-gold" href="#aplikuj">Zostań Członkiem</a>
+          <a className="link-line" href="#klub">
+            Poznaj Klub <span className="btn-arrow">↓</span>
           </a>
-          <a className="btn" href="#klub">Poznaj Klub</a>
         </motion.div>
       </div>
+
+      <motion.div
+        className="hero-foot"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 1.4, ease, delay: 1.1 }}
+      >
+        <div className="wrap hero-foot-inner">
+          <span>Est. MMXXVI</span>
+          <span className="hero-cue" aria-hidden="true" />
+          <span>Wyłącznie dla Członków</span>
+        </div>
+      </motion.div>
     </header>
   )
 }

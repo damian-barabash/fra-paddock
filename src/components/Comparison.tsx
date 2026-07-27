@@ -1,11 +1,12 @@
 import { useReveal } from '../lib/hooks'
+import Chapter from './Chapter'
 import { comparison, copy } from '../content'
 
 function Cell({ v }: { v: string }) {
   if (v === '✓')
     return (
       <span className="cmp-yes" aria-label="tak">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.4">
           <path d="M20 6L9 17l-5-5" strokeLinecap="round" strokeLinejoin="round" />
         </svg>
       </span>
@@ -15,14 +16,11 @@ function Cell({ v }: { v: string }) {
 }
 
 export default function Comparison() {
-  const head = useReveal<HTMLDivElement>()
   const wrap = useReveal<HTMLDivElement>()
   return (
     <section className="section comparison" id="zakres">
       <div className="wrap">
-        <div className="section-head reveal" ref={head}>
-          <span className="eyebrow">{copy.zakresTitle}</span>
-        </div>
+        <Chapter no="VI" label={copy.zakresTitle} />
 
         <div className="cmp reveal" ref={wrap}>
           <div className="cmp-scroll">
