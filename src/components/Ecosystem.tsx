@@ -5,6 +5,7 @@ import { copy } from '../content'
 
 export default function Ecosystem() {
   const lead = useReveal<HTMLParagraphElement>()
+  const band = useReveal<HTMLElement>({ threshold: 0.2 })
   const after = useReveal<HTMLParagraphElement>()
   return (
     <section className="section ecosystem" id="swiat">
@@ -13,7 +14,7 @@ export default function Ecosystem() {
         <p className="eco-lead reveal" ref={lead}>{copy.eco[0]}</p>
       </div>
 
-      <figure className="eco-band">
+      <figure className="eco-band" ref={band as React.RefObject<HTMLElement>}>
         <div
           className="eco-photo"
           data-parallax="90"

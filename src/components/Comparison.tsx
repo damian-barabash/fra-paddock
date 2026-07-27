@@ -34,8 +34,8 @@ export default function Comparison() {
                 </tr>
               </thead>
               <tbody>
-                {comparison.rows.map((r) => (
-                  <tr key={r[0]}>
+                {comparison.rows.map((r, i) => (
+                  <tr key={r[0]} style={{ '--i': i } as React.CSSProperties}>
                     <td className="cmp-feature">{r[0]}</td>
                     <td><Cell v={r[1]} /></td>
                     <td className="cmp-col-featured"><Cell v={r[2]} /></td>

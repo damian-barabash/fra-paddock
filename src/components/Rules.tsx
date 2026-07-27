@@ -26,8 +26,8 @@ export default function Rules() {
           <div className="rules-col">
             <h3 className="rules-h">Najważniejsze informacje</h3>
             <ul className="rules-list reveal" ref={list}>
-              {rules.map((r) => (
-                <li key={r}>{r}</li>
+              {rules.map((r, i) => (
+                <li key={r} style={{ '--i': i } as React.CSSProperties}>{r}</li>
               ))}
             </ul>
           </div>

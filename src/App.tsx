@@ -18,7 +18,9 @@ export default function App() {
   useGlobalParallax()
   return (
     <>
-      <div className="page-frame" aria-hidden="true" />
+      <div className="page-frame" aria-hidden="true">
+        <i /><i /><i /><i />
+      </div>
       <Nav />
       <main>
         <Hero />

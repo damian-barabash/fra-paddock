@@ -26,9 +26,19 @@ export default function Hero() {
           Prywatny klub · Fastline Racing Academy
         </motion.span>
 
-        <motion.h1 {...up(0.5)}>
-          Wspólna <em>pasja</em> jest początkiem każdej relacji.
-        </motion.h1>
+        <h1>
+          {['Wspólna', 'pasja', 'jest', 'początkiem', 'każdej', 'relacji.'].map((w, i) => (
+            <motion.span
+              className="w"
+              key={w}
+              initial={{ opacity: 0, y: '0.55em', filter: 'blur(5px)' }}
+              animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+              transition={{ duration: 1, ease, delay: 0.45 + i * 0.08 }}
+            >
+              {w === 'pasja' ? <em>pasja</em> : w}
+            </motion.span>
+          )).flatMap((el, i) => (i < 5 ? [el, ' '] : [el]))}
+        </h1>
 
         <motion.p className="hero-sub" {...up(0.68)}>
           {copy.heroSub}
