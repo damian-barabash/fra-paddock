@@ -491,8 +491,8 @@ section[id], header[id] { scroll-margin-top: 84px; }
   position: absolute;
   inset: -10% 0;
   background-size: cover;
-  background-position: center 68%;
-  filter: saturate(0.82) contrast(1.03) brightness(0.92);
+  background-position: center 72%;
+  filter: saturate(0.86) contrast(1.03) brightness(0.94);
   transform: translate3d(0, var(--pary, 0px), 0);
   will-change: transform;
 }
@@ -523,6 +523,7 @@ section[id], header[id] { scroll-margin-top: 84px; }
   letter-spacing: 0.44em;
   text-transform: uppercase;
   color: var(--gold);
+  text-shadow: 0 1px 14px rgba(0, 0, 0, 0.85), 0 0 4px rgba(0, 0, 0, 0.6);
   display: inline-flex;
   align-items: center;
   gap: 1.3rem;
@@ -647,6 +648,22 @@ section[id], header[id] { scroll-margin-top: 84px; }
   color: var(--text-soft);
   border-top: 1px solid var(--line-soft);
   padding-top: 1.6rem;
+}
+
+/* the specimen — top-down supercar drifting up the margin as you scroll */
+.about-wrap { position: relative; }
+img.about-car {
+  position: absolute;
+  top: 4rem;
+  right: clamp(0rem, 3vw, 3rem);
+  width: clamp(150px, 13vw, 195px);
+  transform: translate3d(0, var(--pary, 0px), 0) rotate(8deg);
+  will-change: transform;
+  filter: drop-shadow(0 34px 44px rgba(0, 0, 0, 0.55)) saturate(0.88);
+  pointer-events: none;
+}
+@media (max-width: 1180px) {
+  .about-car { display: none; }
 }
 
 /* ============================================================

@@ -17,7 +17,7 @@ export default function Partners() {
               data-parallax="70"
               style={{ backgroundImage: `url(${asset('assets/meet-1.webp')})` }}
               role="img"
-              aria-label="Samochody Członków Fastline Paddock Club"
+              aria-label="Wejście do Casino de Monte-Carlo wieczorem"
             />
           </div>
           <div className="partners-copy">

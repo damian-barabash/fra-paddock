@@ -20,11 +20,11 @@ export default function Ecosystem() {
           data-parallax="90"
           style={{ backgroundImage: `url(${asset('assets/meet-2.webp')})` }}
           role="img"
-          aria-label="Członkowie Fastline Paddock Club podczas zlotu supersamochodów"
+          aria-label="Port i mariny Monako — świat doświadczeń Fastline"
         />
         <figcaption>
           <div className="wrap">
-            <span>Świat doświadczeń Fastline</span>
+            <span>Monako · Świat doświadczeń Fastline</span>
           </div>
         </figcaption>
       </figure>
