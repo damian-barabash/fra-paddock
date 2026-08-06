@@ -29,16 +29,15 @@ export default function Path() {
           </div>
 
           <figure className="path-aside">
-            <div className="frame path-frame" ref={photo}>
+            <div className="frame frame--still path-frame" ref={photo}>
               <div
                 className="frame-photo"
-                data-parallax="55"
                 style={{ backgroundImage: `url(${asset('assets/path-amg.webp')})` }}
                 role="img"
-                aria-label="Czarny samochód sportowy na tle jachtów w porcie Monako"
+                aria-label="Zielony hypercar na nabrzeżu mariny na tle jachtów o zachodzie słońca"
               />
             </div>
-            <figcaption className="photo-cap">Monako · Port Hercule</figcaption>
+            <figcaption className="photo-cap">Marina · Złota godzina</figcaption>
           </figure>
         </div>
       </div>

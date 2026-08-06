@@ -1,4 +1,5 @@
 import { useGlobalParallax } from './lib/parallax'
+import { useSmoothScroll } from './lib/smooth'
 import Nav from './components/Nav'
 import Hero from './components/Hero'
 import About from './components/About'
@@ -16,6 +17,7 @@ import Apply from './components/Apply'
 import Footer from './components/Footer'
 
 export default function App() {
+  useSmoothScroll()
   useGlobalParallax()
   return (
     <>

@@ -19,13 +19,13 @@ export default function Ecosystem() {
       <figure className="eco-band" ref={band as React.RefObject<HTMLElement>}>
         <div
           className="eco-photo"
-          data-parallax="90"
+          data-parallax="45"
           style={{
             backgroundImage: `url(${asset('assets/meet-2.webp')})`,
-            backgroundPosition: 'center 60%',
+            backgroundPosition: 'center 78%',
           }}
           role="img"
-          aria-label="Czerwone Porsche 911 na ulicy Warszawy o zachodzie słońca"
+          aria-label="Pomarańczowe Lamborghini na tle Pałacu Kultury i Nauki o zachodzie słońca"
         />
         <figcaption>
           <div className="wrap">
@@ -39,28 +39,26 @@ export default function Ecosystem() {
 
         <div className="eco-duo">
           <figure>
-            <div className="frame" ref={duo1}>
+            <div className="frame frame--still" ref={duo1}>
               <div
                 className="frame-photo"
-                data-parallax="50"
                 style={{ backgroundImage: `url(${asset('assets/duo-1.webp')})` }}
                 role="img"
-                aria-label="Czarny samochód sportowy przed Pałacem Kultury i Nauki w Warszawie"
+                aria-label="Czarny karbonowy hypercar przed Pałacem Kultury i Nauki nocą"
               />
             </div>
             <figcaption className="photo-cap">Warszawa · Pałac Kultury i Nauki</figcaption>
           </figure>
           <figure>
-            <div className="frame" ref={duo2}>
+            <div className="frame frame--still" ref={duo2}>
               <div
                 className="frame-photo"
-                data-parallax="70"
                 style={{ backgroundImage: `url(${asset('assets/duo-2.webp')})` }}
                 role="img"
-                aria-label="Dwa Ferrari przed Café de Paris w Monte-Carlo"
+                aria-label="Trzy Ferrari na placu przed Casino de Monte-Carlo"
               />
             </div>
-            <figcaption className="photo-cap">Café de Paris · Monte-Carlo</figcaption>
+            <figcaption className="photo-cap">Monte-Carlo · Casino Square</figcaption>
           </figure>
         </div>
       </div>

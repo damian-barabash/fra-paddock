@@ -20,7 +20,7 @@ export default function About() {
                 data-parallax="60"
                 style={{ backgroundImage: `url(${asset('assets/about-int.webp')})` }}
                 role="img"
-                aria-label="Wnętrze luksusowego samochodu — skóra i drewno"
+                aria-label="Wnętrze hypercara nocą — złote zegary, karbon i światła miasta"
               />
             </div>
             <figcaption className="photo-cap">Styl życia · Detal wnętrza</figcaption>

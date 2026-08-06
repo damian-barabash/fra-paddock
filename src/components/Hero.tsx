@@ -45,7 +45,7 @@ export default function Hero() {
         </motion.p>
 
         <motion.div className="hero-actions" {...up(0.84)}>
-          <a className="btn btn-gold" href="#aplikuj">Zostań Członkiem</a>
+          <a className="btn btn-gold" href="#aplikuj">Dołącz do Klubu</a>
           <a className="link-line" href="#klub">
             Poznaj Klub <span className="btn-arrow">↓</span>
           </a>

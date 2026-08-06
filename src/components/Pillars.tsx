@@ -4,9 +4,9 @@ import Chapter from './Chapter'
 import { pillars, copy } from '../content'
 
 const strip = [
-  { img: 'assets/strip-1.webp', cap: 'Warszawa · Porsche GT3', alt: 'Białe Porsche GT3 na warszawskich numerach' },
-  { img: 'assets/strip-2.webp', cap: 'Garaż nocą', alt: 'Ferrari w ciemnym garażu w złotym świetle' },
-  { img: 'assets/strip-3.webp', cap: 'Detal nadwozia', alt: 'Detal przedniej lampy granatowego supersamochodu' },
+  { img: 'assets/strip-1.webp', cap: 'Bolonia · Złota godzina', alt: 'Czerwone Ferrari na ulicy Bolonii o złotej godzinie', still: true },
+  { img: 'assets/strip-2.webp', cap: 'Garaż nocą', alt: 'Ferrari w ciemnym garażu w złotym świetle', still: false },
+  { img: 'assets/strip-3.webp', cap: 'Riwiera · Droga nadmorska', alt: 'Granatowe Ferrari na nadmorskiej serpentynie Riwiery', still: true },
 ] as const
 
 export default function Pillars() {
@@ -32,10 +32,10 @@ export default function Pillars() {
         <div className="pillar-strip">
           {strip.map((s, i) => (
             <figure key={s.img}>
-              <div className="frame" ref={refs[i]}>
+              <div className={s.still ? 'frame frame--still frame--wide' : 'frame'} ref={refs[i]}>
                 <div
                   className="frame-photo"
-                  data-parallax={String(40 + i * 15)}
+                  data-parallax={s.still ? undefined : String(40 + i * 15)}
                   style={{ backgroundImage: `url(${asset(s.img)})` }}
                   role="img"
                   aria-label={s.alt}

@@ -52,14 +52,14 @@ export default function Apply() {
       <figure className="eco-band apply-band" ref={band}>
         <div
           className="eco-photo"
-          data-parallax="90"
-          style={{ backgroundImage: `url(${asset('assets/road-fastline.webp')})` }}
+          data-parallax="45"
+          style={{ backgroundImage: `url(${asset('assets/road-fastline.webp')})`, backgroundPosition: 'center 76%' }}
           role="img"
-          aria-label="Porsche Fastline Racing Academy na górskim serpentynie"
+          aria-label="Zielony supersamochód na Plaza de España w Sewilli o zachodzie słońca"
         />
         <figcaption>
           <div className="wrap">
-            <span>Fastline Racing Academy</span>
+            <span>Sewilla · Plaza de España</span>
           </div>
         </figcaption>
       </figure>

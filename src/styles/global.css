@@ -676,6 +676,12 @@ section[id], header[id] { scroll-margin-top: 84px; }
   background: linear-gradient(180deg, transparent 60%, rgba(10, 10, 11, 0.42));
   pointer-events: none;
 }
+/* frames that must show the full car — no parallax overscan, zero crop */
+.frame--still .frame-photo {
+  inset: 0;
+  transform: none;
+  will-change: auto;
+}
 .photo-cap {
   margin-top: 1rem;
   font-family: 'Manrope', sans-serif;
@@ -718,6 +724,12 @@ section[id], header[id] { scroll-margin-top: 84px; }
 .eco-band {
   position: relative;
   height: clamp(380px, 68vh, 640px);
+}
+/* on narrow screens keep the band close to the photo's 3:2 — the car must stay whole */
+@media (max-width: 700px) {
+  .eco-band { height: clamp(220px, 64vw, 340px); }
+}
+.eco-band {
   margin-block: clamp(4rem, 8vw, 6.5rem);
   overflow: hidden;
   opacity: 0;
@@ -730,7 +742,7 @@ section[id], header[id] { scroll-margin-top: 84px; }
 }
 .eco-photo {
   position: absolute;
-  inset: -14% 0;
+  inset: -8% 0;
   background-size: cover;
   background-position: center 55%;
   filter: saturate(0.85) contrast(1.02);
@@ -780,7 +792,7 @@ section[id], header[id] { scroll-margin-top: 84px; }
 }
 .eco-duo figure { margin: 0; }
 .eco-duo figure:nth-child(2) { margin-top: clamp(2.5rem, 6vw, 5.5rem); }
-.eco-duo .frame { aspect-ratio: 4 / 5; }
+.eco-duo .frame { aspect-ratio: 3 / 2; }
 @media (max-width: 700px) {
   .eco-duo { grid-template-columns: 1fr; }
   .eco-duo figure:nth-child(2) { margin-top: 0; }
@@ -948,7 +960,7 @@ section[id], header[id] { scroll-margin-top: 84px; }
   align-items: start;
 }
 .path-aside { position: sticky; top: 110px; }
-.path-frame { aspect-ratio: 3 / 4; }
+.path-frame { aspect-ratio: 3 / 2; }
 .path-rows {
   list-style: none;
 }
@@ -998,7 +1010,7 @@ section[id], header[id] { scroll-margin-top: 84px; }
 @media (max-width: 980px) {
   .path-grid { grid-template-columns: 1fr; }
   .path-aside { position: static; order: -1; }
-  .path-frame { aspect-ratio: 16 / 11; }
+  .path-frame { aspect-ratio: 3 / 2; }
 }
 
 /* ============================================================
@@ -1042,12 +1054,17 @@ section[id], header[id] { scroll-margin-top: 84px; }
   gap: clamp(1.5rem, 3.5vw, 3rem);
 }
 .pillar-strip figure { margin: 0; }
+.pillar-strip { align-items: center; }
 .pillar-strip .frame { aspect-ratio: 3 / 4; }
-.pillar-strip figure:nth-child(2) { margin-top: clamp(1.5rem, 4vw, 3.5rem); }
+.pillar-strip .frame--wide { aspect-ratio: 3 / 2; }
+.pillar-strip figure:nth-child(1) { transform: translateY(clamp(-1.5rem, -2vw, -0.8rem)); }
+.pillar-strip figure:nth-child(3) { transform: translateY(clamp(0.8rem, 2vw, 1.5rem)); }
 @media (max-width: 700px) {
   .pillar-strip { grid-template-columns: 1fr; }
-  .pillar-strip figure:nth-child(2) { margin-top: 0; }
+  .pillar-strip figure:nth-child(1),
+  .pillar-strip figure:nth-child(3) { transform: none; }
   .pillar-strip .frame { aspect-ratio: 16 / 11; }
+  .pillar-strip .frame--wide { aspect-ratio: 3 / 2; }
 }
 
 /* ============================================================
