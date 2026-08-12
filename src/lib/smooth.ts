@@ -32,7 +32,7 @@ export function useSmoothScroll() {
       const target = document.querySelector<HTMLElement>(href)
       if (!target) return
       e.preventDefault()
-      lenis.scrollTo(target, { offset: -76, duration: 1.7, easing: (t) => 1 - Math.pow(1 - t, 4) })
+      lenis.scrollTo(target, { offset: -102, duration: 1.7, easing: (t) => 1 - Math.pow(1 - t, 4) })
       history.pushState(null, '', href)
     }
     document.addEventListener('click', onClick)
