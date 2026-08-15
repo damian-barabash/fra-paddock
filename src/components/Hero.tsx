@@ -23,11 +23,11 @@ export default function Hero() {
 
       <div className="wrap hero-content">
         <motion.span className="hero-eyebrow" {...up(0.25)}>
-          Prywatny klub · Fastline Racing Academy
+          {copy.heroEyebrow}
         </motion.span>
 
         <h1>
-          {['Wspólna', 'pasja', 'jest', 'początkiem', 'każdej', 'relacji.'].map((w, i) => (
+          {['Wspólna', 'pasja', 'jest', 'początkiem', 'wyjątkowych', 'relacji.'].map((w, i) => (
             <motion.span
               className="w"
               key={w}
@@ -44,8 +44,12 @@ export default function Hero() {
           {copy.heroSub}
         </motion.p>
 
+        <motion.p className="hero-claim" {...up(0.78)}>
+          {copy.heroClaim}
+        </motion.p>
+
         <motion.div className="hero-actions" {...up(0.84)}>
-          <a className="btn btn-gold" href="#aplikuj">Dołącz do Klubu</a>
+          <a className="btn btn-gold" href="#aplikuj">{copy.heroCta}</a>
           <a className="link-line" href="#klub">
             Poznaj Klub <span className="btn-arrow">↓</span>
           </a>

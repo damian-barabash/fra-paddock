@@ -31,3 +31,13 @@ create index if not exists applications_created_at_idx
 
 -- Po utworzeniu tabeli surowym SQL trzeba odświeżyć cache PostgREST:
 notify pgrst, 'reload schema';
+
+-- 2026-07-24: formularz v2 — interesujący poziom członkostwa (już nieużywane w UI od 2026-08-15)
+alter table public.applications add column if not exists tier text;
+
+-- 2026-08-15: formularz „Fastline Paddock Pass" (copy Ani 14.08)
+alter table public.applications
+  add column if not exists brand     text,     -- ulubiona marka motoryzacyjna
+  add column if not exists reference text,     -- kto rekomenduje (Klubowicz / wydarzenie)
+  add column if not exists interests text[];   -- Track Days / Wyprawy / Lifestyle / Networking
+notify pgrst, 'reload schema';

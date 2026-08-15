@@ -429,9 +429,13 @@ section[id], header[id] { scroll-margin-top: 110px; }
   color: var(--champagne);
   padding: 0.7rem 1.5rem;
   border: 1px solid var(--line-gold);
+  white-space: nowrap;
   transition: border-color 0.4s var(--ease), background 0.4s var(--ease);
 }
 .nav-cta:hover { border-color: var(--gold); background: rgba(198, 161, 91, 0.08); }
+@media (max-width: 700px) {
+  .nav-cta { font-size: 0.58rem; letter-spacing: 0.18em; padding: 0.55rem 0.8rem; }
+}
 
 /* burger — two engraved hairlines that fold into a cross */
 .nav-burger {
@@ -715,7 +719,7 @@ section[id], header[id] { scroll-margin-top: 110px; }
 .about-cols {
   margin-top: clamp(3.5rem, 7vw, 5.5rem);
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(2, 1fr);
   gap: clamp(2rem, 4vw, 3.6rem);
 }
 .about-cols p {
@@ -1775,3 +1779,214 @@ thead .cmp-col-featured {
   .footer-bottom { flex-direction: column; gap: 0.8rem; }
   .ch-side { display: none; }
 }
+
+/* ============================================================
+   Copy v2 (2026-08-15) — hero claim, kafle doświadczeń,
+   poziomy bez cen, Społeczność, Refueling, chipy formularza, Velox
+   ============================================================ */
+
+/* hero — klubowy claim pod leadem */
+.hero-claim {
+  font-family: 'Fraunces', Georgia, serif;
+  font-style: italic;
+  font-weight: 380;
+  font-size: clamp(1.02rem, 1.6vw, 1.18rem);
+  letter-spacing: 0.06em;
+  color: var(--champagne);
+  margin-top: -1.7rem;
+  margin-bottom: 3rem;
+}
+
+/* II — cztery formaty klubowego roku */
+.eco-tiles {
+  margin-top: clamp(4rem, 8vw, 6rem);
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: clamp(2.4rem, 5vw, 4rem) clamp(3rem, 6vw, 6rem);
+}
+.eco-tile {
+  border-top: 1px solid var(--line-soft);
+  padding-top: 1.7rem;
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 1s var(--ease-out), transform 1s var(--ease-out);
+}
+.eco-tiles.in .eco-tile { opacity: 1; transform: none; }
+.eco-tile h3 {
+  font-family: 'Manrope', sans-serif;
+  font-weight: 600;
+  font-size: 0.78rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 0.9rem;
+}
+.eco-tile p {
+  font-family: 'Fraunces', Georgia, serif;
+  font-optical-sizing: auto;
+  font-weight: 350;
+  font-size: clamp(1.15rem, 1.8vw, 1.4rem);
+  line-height: 1.5;
+  color: var(--text);
+  max-width: 40ch;
+}
+@media (max-width: 700px) {
+  .eco-tiles { grid-template-columns: 1fr; }
+}
+
+/* III — poziomy bez cennika: sposób dołączenia zamiast kwoty */
+.tier-join {
+  font-family: 'Fraunces', Georgia, serif;
+  font-style: italic;
+  font-weight: 360;
+  font-size: clamp(1.12rem, 1.7vw, 1.3rem);
+  line-height: 1.45;
+  color: var(--champagne);
+}
+.tiers-note {
+  margin-top: clamp(2.4rem, 4vw, 3.2rem);
+  text-align: center;
+  font-family: 'Fraunces', Georgia, serif;
+  font-style: italic;
+  font-weight: 380;
+  font-size: 1.08rem;
+  line-height: 1.75;
+  color: var(--text-soft);
+  max-width: 62ch;
+  margin-inline: auto;
+}
+
+/* VI — Społeczność: trzy liczby */
+.community { border-top: 1px solid var(--line-soft); }
+.com-grid {
+  margin-top: clamp(4rem, 8vw, 6rem);
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(2.5rem, 5vw, 4rem);
+  text-align: center;
+}
+.com-num b {
+  display: block;
+  font-family: 'Fraunces', Georgia, serif;
+  font-optical-sizing: auto;
+  font-weight: 300;
+  font-size: clamp(3rem, 6.5vw, 5rem);
+  line-height: 1;
+  color: var(--champagne);
+}
+.com-num span {
+  display: block;
+  margin-top: 1.2rem;
+  font-family: 'Manrope', sans-serif;
+  font-weight: 500;
+  font-size: 0.7rem;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  line-height: 1.9;
+  color: var(--smoke);
+  max-width: 22ch;
+  margin-inline: auto;
+}
+.com-num {
+  opacity: 0;
+  transform: translateY(14px);
+  transition: opacity 1s var(--ease-out), transform 1s var(--ease-out);
+}
+.com-grid.in .com-num { opacity: 1; transform: none; }
+@media (max-width: 700px) {
+  .com-grid { grid-template-columns: 1fr; gap: 3rem; }
+}
+
+/* VIII — Refueling: panel tekstowy obok tabeli GL */
+.prog-copy p {
+  color: var(--text-soft);
+  font-size: 1.06rem;
+  line-height: 1.85;
+  max-width: 52ch;
+}
+.prog-copy p + p { margin-top: 1.4rem; }
+
+/* XII — chipy zainteresowań w formularzu */
+.field .field-label {
+  font-family: 'Manrope', sans-serif;
+  font-weight: 500;
+  font-size: 0.68rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--smoke);
+}
+.field label small,
+.field .field-label small {
+  text-transform: none;
+  letter-spacing: 0.04em;
+  font-weight: 400;
+  color: var(--faint);
+}
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.7rem;
+  margin-top: 0.3rem;
+}
+.chip { position: relative; }
+.chip input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+.chip span {
+  display: inline-block;
+  font-family: 'Manrope', sans-serif;
+  font-size: 0.86rem;
+  letter-spacing: 0.06em;
+  color: var(--text-soft);
+  border: 1px solid var(--hair);
+  padding: 0.6rem 1.15rem;
+  cursor: pointer;
+  user-select: none;
+  transition: color 0.3s var(--ease), border-color 0.3s var(--ease), background 0.3s var(--ease);
+}
+.chip span:hover { border-color: var(--line-gold); color: var(--text); }
+.chip input:checked + span {
+  color: var(--void, #0a0a0b);
+  background: var(--gold);
+  border-color: var(--gold);
+  font-weight: 600;
+}
+.chip input:focus-visible + span {
+  outline: 2px solid var(--gold);
+  outline-offset: 2px;
+}
+.form-note {
+  text-align: center;
+  font-size: 0.86rem;
+  letter-spacing: 0.02em;
+  color: var(--smoke);
+}
+
+/* XIII — Velox Victoria */
+.velox {
+  text-align: center;
+  border-top: 1px solid var(--line-soft);
+}
+.velox-mission {
+  margin: clamp(2.5rem, 5vw, 4rem) auto 0;
+  font-size: clamp(1.1rem, 1.8vw, 1.25rem);
+  line-height: 1.85;
+  color: var(--text-soft);
+  max-width: 52ch;
+}
+.velox-mission strong { color: var(--champagne); font-weight: 500; }
+
+/* III — sposób dołączenia pod składką */
+.tier-join-line {
+  font-family: 'Fraunces', Georgia, serif;
+  font-style: italic;
+  font-weight: 370;
+  font-size: 0.98rem;
+  line-height: 1.5;
+  color: var(--champagne);
+  margin: -0.9rem 0 1.7rem;
+}
+.tier-join-line .gold-text { font-style: italic; }
+.tier-price .tier-amount { white-space: nowrap; font-size: clamp(2rem, 2.7vw, 2.7rem); }

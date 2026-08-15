@@ -8,7 +8,7 @@ export default function Rules() {
   return (
     <section className="section rules" id="zasady">
       <div className="wrap">
-        <Chapter no="X" label={copy.zasadyTitle} title={copy.zasadyLead} />
+        <Chapter no="XI" label={copy.zasadyTitle} title={copy.zasadyLead} />
 
         <div className="rules-grid" style={{ marginTop: 'clamp(4rem, 8vw, 6rem)' }}>
           <div className="rules-head reveal" ref={head}>

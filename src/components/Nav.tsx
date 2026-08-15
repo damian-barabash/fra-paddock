@@ -6,8 +6,8 @@ const links = [
   { no: 'I', href: '#klub', label: 'Klub' },
   { no: 'III', href: '#czlonkostwo', label: 'Członkostwo' },
   { no: 'V', href: '#przywileje', label: 'Przywileje' },
-  { no: 'X', href: '#zasady', label: 'Zasady' },
-  { no: 'XI', href: '#aplikuj', label: 'Aplikacja' },
+  { no: 'XI', href: '#zasady', label: 'Zasady' },
+  { no: 'XII', href: '#aplikuj', label: 'Aplikacja' },
 ]
 
 export default function Nav() {
@@ -40,7 +40,7 @@ export default function Nav() {
           <a className="nav-brand" href="#top" aria-label="Fastline Paddock Club">
             <img src={asset('assets/logo.webp')} alt="Fastline Paddock Club" />
           </a>
-          <a className="nav-cta" href="#aplikuj">Dołącz</a>
+          <a className="nav-cta" href="#aplikuj">Złóż aplikację</a>
         </div>
       </nav>
 

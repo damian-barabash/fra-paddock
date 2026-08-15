@@ -8,7 +8,7 @@ export default function Partners() {
   return (
     <section className="section partners" id="partnerzy">
       <div className="wrap">
-        <Chapter no="IX" label={copy.partnersTitle} />
+        <Chapter no="X" label={copy.partnersTitle} title={copy.partnersH2} />
 
         <div className="partners-grid reveal" ref={grid}>
           <figure style={{ margin: 0 }}>
@@ -26,8 +26,8 @@ export default function Partners() {
           <div className="partners-copy">
             <p>{copy.partners[0]}</p>
             <p>{copy.partners[1]}</p>
-            <a className="btn" href="#aplikuj">
-              Zostań Partnerem <span className="btn-arrow">→</span>
+            <a className="btn" href={copy.partnersMail}>
+              {copy.partnersCta} <span className="btn-arrow">→</span>
             </a>
           </div>
         </div>

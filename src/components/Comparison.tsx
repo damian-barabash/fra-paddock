@@ -20,7 +20,7 @@ export default function Comparison() {
   return (
     <section className="section comparison" id="zakres">
       <div className="wrap">
-        <Chapter no="VI" label={copy.zakresTitle} />
+        <Chapter no="VII" label={copy.zakresTitle} />
 
         <div className="cmp reveal" ref={wrap}>
           <div className="cmp-scroll">
@@ -29,7 +29,7 @@ export default function Comparison() {
                 <tr>
                   <th className="cmp-feature-h">Przywilej</th>
                   {comparison.cols.map((c) => (
-                    <th key={c} className={c === 'VIP' ? 'cmp-col-featured' : ''}>{c}</th>
+                    <th key={c} className={c === 'Gold' ? 'cmp-col-featured' : ''}>{c}</th>
                   ))}
                 </tr>
               </thead>

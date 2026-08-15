@@ -3,7 +3,7 @@ import { asset } from '../lib/asset'
 import Chapter from './Chapter'
 import { pathSteps, copy } from '../content'
 
-const roman = ['I', 'II', 'III', 'IV', 'V']
+const roman = ['I', 'II', 'III', 'IV', 'V', 'VI', 'VII']
 
 export default function Path() {
   const list = useReveal<HTMLOListElement>()
@@ -12,7 +12,7 @@ export default function Path() {
   return (
     <section className="section path" id="sciezka">
       <div className="wrap">
-        <Chapter no="IV" label={copy.pathTitle} title={copy.pathLead} />
+        <Chapter no="IV" label={copy.pathTitle} title={copy.pathH2} />
 
         <div className="path-grid">
           <div>

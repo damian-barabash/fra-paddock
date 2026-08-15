@@ -15,7 +15,7 @@ export default function Standards() {
       />
       <div className="standards-scrim" aria-hidden="true" />
       <div className="wrap reveal" ref={ref}>
-        <Chapter no="VIII" label={copy.standardsTitle} center />
+        <Chapter no="IX" label={copy.standardsTitle} center />
         <blockquote className="standards-quote">{copy.standardsQuote}</blockquote>
         <p className="standards-body">{copy.standards[0]}</p>
         <p className="standards-body">{copy.standards[1]}</p>

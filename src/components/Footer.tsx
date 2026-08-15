@@ -16,10 +16,17 @@ export default function Footer() {
         </nav>
 
         <div className="footer-bottom">
-          <span>© 2026 Fastline Paddock Club</span>
-          <a href="mailto:klub@fastlineracingacademy.pl">klub@fastlineracingacademy.pl</a>
+          <span>© Fastline Events Sp. z o.o. · Greywolf Group · Warszawa</span>
+          <a href="mailto:paddock@fastlineracingacademy.pl">paddock@fastlineracingacademy.pl</a>
           <a href="https://fastlineracingacademy.pl" target="_blank" rel="noopener noreferrer">
-            fastlineracingacademy.pl
+            Fastline Racing Academy
+          </a>
+          <a
+            href="https://fastlineracingacademy.pl/heels-on-the-track"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Heels on the Track
           </a>
         </div>
       </div>

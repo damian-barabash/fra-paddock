@@ -29,7 +29,6 @@ export default function About() {
         <div className="about-cols reveal" ref={cols}>
           <p>{copy.about[1]}</p>
           <p>{copy.about[2]}</p>
-          <p>{copy.about[3]}</p>
         </div>
       </div>
     </section>

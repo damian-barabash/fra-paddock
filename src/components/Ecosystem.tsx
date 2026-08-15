@@ -1,19 +1,19 @@
 import { useReveal } from '../lib/hooks'
 import { asset } from '../lib/asset'
 import Chapter from './Chapter'
-import { copy } from '../content'
+import { copy, ecoTiles } from '../content'
 
 export default function Ecosystem() {
   const lead = useReveal<HTMLParagraphElement>()
   const band = useReveal<HTMLElement>({ threshold: 0.2 })
-  const after = useReveal<HTMLParagraphElement>()
+  const tiles = useReveal<HTMLDivElement>()
   const duo1 = useReveal<HTMLDivElement>()
   const duo2 = useReveal<HTMLDivElement>()
   return (
     <section className="section ecosystem" id="swiat">
       <div className="wrap">
-        <Chapter no="II" label={copy.ecoTitle} />
-        <p className="eco-lead reveal" ref={lead}>{copy.eco[0]}</p>
+        <Chapter no="II" label={copy.ecoTitle} title={copy.ecoH2} />
+        <p className="eco-lead reveal" ref={lead}>{copy.ecoLead}</p>
       </div>
 
       <figure className="eco-band" ref={band as React.RefObject<HTMLElement>}>
@@ -35,7 +35,14 @@ export default function Ecosystem() {
       </figure>
 
       <div className="wrap">
-        <p className="eco-after reveal" ref={after}>{copy.eco[1]}</p>
+        <div className="eco-tiles reveal" ref={tiles}>
+          {ecoTiles.map((t, i) => (
+            <article className="eco-tile" key={t.name} style={{ transitionDelay: `${i * 100}ms` }}>
+              <h3>{t.name}</h3>
+              <p>{t.desc}</p>
+            </article>
+          ))}
+        </div>
 
         <div className="eco-duo">
           <figure>

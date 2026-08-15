@@ -14,8 +14,10 @@ export interface ApplicationInput {
   full_name: string
   email: string
   phone: string
+  brand: string
   car: string
-  tier: string
+  reference: string
+  interests: string[]
   message: string
 }
 
@@ -25,9 +27,11 @@ export async function submitApplication(input: ApplicationInput): Promise<void> 
     full_name: input.full_name,
     email: input.email,
     phone: input.phone,
-    car: input.car,
-    tier: input.tier,
-    message: input.message,
+    brand: input.brand || null,
+    car: input.car || null,
+    reference: input.reference || null,
+    interests: input.interests.length ? input.interests : null,
+    message: input.message || null,
     source: 'paddock-club-web',
   })
   if (error) throw error

@@ -7,7 +7,9 @@ import Ecosystem from './components/Ecosystem'
 import Tiers from './components/Tiers'
 import Path from './components/Path'
 import Pillars from './components/Pillars'
+import Community from './components/Community'
 import Comparison from './components/Comparison'
+import Velox from './components/Velox'
 import Plate from './components/Plate'
 import Program from './components/Program'
 import Standards from './components/Standards'
@@ -32,6 +34,7 @@ export default function App() {
         <Tiers />
         <Path />
         <Pillars />
+        <Community />
         <Comparison />
         <Plate />
         <Program />
@@ -39,6 +42,7 @@ export default function App() {
         <Partners />
         <Rules />
         <Apply />
+        <Velox />
       </main>
       <Footer />
     </>
