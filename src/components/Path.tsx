@@ -12,7 +12,7 @@ export default function Path() {
   return (
     <section className="section path" id="sciezka">
       <div className="wrap">
-        <Chapter no="IV" label={copy.pathTitle} title={copy.pathH2} />
+        <Chapter no="III" label={copy.pathTitle} title={copy.pathH2} />
 
         <div className="path-grid">
           <div>
@@ -37,7 +37,7 @@ export default function Path() {
                 aria-label="Zielony hypercar na nabrzeżu mariny na tle jachtów o zachodzie słońca"
               />
             </div>
-            <figcaption className="photo-cap">Marina · Złota godzina</figcaption>
+            <figcaption className="photo-cap">Marina · Golden hour</figcaption>
           </figure>
         </div>
       </div>

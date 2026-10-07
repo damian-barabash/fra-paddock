@@ -22,14 +22,14 @@ export default function Ecosystem() {
           data-parallax="45"
           style={{
             backgroundImage: `url(${asset('assets/meet-2.webp')})`,
-            backgroundPosition: 'center 78%',
+            backgroundPosition: 'center 40%',
           }}
           role="img"
-          aria-label="Pomarańczowe Lamborghini na tle Pałacu Kultury i Nauki o zachodzie słońca"
+          aria-label="Wnętrze hypercara — kierownica z alcantary, aluminiowe zegary i karbonowy fotel"
         />
         <figcaption>
           <div className="wrap">
-            <span>Warszawa · Dom Fastline</span>
+            <span>Atelier · Karbon i aluminium</span>
           </div>
         </figcaption>
       </figure>
@@ -60,12 +60,12 @@ export default function Ecosystem() {
             <div className="frame frame--still" ref={duo2}>
               <div
                 className="frame-photo"
-                style={{ backgroundImage: `url(${asset('assets/duo-2.webp')})` }}
+                style={{ backgroundImage: `url(${asset('assets/duo-2.webp')})`, backgroundPosition: 'center 62%' }}
                 role="img"
-                aria-label="Trzy Ferrari na placu przed Casino de Monte-Carlo"
+                aria-label="Granatowy prototyp Alpine Alpenglow w ciepłym świetle showroomu"
               />
             </div>
-            <figcaption className="photo-cap">Monte-Carlo · Casino Square</figcaption>
+            <figcaption className="photo-cap">Alpine · Alpenglow</figcaption>
           </figure>
         </div>
       </div>

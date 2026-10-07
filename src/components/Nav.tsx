@@ -4,10 +4,9 @@ import { asset } from '../lib/asset'
 
 const links = [
   { no: 'I', href: '#klub', label: 'Klub' },
-  { no: 'III', href: '#czlonkostwo', label: 'Członkostwo' },
-  { no: 'V', href: '#przywileje', label: 'Przywileje' },
-  { no: 'XI', href: '#zasady', label: 'Zasady' },
-  { no: 'XII', href: '#aplikuj', label: 'Aplikacja' },
+  { no: 'IV', href: '#przywileje', label: 'Przywileje' },
+  { no: 'IX', href: '#zasady', label: 'Zasady' },
+  { no: 'X', href: '#aplikuj', label: 'Aplikacja' },
 ]
 
 export default function Nav() {

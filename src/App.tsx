@@ -4,11 +4,9 @@ import Nav from './components/Nav'
 import Hero from './components/Hero'
 import About from './components/About'
 import Ecosystem from './components/Ecosystem'
-import Tiers from './components/Tiers'
 import Path from './components/Path'
 import Pillars from './components/Pillars'
 import Community from './components/Community'
-import Comparison from './components/Comparison'
 import Velox from './components/Velox'
 import Plate from './components/Plate'
 import Program from './components/Program'
@@ -31,11 +29,9 @@ export default function App() {
         <Hero />
         <About />
         <Ecosystem />
-        <Tiers />
         <Path />
         <Pillars />
         <Community />
-        <Comparison />
         <Plate />
         <Program />
         <Standards />

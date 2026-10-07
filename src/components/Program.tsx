@@ -8,7 +8,7 @@ export default function Program() {
   return (
     <section className="section program" id="program">
       <div className="wrap">
-        <Chapter no="VIII" label={copy.refuelTitle} title={copy.refuelH2} />
+        <Chapter no="VI" label={copy.refuelTitle} title={copy.refuelH2} />
         <p className="eco-after reveal" ref={lead} style={{ marginTop: '2.2rem' }}>
           {copy.refuelLead}
         </p>

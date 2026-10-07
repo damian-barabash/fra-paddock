@@ -7,7 +7,7 @@ export default function Velox() {
   return (
     <section className="section velox" id="fundacja">
       <div className="wrap">
-        <Chapter no="XIII" label={copy.veloxTitle} title={copy.veloxH2} center />
+        <Chapter no="XI" label={copy.veloxTitle} title={copy.veloxH2} center />
         <p className="velox-mission reveal" ref={body}>
           FPC wspiera <strong>Fundację Velox Victoria</strong>, inicjatywę, która daje
           szansę następnemu pokoleniu mistrzów. Talent nie pyta o zaplecze. My też nie.

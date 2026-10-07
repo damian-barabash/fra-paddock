@@ -7,7 +7,7 @@ export default function Community() {
   return (
     <section className="section community" id="spolecznosc">
       <div className="wrap">
-        <Chapter no="VI" label={copy.communityTitle} title={copy.communityH2} center />
+        <Chapter no="V" label={copy.communityTitle} title={copy.communityH2} center />
 
         <div className="com-grid reveal" ref={grid}>
           {communityNums.map((c, i) => (

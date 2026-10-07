@@ -9,7 +9,6 @@ export default function Footer() {
 
         <nav className="footer-nav" aria-label="Stopka">
           <a href="#klub">O Klubie</a>
-          <a href="#czlonkostwo">Członkostwo</a>
           <a href="#przywileje">Przywileje</a>
           <a href="#zasady">Zasady</a>
           <a href="#aplikuj">Aplikuj</a>

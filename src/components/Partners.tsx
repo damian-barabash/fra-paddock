@@ -8,7 +8,7 @@ export default function Partners() {
   return (
     <section className="section partners" id="partnerzy">
       <div className="wrap">
-        <Chapter no="X" label={copy.partnersTitle} title={copy.partnersH2} />
+        <Chapter no="VIII" label={copy.partnersTitle} title={copy.partnersH2} />
 
         <div className="partners-grid reveal" ref={grid}>
           <figure style={{ margin: 0 }}>

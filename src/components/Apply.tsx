@@ -81,7 +81,7 @@ export default function Apply() {
       </figure>
       <div className="wrap">
         <div className="apply-head reveal" ref={intro}>
-          <Chapter no="XII" label={copy.applyTitle} center />
+          <Chapter no="X" label={copy.applyTitle} center />
           <h2>{copy.applyH2}</h2>
           <p>{copy.applyLead}</p>
           <div className="apply-meta">

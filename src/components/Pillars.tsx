@@ -4,8 +4,8 @@ import Chapter from './Chapter'
 import { pillars, copy } from '../content'
 
 const strip = [
-  { img: 'assets/strip-1.webp', cap: 'Bolonia · Złota godzina', alt: 'Czerwone Ferrari na ulicy Bolonii o złotej godzinie', still: true },
-  { img: 'assets/strip-2.webp', cap: 'Garaż nocą', alt: 'Ferrari w ciemnym garażu w złotym świetle', still: false },
+  { img: 'assets/strip-1.webp', cap: 'Bolonia · Golden hour', alt: 'Czerwone Ferrari na ulicy Bolonii w świetle golden hour', still: true },
+  { img: 'assets/strip-2.webp', cap: 'Ferrari · Kokpit', alt: 'Kierownica Ferrari z karbonu w ciepłym, złotym świetle', still: false },
   { img: 'assets/strip-3.webp', cap: 'Riwiera · Droga nadmorska', alt: 'Granatowe Ferrari na nadmorskiej serpentynie Riwiery', still: true },
 ] as const
 
@@ -18,7 +18,7 @@ export default function Pillars() {
   return (
     <section className="section pillars" id="przywileje">
       <div className="wrap">
-        <Chapter no="V" label={copy.pillarsTitle} title={copy.pillarsH2} />
+        <Chapter no="IV" label={copy.pillarsTitle} title={copy.pillarsH2} />
 
         <div className="pillar-grid reveal" ref={grid}>
           {pillars.map((p, i) => (
