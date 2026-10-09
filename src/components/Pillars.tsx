@@ -6,7 +6,7 @@ import { pillars, copy } from '../content'
 const strip = [
   { img: 'assets/strip-1.webp', cap: 'Bolonia · Golden hour', alt: 'Czerwone Ferrari na ulicy Bolonii w świetle golden hour', still: true },
   { img: 'assets/strip-2.webp', cap: 'Ferrari · Kokpit', alt: 'Kierownica Ferrari z karbonu w ciepłym, złotym świetle', still: false },
-  { img: 'assets/strip-3.webp', cap: 'Riwiera · Droga nadmorska', alt: 'Granatowe Ferrari na nadmorskiej serpentynie Riwiery', still: true },
+  { img: 'assets/strip-3.webp', cap: 'Track Day · Zmierzch', alt: 'Czarne Porsche 911 GT3 ze złotym pasem na torze o zmierzchu, za nim kolumna aut', still: true },
 ] as const
 
 export default function Pillars() {
