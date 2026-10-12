@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useLayoutEffect, useRef } from 'react'
 import Lenis from 'lenis'
 import { prefersReducedMotion } from './hooks'
 
@@ -6,8 +6,17 @@ import { prefersReducedMotion } from './hooks'
  * Site-wide smooth scrolling (Lenis) + soft anchor navigation.
  * Lenis drives window scroll, so the existing reveal/parallax listeners
  * keep working untouched. Disabled under prefers-reduced-motion.
+ * While `locked` (hero film still playing) the page cannot be scrolled.
  */
-export function useSmoothScroll() {
+export function useSmoothScroll(locked = false) {
+  const instance = useRef<Lenis | null>(null)
+
+  useLayoutEffect(() => {
+    document.documentElement.classList.toggle('is-intro', locked)
+    if (locked) instance.current?.stop()
+    else instance.current?.start()
+  }, [locked])
+
   useEffect(() => {
     if (prefersReducedMotion()) return
 
@@ -17,6 +26,8 @@ export function useSmoothScroll() {
       smoothWheel: true,
       touchMultiplier: 1.4,
     })
+    instance.current = lenis
+    if (document.documentElement.classList.contains('is-intro')) lenis.stop()
 
     let raf = requestAnimationFrame(function loop(time) {
       lenis.raf(time)
@@ -41,6 +52,7 @@ export function useSmoothScroll() {
       cancelAnimationFrame(raf)
       document.removeEventListener('click', onClick)
       lenis.destroy()
+      instance.current = null
     }
   }, [])
 }

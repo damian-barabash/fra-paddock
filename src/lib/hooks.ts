@@ -39,6 +39,25 @@ export function useScrolled(threshold = 24) {
   return scrolled
 }
 
+/** True once the hero has (almost) scrolled out and the next chapter takes the screen. */
+export function usePastHero(lead = 160) {
+  const [past, setPast] = useState(false)
+  useEffect(() => {
+    const onScroll = () => {
+      const hero = document.getElementById('top')
+      setPast(window.scrollY > (hero?.offsetHeight ?? window.innerHeight) - lead)
+    }
+    onScroll()
+    window.addEventListener('scroll', onScroll, { passive: true })
+    window.addEventListener('resize', onScroll, { passive: true })
+    return () => {
+      window.removeEventListener('scroll', onScroll)
+      window.removeEventListener('resize', onScroll)
+    }
+  }, [lead])
+  return past
+}
+
 export const prefersReducedMotion = () =>
   typeof window !== 'undefined' &&
   window.matchMedia('(prefers-reduced-motion: reduce)').matches

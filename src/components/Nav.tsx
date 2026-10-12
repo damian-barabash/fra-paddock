@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { useScrolled } from '../lib/hooks'
+import { usePastHero } from '../lib/hooks'
 import { asset } from '../lib/asset'
 
 const links = [
@@ -10,7 +10,8 @@ const links = [
 ]
 
 export default function Nav() {
-  const scrolled = useScrolled(20)
+  // the hero carries no menu — the bar slides in with the first chapter
+  const past = usePastHero()
   const [open, setOpen] = useState(false)
 
   useEffect(() => {
@@ -24,7 +25,7 @@ export default function Nav() {
 
   return (
     <>
-      <nav className={`nav${scrolled ? ' scrolled' : ''}`}>
+      <nav className={`nav scrolled${past || open ? '' : ' away'}`}>
         <div className="wrap nav-inner">
           <button
             type="button"
