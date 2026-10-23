@@ -1,12 +1,15 @@
 import { createClient, type SupabaseClient } from '@supabase/supabase-js'
 
-const url = import.meta.env.VITE_SUPABASE_URL
-const anon = import.meta.env.VITE_SUPABASE_ANON_KEY
+// Public project address and anon key ("Paddock back"). Both are meant to be public —
+// they ship to every browser anyway; data is protected by row-level security.
+// Env vars (VITE_SUPABASE_URL / VITE_SUPABASE_ANON_KEY) still override them.
+const DEFAULT_URL = 'https://qbhunabmsvwuyftfabms.supabase.co'
+const DEFAULT_ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFiaHVuYWJtc3Z3dXlmdGZhYm1zIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODQ4OTM2MDksImV4cCI6MjEwMDQ2OTYwOX0.10Vb9Yyl9_X5cghG-PgRpgF1WtB9VDgNVBrRKiOv3-Q'
 
-// The backend is wired via env. Until the project keys are in place the client
-// stays null and the form falls back to a mailto flow — nothing breaks.
-export const supabase: SupabaseClient | null =
-  url && anon ? createClient(url, anon) : null
+const url = import.meta.env.VITE_SUPABASE_URL || DEFAULT_URL
+const anon = import.meta.env.VITE_SUPABASE_ANON_KEY || DEFAULT_ANON
+
+export const supabase: SupabaseClient | null = url && anon ? createClient(url, anon) : null
 
 export const isSupabaseReady = Boolean(supabase)
 
