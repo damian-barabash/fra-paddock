@@ -14,15 +14,19 @@ const SessionCtx = createContext<Ctx | null>(null)
 export function SessionProvider({ children }: { children: ReactNode }) {
   const [session, setSession] = useState<Session | null>(null)
   const [profile, setProfile] = useState<Profile | null>(null)
-  const [loading, setLoading] = useState(true)
+  const [booting, setBooting] = useState(true)
+  // which user the loaded profile belongs to — until it matches the session, we are still loading
+  const [profileFor, setProfileFor] = useState<string | null>(null)
 
   const loadProfile = useCallback(async (s: Session | null) => {
     if (!s) {
       setProfile(null)
+      setProfileFor(null)
       return
     }
     const { data } = await sb.from('profiles').select('*').eq('id', s.user.id).maybeSingle()
     setProfile((data as Profile) ?? null)
+    setProfileFor(s.user.id)
   }, [])
 
   useEffect(() => {
@@ -31,7 +35,7 @@ export function SessionProvider({ children }: { children: ReactNode }) {
       if (!alive) return
       setSession(data.session)
       await loadProfile(data.session)
-      if (alive) setLoading(false)
+      if (alive) setBooting(false)
     })
     const { data: sub } = sb.auth.onAuthStateChange((event, s) => {
       setSession(s)
@@ -45,6 +49,8 @@ export function SessionProvider({ children }: { children: ReactNode }) {
       sub.subscription.unsubscribe()
     }
   }, [loadProfile])
+
+  const loading = booting || (!!session && profileFor !== session.user.id)
 
   const value: Ctx = {
     session,
