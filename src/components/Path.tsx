@@ -12,7 +12,7 @@ export default function Path() {
   return (
     <section className="section path" id="sciezka">
       <div className="wrap">
-        <Chapter no="III" label={copy.pathTitle} title={copy.pathH2} />
+        <Chapter no="I" label={copy.pathTitle} title={copy.pathH2} />
 
         <div className="path-grid">
           <div>

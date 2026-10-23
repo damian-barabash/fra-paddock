@@ -56,3 +56,21 @@ export function useSmoothScroll(locked = false) {
     }
   }, [])
 }
+
+/**
+ * Landing on a page with #anchor: sections are rendered by React after the browser
+ * tried to jump, so scroll to the target here (clearing the fixed menu bar).
+ */
+export function useHashArrival() {
+  useEffect(() => {
+    const id = window.location.hash.slice(1)
+    if (!id) return
+    const go = () => {
+      const el = document.getElementById(id)
+      if (el) window.scrollTo(0, el.getBoundingClientRect().top + window.scrollY - 102)
+    }
+    requestAnimationFrame(go)
+    // web fonts change line heights — settle once more when they are in
+    document.fonts?.ready.then(() => requestAnimationFrame(go))
+  }, [])
+}

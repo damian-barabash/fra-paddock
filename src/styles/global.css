@@ -2072,3 +2072,10 @@ thead .cmp-col-featured {
 }
 .tier-join-line .gold-text { font-style: italic; }
 .tier-price .tier-amount { white-space: nowrap; font-size: clamp(2rem, 2.7vw, 2.7rem); }
+
+/* ============================================================
+   /aplikacja — no hero: the first chapter clears the fixed menu bar
+   ============================================================ */
+.subpage > .section:first-child {
+  padding-top: calc(104px + clamp(4rem, 10vh, 7rem));
+}

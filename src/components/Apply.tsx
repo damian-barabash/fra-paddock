@@ -64,7 +64,7 @@ export default function Apply() {
   }
 
   return (
-    <section className="section apply" id="aplikuj">
+    <section className="section apply" id="aplikacja">
       <figure className="eco-band apply-band" ref={band}>
         <div
           className="eco-photo"
@@ -81,7 +81,7 @@ export default function Apply() {
       </figure>
       <div className="wrap">
         <div className="apply-head reveal" ref={intro}>
-          <Chapter no="X" label={copy.applyTitle} center />
+          <Chapter no="IV" label={copy.applyTitle} center />
           <h2>{copy.applyH2}</h2>
           <p>{copy.applyLead}</p>
           <div className="apply-meta">
@@ -91,7 +91,7 @@ export default function Apply() {
           </div>
         </div>
 
-        <div className="reveal" ref={formWrap} id="aplikuj-form">
+        <div className="reveal" ref={formWrap} id="aplikacja-form">
           {status === 'done' ? (
             <div className="form-success" role="status">
               <div className="mark" aria-hidden="true">
@@ -131,7 +131,7 @@ export default function Apply() {
                 </div>
                 <div className="field">
                   <label htmlFor="ref">
-                    Kto Cię rekomenduje <small>(Klubowicz FPC lub udział w wydarzeniach Fastline)</small>
+                    Kto Cię rekomenduje <small>(Członek Klubu lub udział w wydarzeniach Fastline)</small>
                   </label>
                   <input id="ref" value={data.reference} onChange={set('reference')} placeholder="Imię i nazwisko / wydarzenie" />
                 </div>

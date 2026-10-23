@@ -1,21 +1,17 @@
 import { useCallback, useState } from 'react'
 import { prefersReducedMotion } from './lib/hooks'
 import { useGlobalParallax } from './lib/parallax'
-import { useSmoothScroll } from './lib/smooth'
+import { useHashArrival, useSmoothScroll } from './lib/smooth'
 import Nav from './components/Nav'
 import Hero from './components/Hero'
 import About from './components/About'
 import Ecosystem from './components/Ecosystem'
-import Path from './components/Path'
 import Pillars from './components/Pillars'
 import Community from './components/Community'
 import Velox from './components/Velox'
 import Plate from './components/Plate'
-import Program from './components/Program'
 import Standards from './components/Standards'
 import Partners from './components/Partners'
-import Rules from './components/Rules'
-import Apply from './components/Apply'
 import Footer from './components/Footer'
 
 /** The hero film plays as a preloader unless the visitor lands on an anchor or prefers no motion. */
@@ -32,6 +28,7 @@ export default function App() {
   const unlock = useCallback(() => setLocked(false), [])
   useSmoothScroll(locked)
   useGlobalParallax()
+  useHashArrival()
   return (
     <>
       <div className="page-frame" aria-hidden="true">
@@ -42,15 +39,11 @@ export default function App() {
         <Hero intro={intro} onDone={unlock} />
         <About />
         <Ecosystem />
-        <Path />
         <Pillars />
         <Community />
         <Plate />
-        <Program />
         <Standards />
         <Partners />
-        <Rules />
-        <Apply />
         <Velox />
       </main>
       <Footer />

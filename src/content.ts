@@ -6,7 +6,7 @@
 export const copy = {
   heroEyebrow: 'Fastline Paddock Club',
   heroTitle: 'Wspólna pasja jest początkiem wyjątkowych relacji.',
-  heroSub: 'Fastline Paddock Club powstał, by tworzyć wokół nich wyjątkowe doświadczenia.',
+  heroSub: 'Fastline Paddock Club powstał, by wokół tej pasji tworzyć wyjątkowe doświadczenia.',
   heroClaim: 'The Inner Circle of Driving.',
   heroCta: 'Złóż aplikację',
 
@@ -17,7 +17,7 @@ export const copy = {
   ],
 
   ecoTitle: 'Świat doświadczeń Fastline',
-  ecoH2: 'Każdy wyjazd wzmacnia wartość członkostwa.',
+  ecoH2: 'Każdy wyjazd zaczyna nową historię.',
   ecoLead:
     'Fastline Paddock Club łączy wszystkie projekty, wydarzenia i aktywności realizowane przez markę. Wyjątkową ofertą Klubu są unikalne wydarzenia dostępne tylko dla jego Członków.',
 
@@ -70,7 +70,7 @@ export const copy = {
     'Obecność w Fastline Paddock Club to szansa na budowanie relacji z wymagającą grupą klientów premium oraz naturalną obecność marki w świecie opartym na pasji, zaufaniu i jakości.',
   ],
   partnersCta: 'Porozmawiajmy o partnerstwie',
-  partnersMail: 'mailto:paddock@fastlineracingacademy.pl?subject=Partnerstwo%20FPC',
+  partnersMail: 'mailto:paddock@fastlineracingacademy.pl?subject=Partnerstwo%20Fastline%20Paddock%20Club',
 
   zasadyTitle: 'Zasady członkostwa',
   zasadyLead:
@@ -81,7 +81,7 @@ export const copy = {
   applyTitle: 'Aplikacja',
   applyH2: 'Fastline Paddock Pass',
   applyLead:
-    'Członkostwo w FPC zaczyna się od aplikacji i rekomendacji. Każda kandydatura jest rozpatrywana indywidualnie.',
+    'Członkostwo w Fastline Paddock Club zaczyna się od aplikacji i rekomendacji. Każda kandydatura jest rozpatrywana indywidualnie.',
   applyNote: 'Każda kandydatura jest rozpatrywana indywidualnie. Odpowiadamy w ciągu 48 godzin.',
   thanksTitle: 'Dziękujemy za złożenie aplikacji.',
 
@@ -94,8 +94,8 @@ export const CONTACT_EMAIL = 'paddock@fastlineracingacademy.pl'
 // Świat doświadczeń — cztery formaty (fpc_lp)
 export const ecoTiles = [
   { name: 'Track Days', desc: 'Tory, które znasz z transmisji. Tym razem z perspektywy kierowcy.' },
-  { name: 'FPC Trips', desc: 'Wyprawy, na które nie ma biletów. Monaco, Modena, Laponia i dalej.' },
-  { name: 'Ice Driving', desc: 'Zamarznięte jeziora Finlandii. Zima, prędkość i mistrzowie za kierownicą obok Ciebie.' },
+  { name: 'Grand Tours', desc: 'Wyprawy, na które nie ma biletów. Monaco, Modena, Laponia i dalej.' },
+  { name: 'Ice Driving', desc: 'Za dnia zamarznięte jeziora Finlandii, wieczorem klubowe kolacje pod zorzą polarną. Laponia tylko w gronie Członków.' },
   { name: 'Paddock Nights', desc: 'Kolacje i spotkania w miejscach, do których nie prowadzą żadne drzwi frontowe.' },
 ] as const
 
@@ -111,7 +111,7 @@ export const tiers = [
     features: [
       'Członkostwo w społeczności Klubu',
       'Dostęp do Club Track Days',
-      'Wybrane wyprawy FPC i Paddock Nights',
+      'Wybrane Grand Tours i Paddock Nights',
       'Preferencyjne warunki oferty Fastline i Partnerów Klubu',
       'Karta członkowska',
     ],
@@ -126,7 +126,7 @@ export const tiers = [
     desc:
       'Rdzeń Klubu, poziom dla osób aktywnie uczestniczących w życiu Fastline. Szerszy zakres przywilejów i priorytetowy dostęp do wydarzeń.',
     features: [
-      'Priorytetowy dostęp do Club Track Days i FPC Trips',
+      'Priorytetowy dostęp do Club Track Days i Grand Tours',
       'Heels on the Track w ramach członkostwa',
       'Zamknięte Paddock Nights',
       'Pełny Membership Pack',
@@ -145,7 +145,7 @@ export const tiers = [
       'Najwyższe grono w regularnej ścieżce członkostwa. Gwarantowany dostęp do najważniejszych wydarzeń, indywidualne przywileje, najwyższy poziom obsługi.',
     features: [
       'Gwarantowane miejsca na Club Track Days',
-      'Dzień 0 na wyprawach FPC',
+      'Dzień 0 na Grand Tours',
       'Wydarzenia wyłącznie dla poziomu Gold i wyżej',
       'Numerowana karta metalowa i Annual Collection',
       'Priorytetowy concierge',
@@ -170,7 +170,7 @@ export const pillars = [
   {
     title: 'Wartość relacji',
     desc:
-      'Klub został stworzony z myślą o budowaniu długofalowych relacji. Wraz z aktywnym uczestnictwem w szkoleniach, wyjazdach i wydarzeniach rośnie wartość członkostwa oraz zakres przywilejów.',
+      'Klub został stworzony z myślą o budowaniu długofalowych relacji. Dlatego Członkowie korzystają z lepszych warunków cenowych we wszystkich ofertach Fastline oraz ze stałego rabatu na ofertę Fastline Racing Academy.',
   },
   {
     title: 'Doświadczenia zarezerwowane dla Członków',
@@ -193,7 +193,7 @@ export const pillars = [
 export const communityNums = [
   { n: '9×', label: 'Mistrz Polski jako Twój instruktor' },
   { n: '4', label: 'kontynenty — tam, gdzie jedziemy' },
-  { n: '<100', label: 'tyle jest miejsc w FPC' },
+  { n: '<100', label: 'tyle jest miejsc w Klubie' },
 ] as const
 
 // Zakres członkostwa — macierz Silver / Gold / Platinum (copy v2)
@@ -203,7 +203,7 @@ export const comparison = {
     ['Członkostwo w społeczności Fastline', '✓', '✓', '✓'],
     ['Wejście przez aktywność (Fastline Refueling System)', '✓', '✓', '✓'],
     ['Club Track Days', '✓', 'priorytet', 'gwarantowane'],
-    ['FPC Trips (wyprawy)', 'wybrane', 'priorytet', 'Dzień 0'],
+    ['Grand Tours (wyprawy)', 'wybrane', 'priorytet', 'Dzień 0'],
     ['Heels on the Track', '10% rabat', 'wliczone', 'wliczone + 1 gość'],
     ['Paddock Nights', 'wybrane', 'zamknięte dla Gold+', 'wyłączne dla Gold+'],
     ['Membership Pack', 'Karta', 'Karta + pack', 'Karta metalowa + Annual Collection'],

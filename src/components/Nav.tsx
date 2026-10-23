@@ -1,17 +1,20 @@
 import { useEffect, useState } from 'react'
 import { usePastHero } from '../lib/hooks'
 import { asset } from '../lib/asset'
+import { applyPage, home, isApplyPage } from '../lib/links'
 
+// numbered items are chapters of the home page; the rest live on /aplikacja
 const links = [
-  { no: 'I', href: '#klub', label: 'Klub' },
-  { no: 'IV', href: '#przywileje', label: 'Przywileje' },
-  { no: 'IX', href: '#zasady', label: 'Zasady' },
-  { no: 'X', href: '#aplikuj', label: 'Aplikacja' },
+  { no: 'I', href: home('#klub'), label: 'Klub' },
+  { no: 'III', href: home('#przywileje'), label: 'Przywileje' },
+  { no: '', href: applyPage('#zasady'), label: 'Zasady' },
+  { no: '', href: applyPage('#aplikacja'), label: 'Aplikacja' },
 ]
 
 export default function Nav() {
-  // the hero carries no menu — the bar slides in with the first chapter
-  const past = usePastHero()
+  // the hero carries no menu — the bar slides in with the first chapter;
+  // the application page has no hero, so the bar is always there
+  const past = usePastHero() || isApplyPage
   const [open, setOpen] = useState(false)
 
   useEffect(() => {
@@ -37,10 +40,10 @@ export default function Nav() {
           >
             <i /><i />
           </button>
-          <a className="nav-brand" href="#top" aria-label="Fastline Paddock Club">
+          <a className="nav-brand" href={isApplyPage ? '../' : '#top'} aria-label="Fastline Paddock Club">
             <img src={asset('assets/logo.webp')} alt="Fastline Paddock Club" />
           </a>
-          <a className="nav-cta" href="#aplikuj">Złóż aplikację</a>
+          <a className="nav-cta" href={applyPage()}>Złóż aplikację</a>
         </div>
       </nav>
 
@@ -59,7 +62,7 @@ export default function Nav() {
               style={{ transitionDelay: open ? `${0.16 + i * 0.06}s` : '0s' }}
               onClick={() => setOpen(false)}
             >
-              <em>{l.no}</em>
+              {l.no && <em>{l.no}</em>}
               {l.label}
             </a>
           ))}

@@ -18,7 +18,7 @@ export default function Pillars() {
   return (
     <section className="section pillars" id="przywileje">
       <div className="wrap">
-        <Chapter no="IV" label={copy.pillarsTitle} title={copy.pillarsH2} />
+        <Chapter no="III" label={copy.pillarsTitle} title={copy.pillarsH2} />
 
         <div className="pillar-grid reveal" ref={grid}>
           {pillars.map((p, i) => (

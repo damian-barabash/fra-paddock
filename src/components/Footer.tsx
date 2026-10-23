@@ -1,4 +1,5 @@
 import { asset } from '../lib/asset'
+import { applyPage, home } from '../lib/links'
 
 export default function Footer() {
   return (
@@ -8,10 +9,10 @@ export default function Footer() {
         <p className="footer-line">Prywatny klub · Est. MMXXVI</p>
 
         <nav className="footer-nav" aria-label="Stopka">
-          <a href="#klub">O Klubie</a>
-          <a href="#przywileje">Przywileje</a>
-          <a href="#zasady">Zasady</a>
-          <a href="#aplikuj">Aplikuj</a>
+          <a href={home('#klub')}>O Klubie</a>
+          <a href={home('#przywileje')}>Przywileje</a>
+          <a href={applyPage('#zasady')}>Zasady</a>
+          <a href={applyPage('#aplikacja')}>Aplikuj</a>
         </nav>
 
         <div className="footer-bottom">
