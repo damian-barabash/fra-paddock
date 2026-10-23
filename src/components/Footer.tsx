@@ -1,5 +1,5 @@
 import { asset } from '../lib/asset'
-import { applyPage, home } from '../lib/links'
+import { clubUrl, home, openApply } from '../lib/links'
 
 export default function Footer() {
   return (
@@ -10,9 +10,8 @@ export default function Footer() {
 
         <nav className="footer-nav" aria-label="Stopka">
           <a href={home('#klub')}>O Klubie</a>
-          <a href={home('#przywileje')}>Przywileje</a>
-          <a href={applyPage('#zasady')}>Zasady</a>
-          <a href={applyPage('#aplikacja')}>Aplikuj</a>
+          <button type="button" onClick={openApply}>Aplikuj</button>
+          <a href={clubUrl}>Zaloguj</a>
         </nav>
 
         <div className="footer-bottom">

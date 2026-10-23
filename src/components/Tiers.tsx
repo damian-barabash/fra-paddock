@@ -1,6 +1,5 @@
 import { useReveal } from '../lib/hooks'
 import Chapter from './Chapter'
-import { applyPage } from '../lib/links'
 import { tiers, copy } from '../content'
 
 export default function Tiers() {
@@ -19,7 +18,7 @@ export default function Tiers() {
               <a
                 className={`tier-col${featured ? ' featured' : ''}`}
                 key={t.key}
-                href={applyPage('#aplikacja')}
+                href="#aplikacja"
               >
                 <span className="tier-flag"> </span>
                 <span className="tier-tagline">{t.tagline}</span>

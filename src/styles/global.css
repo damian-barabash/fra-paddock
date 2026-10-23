@@ -429,6 +429,7 @@ section[id], header[id] { scroll-margin-top: 110px; }
 .nav-brand img { height: 84px; width: auto; }
 .nav-cta {
   justify-self: end;
+  background: transparent;
   font-family: 'Manrope', sans-serif;
   font-size: 0.68rem;
   font-weight: 600;
@@ -1794,7 +1795,10 @@ thead .cmp-col-featured {
   flex-wrap: wrap;
   margin-bottom: 3rem;
 }
-.footer-nav a {
+.footer-nav a,
+.footer-nav button {
+  background: none;
+  border: 0;
   font-family: 'Manrope', sans-serif;
   font-weight: 500;
   font-size: 0.72rem;
@@ -1803,7 +1807,8 @@ thead .cmp-col-featured {
   color: var(--text-soft);
   transition: color 0.35s var(--ease);
 }
-.footer-nav a:hover { color: var(--champagne); }
+.footer-nav a:hover,
+.footer-nav button:hover { color: var(--champagne); }
 .footer-bottom {
   border-top: 1px solid var(--line-soft);
   padding-top: 2.2rem;
@@ -2078,4 +2083,73 @@ thead .cmp-col-featured {
    ============================================================ */
 .subpage > .section:first-child {
   padding-top: calc(104px + clamp(4rem, 10vh, 7rem));
+}
+
+/* ============================================================
+   Pop-up (formularz aplikacji, prezentacja Klubu)
+   ============================================================ */
+html.modal-open, html.modal-open body { overflow: hidden; }
+.modal {
+  position: fixed;
+  inset: 0;
+  z-index: 300;
+  display: grid;
+  place-items: start center;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: clamp(1rem, 6vh, 4.5rem) clamp(0.75rem, 3vw, 2rem);
+  background: rgba(6, 6, 7, 0.78);
+  backdrop-filter: blur(14px) saturate(1.1);
+  -webkit-backdrop-filter: blur(14px) saturate(1.1);
+}
+.modal-card {
+  position: relative;
+  width: min(760px, 100%);
+  padding: clamp(2.6rem, 6vw, 4.2rem) clamp(1.3rem, 5vw, 3.8rem) clamp(2.2rem, 5vw, 3.4rem);
+  background: linear-gradient(180deg, var(--elevated), var(--carbon) 60%);
+  border: 1px solid var(--line-gold);
+  box-shadow: var(--shadow-deep);
+}
+.modal-card::before {
+  content: '';
+  position: absolute;
+  inset: 8px;
+  border: 1px solid var(--line-soft);
+  pointer-events: none;
+}
+.modal-close {
+  position: absolute;
+  top: 1.1rem;
+  right: 1.1rem;
+  z-index: 2;
+  width: 44px;
+  height: 44px;
+  border: 1px solid var(--line-gold);
+  background: rgba(10, 10, 11, 0.6);
+}
+.modal-close i {
+  position: absolute;
+  left: 13px;
+  right: 13px;
+  top: 50%;
+  height: 1px;
+  background: var(--champagne);
+  transform: rotate(45deg);
+}
+.modal-close i + i { transform: rotate(-45deg); }
+.modal-close:hover { border-color: var(--gold); }
+.eyebrow-line {
+  display: inline-block;
+  font-size: 0.72rem;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 1rem;
+}
+.apply-modal .apply-head { margin-bottom: clamp(2rem, 5vw, 3rem); }
+.apply-modal .apply-head h2 { margin-top: 0; }
+@media (max-width: 700px) {
+  .modal { padding: 0; place-items: stretch; }
+  .modal-card { width: 100%; min-height: 100%; border: 0; }
+  .modal-card::before { display: none; }
 }

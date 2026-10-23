@@ -1,20 +1,18 @@
 import { useEffect, useState } from 'react'
 import { usePastHero } from '../lib/hooks'
 import { asset } from '../lib/asset'
-import { applyPage, home, isApplyPage } from '../lib/links'
+import { clubUrl, openApply } from '../lib/links'
 
-// numbered items are chapters of the home page; the rest live on /aplikacja
+// `apply` opens the application pop-up instead of navigating
 const links = [
-  { no: 'I', href: home('#klub'), label: 'Klub' },
-  { no: 'III', href: home('#przywileje'), label: 'Przywileje' },
-  { no: '', href: applyPage('#zasady'), label: 'Zasady' },
-  { no: '', href: applyPage('#aplikacja'), label: 'Aplikacja' },
+  { no: 'I', href: '#klub', label: 'Klub' },
+  { no: '', href: '#aplikacja', label: 'Aplikacja', apply: true },
+  { no: '', href: clubUrl, label: 'Zaloguj' },
 ]
 
 export default function Nav() {
-  // the hero carries no menu — the bar slides in with the first chapter;
-  // the application page has no hero, so the bar is always there
-  const past = usePastHero() || isApplyPage
+  // the hero carries no menu — the bar slides in with the first chapter
+  const past = usePastHero()
   const [open, setOpen] = useState(false)
 
   useEffect(() => {
@@ -40,10 +38,10 @@ export default function Nav() {
           >
             <i /><i />
           </button>
-          <a className="nav-brand" href={isApplyPage ? '../' : '#top'} aria-label="Fastline Paddock Club">
+          <a className="nav-brand" href="#top" aria-label="Fastline Paddock Club">
             <img src={asset('assets/logo.webp')} alt="Fastline Paddock Club" />
           </a>
-          <a className="nav-cta" href={applyPage()}>Złóż aplikację</a>
+          <button type="button" className="nav-cta" onClick={openApply}>Złóż aplikację</button>
         </div>
       </nav>
 
@@ -60,7 +58,13 @@ export default function Nav() {
               key={l.href}
               href={l.href}
               style={{ transitionDelay: open ? `${0.16 + i * 0.06}s` : '0s' }}
-              onClick={() => setOpen(false)}
+              onClick={(e) => {
+                setOpen(false)
+                if (l.apply) {
+                  e.preventDefault()
+                  openApply()
+                }
+              }}
             >
               {l.no && <em>{l.no}</em>}
               {l.label}

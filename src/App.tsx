@@ -5,14 +5,8 @@ import { useHashArrival, useSmoothScroll } from './lib/smooth'
 import Nav from './components/Nav'
 import Hero from './components/Hero'
 import About from './components/About'
-import Ecosystem from './components/Ecosystem'
-import Pillars from './components/Pillars'
-import Community from './components/Community'
-import Velox from './components/Velox'
-import Plate from './components/Plate'
-import Standards from './components/Standards'
-import Partners from './components/Partners'
 import Footer from './components/Footer'
+import ApplyModal from './components/ApplyModal'
 
 /** The hero film plays as a preloader unless the visitor lands on an anchor or prefers no motion. */
 function wantsIntro() {
@@ -38,15 +32,10 @@ export default function App() {
       <main>
         <Hero intro={intro} onDone={unlock} />
         <About />
-        <Ecosystem />
-        <Pillars />
-        <Community />
-        <Plate />
-        <Standards />
-        <Partners />
-        <Velox />
+        {/* further chapters return later; members see them in the club presentation */}
       </main>
       <Footer />
+      <ApplyModal />
     </>
   )
 }

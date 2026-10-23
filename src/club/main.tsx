@@ -1,10 +1,11 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import ApplyPage from './ApplyPage'
-import './styles/global.css'
+import ClubApp from './ClubApp'
+import '../styles/global.css'
+import './club.css'
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
-    <ApplyPage />
+    <ClubApp />
   </React.StrictMode>,
 )

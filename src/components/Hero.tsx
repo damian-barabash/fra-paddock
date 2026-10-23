@@ -3,7 +3,7 @@ import { motion } from 'framer-motion'
 import { asset } from '../lib/asset'
 import { prefersReducedMotion } from '../lib/hooks'
 import { copy } from '../content'
-import { applyPage } from '../lib/links'
+import { clubUrl, openApply } from '../lib/links'
 
 const ease = [0.22, 1, 0.36, 1] as const
 
@@ -136,10 +136,10 @@ export default function Hero({ intro, onDone }: Props) {
 
       <motion.div className="hero-foot" {...rise(0.7)}>
         <span className="hero-note">Est. MMXXVI</span>
-        <a className="btn btn-gold" href={applyPage()}>{copy.heroCta}</a>
+        <button type="button" className="btn btn-gold" onClick={openApply}>{copy.heroCta}</button>
         <i className="hero-foot-gap" aria-hidden="true" />
-        <a className="link-line" href="#klub">
-          Poznaj Klub <span className="btn-arrow">↓</span>
+        <a className="link-line" href={clubUrl}>
+          Zaloguj <span className="btn-arrow">→</span>
         </a>
         <span className="hero-note">Wyłącznie dla Członków</span>
       </motion.div>
