@@ -1308,3 +1308,143 @@
 .ev-settings .muted b { color: var(--champagne); font-weight: 600; }
 .ev-fill { align-self: flex-start; padding: 0.6rem 0.9rem; font-size: 0.66rem; }
 .field small.muted { display: block; margin-top: 0.45rem; font-size: 0.8rem; }
+
+/* ───────── Sign-up moment: card → black envelope → off to the right ───────── */
+.so {
+  position: fixed;
+  inset: 0;
+  z-index: 900;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2.6rem;
+  overflow: hidden;
+  background: radial-gradient(ellipse at 50% 45%, rgba(30, 26, 18, 0.92), rgba(6, 6, 7, 0.97) 70%);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+.so-stage { position: relative; width: min(340px, 80vw); aspect-ratio: 340 / 228; margin-top: 18vh; perspective: 1100px; }
+.so-env { position: absolute; inset: 0; transform-style: preserve-3d; opacity: 0; filter: drop-shadow(0 30px 40px rgba(0, 0, 0, 0.65)); }
+.so-back, .so-front, .so-flap { position: absolute; left: 0; right: 0; }
+.so-back {
+  inset: 0;
+  z-index: 0;
+  background: linear-gradient(180deg, #121215, #08080a);
+  border: 1px solid rgba(198, 161, 91, 0.45);
+}
+.so-flap {
+  top: 0;
+  height: 58%;
+  z-index: 1;
+  transform-origin: 50% 0;
+  transform: rotateX(180deg);
+  backface-visibility: visible;
+  clip-path: polygon(0 0, 100% 0, 50% 100%);
+  background:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' preserveAspectRatio='none'%3E%3Cpath d='M0 0 L50 100 L100 0' fill='none' stroke='%23c6a15b' stroke-opacity='.75' stroke-width='1.2' vector-effect='non-scaling-stroke'/%3E%3C/svg%3E") center / 100% 100% no-repeat,
+    linear-gradient(180deg, #1a1a1e, #0d0d10);
+}
+.so-front {
+  inset: 0;
+  z-index: 3;
+  clip-path: polygon(0 0, 50% 55%, 100% 0, 100% 100%, 0 100%);
+  background: linear-gradient(160deg, #17171b 0%, #0b0b0d 60%, #111114 100%);
+  border: 1px solid rgba(198, 161, 91, 0.45);
+}
+.so-front svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+.so-card {
+  position: absolute;
+  z-index: 2;
+  top: 0;
+  left: 7%;
+  width: 86%;
+  height: 92%;
+  opacity: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.3rem;
+  overflow: hidden;
+  padding: 0.85rem 1rem 0.7rem;
+  text-align: center;
+  color: #1a1610;
+  background: linear-gradient(170deg, #f6efe0, #e9dcc0);
+  box-shadow: inset 0 0 0 5px #f6efe0, inset 0 0 0 6px rgba(140, 109, 52, 0.55), 0 10px 30px rgba(0, 0, 0, 0.4);
+}
+.so-card img { width: 34px; filter: sepia(0.4) brightness(0.55); }
+.so-kicker { font-size: 0.5rem; font-weight: 700; letter-spacing: 0.3em; text-transform: uppercase; color: #8c6d34; }
+.so-card h3 { font-family: 'Fraunces', Georgia, serif; font-weight: 420; font-size: 1.05rem; line-height: 1.2; color: #17130c; text-wrap: balance; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.so-meta { max-width: 100%; font-size: 0.64rem; color: #4d4537; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.so-rule { width: 40%; height: 1px; background: rgba(140, 109, 52, 0.5); margin: 0.2rem 0; }
+.so-who { margin-top: auto; display: flex; flex-direction: column; gap: 0.05rem; font-size: 0.62rem; color: #5b5244; }
+.so-who span { font-size: 0.46rem; font-weight: 700; letter-spacing: 0.26em; text-transform: uppercase; color: #8c6d34; }
+.so-who em { font-family: 'Fraunces', Georgia, serif; font-size: 0.95rem; color: #1a1610; }
+.so-who b { font-family: ui-monospace, Menlo, monospace; font-size: 0.56rem; letter-spacing: 0.12em; font-weight: 500; }
+.so-seal {
+  position: absolute;
+  z-index: 6;
+  left: 50%;
+  top: 58%;
+  width: 54px;
+  height: 54px;
+  margin: -27px 0 0 -27px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  opacity: 0;
+  transform: scale(0);
+  background: radial-gradient(circle at 35% 30%, #f2e4be, #c6a15b 45%, #8c6d34 100%);
+  box-shadow: 0 0 0 3px rgba(198, 161, 91, 0.25), 0 6px 18px rgba(0, 0, 0, 0.55), inset 0 -3px 6px rgba(0, 0, 0, 0.3);
+}
+.so-seal img { width: 34px; filter: brightness(0.25) sepia(1) saturate(0.6); }
+.so-trail {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 70vw;
+  height: 1px;
+  opacity: 0;
+  transform-origin: 0 50%;
+  background: linear-gradient(90deg, transparent, rgba(231, 205, 142, 0.9) 60%, transparent);
+  box-shadow: 0 0 14px rgba(198, 161, 91, 0.7);
+}
+.so-msg { min-height: 1.6em; font-family: 'Fraunces', Georgia, serif; font-style: italic; font-size: clamp(1.05rem, 4vw, 1.3rem); color: var(--champagne); text-align: center; padding: 0 1.4rem; }
+.so-msg span { display: inline-block; }
+
+/* ───────── Sign-ups in Panel Klubu: personal „new” badge, who has seen it ───────── */
+.badge {
+  display: inline-grid;
+  place-items: center;
+  min-width: 19px;
+  height: 19px;
+  padding: 0 5px;
+  margin-left: 0.35rem;
+  border-radius: 999px;
+  background: #d9573f;
+  color: #fff;
+  font: 700 0.64rem/1 'Manrope', system-ui, sans-serif;
+  font-style: normal;
+  letter-spacing: 0;
+  vertical-align: middle;
+  box-shadow: 0 0 0 3px rgba(217, 87, 63, 0.18), 0 0 12px rgba(217, 87, 63, 0.55);
+  animation: badge-glow 2.4s ease-in-out infinite;
+}
+.badge-soft { background: rgba(198, 161, 91, 0.25); color: var(--gold-bright); box-shadow: none; animation: none; }
+@keyframes badge-glow { 50% { box-shadow: 0 0 0 5px rgba(217, 87, 63, 0.08), 0 0 18px rgba(217, 87, 63, 0.75); } }
+@media (prefers-reduced-motion: reduce) { .badge { animation: none; } }
+.admin-side nav a .badge { margin-left: auto; }
+.admin-tabbar a { position: relative; }
+.admin-tabbar a .badge { position: absolute; top: 7px; left: calc(50% + 4px); margin: 0; }
+.su-bar { display: flex; align-items: center; justify-content: space-between; gap: 0.8rem; flex-wrap: wrap; font-size: 0.86rem; color: var(--smoke); }
+.su-bar .btn { padding: 0.6rem 0.9rem; font-size: 0.64rem; }
+.su-list > li.su-new > button { background: linear-gradient(90deg, rgba(217, 87, 63, 0.09), transparent 60%); box-shadow: inset 2px 0 0 #d9573f; }
+.su-list .alist-main b { white-space: normal; }
+.su-arrow { color: var(--gold); font-weight: 400; }
+.su-dot { font-style: normal; color: #f0a08f; font-weight: 700; letter-spacing: 0.16em; }
+.su-dot::before { content: ''; display: inline-block; width: 7px; height: 7px; margin-right: 0.45rem; border-radius: 50%; background: #d9573f; box-shadow: 0 0 8px rgba(217, 87, 63, 0.8); vertical-align: 1px; }
+.su-seen { list-style: none; display: flex; flex-direction: column; gap: 0.25rem; }
+.su-seen li { display: inline-flex; align-items: center; gap: 0.4rem; }
+.su-seen svg { color: var(--gold); }
+.seg .badge { margin-left: 0.5rem; }
+.su-list .alist-main small { white-space: normal; }

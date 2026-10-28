@@ -11,6 +11,7 @@ import PostEditor from './PostEditor'
 import Popups from './Popups'
 import PopupEditor from './PopupEditor'
 import Applications from './Applications'
+import { useUnseenSignups } from './unseen'
 import Events from './Events'
 import EventEditor from './EventEditor'
 import { Splash } from '../ClubApp'
@@ -33,6 +34,8 @@ export default function AdminApp() {
   const { profile, signOut } = useSession()
   const r = useRoute()
   const page = r[0] ?? ''
+  const unseen = useUnseenSignups()
+  const badge = (path: string) => (path === 'zgloszenia' && unseen > 0 ? <i className="badge" aria-label={`${unseen} nowych`}>{unseen > 99 ? '99+' : unseen}</i> : null)
 
   // full-screen editor of the site copy — outside the panel layout
   if (page === 'strona') {
@@ -67,7 +70,7 @@ export default function AdminApp() {
         <nav>
           {nav.map((n) => (
             <a key={n.label} href={href(n.path)} className={isOn(n.path) ? 'on' : ''}>
-              <Icon name={n.icon} size={19} /> {n.label}
+              <Icon name={n.icon} size={19} /> {n.label} {badge(n.path)}
             </a>
           ))}
         </nav>
@@ -93,6 +96,7 @@ export default function AdminApp() {
         {nav.filter((n) => n.mobile).map((n) => (
           <a key={n.label} href={href(n.path)} className={isOn(n.path) ? 'on' : ''}>
             <Icon name={n.icon} size={22} />
+            {badge(n.path)}
             <span>{n.label}</span>
           </a>
         ))}

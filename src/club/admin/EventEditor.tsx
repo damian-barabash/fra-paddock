@@ -172,7 +172,8 @@ export default function EventEditor({ id }: { id: string }) {
         </div>
 
         <fieldset className="fieldset">
-          <legend>Przycisk <small>(opcjonalnie, np. zapisy poza Klubem)</small></legend>
+          <legend>Przycisk zapisu <small>(opcjonalnie)</small></legend>
+          <p className="muted">Kliknięcie zapisuje członka — zgłoszenie pojawia się w „Zgłoszeniach”. Link jest opcjonalny (np. zewnętrzne zapisy); bez linku przycisk tylko zapisuje.</p>
           <div className="form-row">
             <div className="field"><label htmlFor="ev-cl">Tekst</label><input id="ev-cl" value={d.cta_label ?? ''} onChange={(e) => set('cta_label', e.target.value)} placeholder="np. Zapisz się" /></div>
             <div className="field"><label htmlFor="ev-cu">Link</label><input id="ev-cu" type="url" value={d.cta_url ?? ''} onChange={(e) => set('cta_url', e.target.value)} placeholder="https://…" /></div>

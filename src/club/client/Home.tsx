@@ -24,11 +24,11 @@ export default function Home({ data, base }: { data: MemberData; base: string })
 
   return (
     <div className="page">
-      <NextEvent data={data} base={base} />
       <h1 className="page-hello">
         {greeting()}{fn ? <>, <em>{fn}</em></> : null}.
       </h1>
       <MemberCard profile={profile!} snapshot={data.snapshot} syncing={data.syncing} />
+      <NextEvent data={data} base={base} />
 
       {invitations.length > 0 && (
         <section className="block">

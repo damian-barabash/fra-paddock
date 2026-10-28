@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react'
 import { sb } from '../api'
 import Icon from '../ui/Icon'
 import { fmtShort } from '../ui/format'
+import Signups from './Signups'
+import { useUnseenSignups } from './unseen'
 
 type App = {
   id: string
@@ -20,6 +22,8 @@ const STATUS: Record<string, string> = { new: 'Nowe', contacted: 'W kontakcie', 
 
 /** Applications sent from the public form. */
 export default function Applications() {
+  const [tab, setTab] = useState<'members' | 'site'>('members')
+  const unseen = useUnseenSignups()
   const [rows, setRows] = useState<App[] | null>(null)
   const [open, setOpen] = useState<string | null>(null)
   useEffect(() => {
@@ -33,11 +37,19 @@ export default function Applications() {
     <div className="apage">
       <header className="apage-head">
         <div>
-          <span className="eyebrow-line">Formularz na stronie</span>
-          <h1>Zgłoszenia {rows && <small>{rows.filter((r) => r.status === 'new').length} nowych</small>}</h1>
+          <span className="eyebrow-line">Zapisy i aplikacje</span>
+          <h1>Zgłoszenia</h1>
         </div>
       </header>
-      {!rows ? <div className="skeleton" /> : rows.length ? (
+      <div className="seg">
+        <button type="button" className={tab === 'members' ? 'on' : ''} onClick={() => setTab('members')}>
+          Zapisy członków {unseen > 0 && <i className="badge">{unseen}</i>}
+        </button>
+        <button type="button" className={tab === 'site' ? 'on' : ''} onClick={() => setTab('site')}>
+          Aplikacje ze strony {rows && rows.some((r) => r.status === 'new') && <i className="badge badge-soft">{rows.filter((r) => r.status === 'new').length}</i>}
+        </button>
+      </div>
+      {tab === 'members' ? <Signups /> : !rows ? <div className="skeleton" /> : rows.length ? (
         <ul className="alist apps">
           {rows.map((r) => (
             <li key={r.id} className={open === r.id ? 'open' : ''}>

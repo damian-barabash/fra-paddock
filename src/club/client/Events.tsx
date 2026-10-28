@@ -5,6 +5,8 @@ import Icon from '../ui/Icon'
 import RichContent from '../ui/RichContent'
 import { fmtDay, fmtMonth, fmtTime, fmtWeekday, fmtYear, plural } from '../ui/format'
 import { asset } from '../../lib/asset'
+import { useSession } from '../session'
+import { sendOff } from '../ui/SendOff'
 
 const tz = 'Europe/Warsaw'
 /** photo for events without their own: a car under a silk cover — „something is coming” */
@@ -52,12 +54,26 @@ const monthTitle = (d: string) =>
 function primary(e: ClubEvent, base: string, data: MemberData) {
   // a named invitation is only visible to its guests — others get the link or the details
   if (e.post_id && data.posts.some((p) => p.id === e.post_id)) return { href: href(base + 'wpis/' + e.post_id), label: 'Zaproszenie', external: false }
-  if (e.cta_url) return { href: e.cta_url, label: e.cta_label || 'Zapisz się', external: true }
+  // a button with only a label just signs the member up (lands in Panel Klubu → Zgłoszenia)
+  if (e.cta_url || e.cta_label) return { href: e.cta_url || '#', label: e.cta_label || 'Zapisz się', external: true }
   return { href: href(base + 'wydarzenia/' + e.id), label: 'Szczegóły', external: false }
 }
 
+/** What goes on the card in the envelope when a member signs up for an event. */
+const signUp = (e: ClubEvent, profile: ReturnType<typeof useSession>['profile']) => ({
+  kicker: 'Zgłoszenie',
+  title: e.title,
+  meta: whenLine(e) + (e.place ? ` · ${e.place}` : ''),
+  name: profile?.full_name ?? '',
+  memberNo: profile?.member_no,
+  url: e.cta_url ?? '',
+  kind: 'event' as const,
+  ref: e.id,
+})
+
 /** The block on top of the Paddock: the nearest (or chosen) club event + a small „all events” button. */
 export function NextEvent({ data, base }: { data: MemberData; base: string }) {
+  const { profile } = useSession()
   const block = data.eventsBlock
   if (!block.enabled || data.loading) return null
   const e = featuredEvent(data.events, block)
@@ -95,7 +111,11 @@ export function NextEvent({ data, base }: { data: MemberData; base: string }) {
 
         <div className="nev-foot">
           {block.countdown && <span className="nev-count">{countdown(e)}</span>}
-          <a className="btn btn-gold nev-cta" href={go.href} {...(go.external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}>
+          <a
+            className="btn btn-gold nev-cta"
+            href={go.href}
+            {...(go.external ? { target: '_blank', rel: 'noopener noreferrer', onClick: (ev: React.MouseEvent) => sendOff(ev, signUp(e, profile)) } : {})}
+          >
             {go.label} <span className="btn-arrow">→</span>
           </a>
         </div>
@@ -170,6 +190,7 @@ export function EventsPage({ data, base }: { data: MemberData; base: string }) {
 }
 
 export function EventView({ id, data, base }: { id: string; data: MemberData; base: string }) {
+  const { profile } = useSession()
   const e = data.events.find((x) => x.id === id)
   if (data.loading) return <div className="page"><div className="skeleton" /></div>
   if (!e) {
@@ -210,8 +231,14 @@ export function EventView({ id, data, base }: { id: string; data: MemberData; ba
               {answer ? 'Zobacz zaproszenie' : 'Odpowiedz na zaproszenie'} <span className="btn-arrow">→</span>
             </a>
           )}
-          {e.cta_url && (
-            <a className={`btn${invite ? '' : ' btn-gold'}`} href={e.cta_url} target="_blank" rel="noopener noreferrer">
+          {(e.cta_url || e.cta_label) && (
+            <a
+              className={`btn${invite ? '' : ' btn-gold'}`}
+              href={e.cta_url || '#'}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={(ev) => sendOff(ev, signUp(e, profile))}
+            >
               {e.cta_label || 'Zapisz się'} <span className="btn-arrow">→</span>
             </a>
           )}

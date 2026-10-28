@@ -14,6 +14,7 @@ import PostView from './PostView'
 import Welcome from './Welcome'
 import PopupQueue from './PopupQueue'
 import { EventsPage, EventView } from './Events'
+import SendOffLayer from '../ui/SendOff'
 
 export type MemberData = {
   posts: Post[]
@@ -179,6 +180,7 @@ export default function ClientApp({ preview = false }: { preview?: boolean }) {
         })}
       </nav>
 
+      <SendOffLayer />
       <Welcome open={welcome} onClose={closeWelcome} name={profile!.full_name} firstTime={!profile!.welcome_seen_at && !preview} />
       {!welcome && popups.length > 0 && (
         <PopupQueue
