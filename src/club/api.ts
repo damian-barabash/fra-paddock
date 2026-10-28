@@ -50,6 +50,62 @@ export type Popup = {
   cta_url: string | null
   created_at: string
 }
+export type ClubEvent = {
+  id: string
+  title: string
+  category: string | null
+  lead: string | null
+  body_html: string
+  cover_url: string | null
+  starts_at: string
+  ends_at: string | null
+  place: string | null
+  cta_label: string | null
+  cta_url: string | null
+  post_id: string | null
+  published: boolean
+  created_at: string
+  updated_at: string
+}
+export type EventsBlock = {
+  enabled: boolean
+  mode: 'auto' | 'manual'
+  featured_id: string | null
+  title: string
+  all_label: string
+  countdown: boolean
+  show_past: boolean
+}
+export const EVENTS_BLOCK_DEFAULT: EventsBlock = {
+  enabled: true,
+  mode: 'auto',
+  featured_id: null,
+  title: 'Najbliższe wydarzenie',
+  all_label: 'Wszystkie wydarzenia',
+  countdown: true,
+  show_past: true,
+}
+export const EVENT_CATEGORIES = ['Track Day', 'Grand Tour', 'Ice Driving', 'Paddock Night', 'Heels on the Track', 'Szkolenie', 'Spotkanie']
+
+/** An event is over once its end (or start, when it has no end) has passed. */
+export const eventEnd = (e: ClubEvent) => new Date(e.ends_at ?? e.starts_at).getTime()
+export const isUpcoming = (e: ClubEvent, now = Date.now()) => eventEnd(e) >= now
+
+/** The event shown on top: the chosen one (while it is still ahead), otherwise the nearest upcoming. */
+export function featuredEvent(events: ClubEvent[], block: EventsBlock, now = Date.now()) {
+  const upcoming = events.filter((e) => e.published && isUpcoming(e, now)).sort((a, b) => a.starts_at.localeCompare(b.starts_at))
+  if (block.mode === 'manual' && block.featured_id) {
+    const pick = upcoming.find((e) => e.id === block.featured_id)
+    if (pick) return pick
+  }
+  return upcoming[0] ?? null
+}
+
+export async function loadEventsBlock(): Promise<EventsBlock> {
+  const { data } = await sb.from('club_settings').select('value').eq('key', 'events_block').maybeSingle()
+  return { ...EVENTS_BLOCK_DEFAULT, ...((data?.value as Partial<EventsBlock>) ?? {}) }
+}
+
 export type FplSession = {
   id: string
   date: string

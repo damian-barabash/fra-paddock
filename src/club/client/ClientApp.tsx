@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useState } from 'react'
-import { sb, syncFpl, type Popup, type Post, type Rsvp, type Snapshot } from '../api'
+import { EVENTS_BLOCK_DEFAULT, loadEventsBlock, sb, syncFpl, type ClubEvent, type EventsBlock, type Popup, type Post, type Rsvp, type Snapshot } from '../api'
 import { useSession } from '../session'
 import { href, useRoute } from '../router'
 import Icon, { type IconName } from '../ui/Icon'
@@ -13,11 +13,14 @@ import Profile from './Profile'
 import PostView from './PostView'
 import Welcome from './Welcome'
 import PopupQueue from './PopupQueue'
+import { EventsPage, EventView } from './Events'
 
 export type MemberData = {
   posts: Post[]
   rsvps: Record<string, Rsvp>
   snapshot: Snapshot | null
+  events: ClubEvent[]
+  eventsBlock: EventsBlock
   loading: boolean
   syncing: boolean
   reload: () => Promise<void>
@@ -31,22 +34,28 @@ function useMemberData(userId: string, preview: boolean): MemberData {
   const [posts, setPosts] = useState<Post[]>([])
   const [rsvps, setRsvps] = useState<Record<string, Rsvp>>({})
   const [snapshot, setSnapshot] = useState<Snapshot | null>(null)
+  const [events, setEvents] = useState<ClubEvent[]>([])
+  const [eventsBlock, setEventsBlock] = useState<EventsBlock>(EVENTS_BLOCK_DEFAULT)
   const [loading, setLoading] = useState(true)
   const [syncing, setSyncing] = useState(false)
 
   const reload = useCallback(async () => {
     const now = new Date().toISOString()
-    const [p, r, s] = await Promise.all([
+    const [p, r, s, ev, block] = await Promise.all([
       sb.from('posts').select('*').eq('published', true).lte('published_at', now)
         .order('pinned', { ascending: false }).order('published_at', { ascending: false }).limit(100),
       sb.from('rsvps').select('*').eq('user_id', userId),
       sb.from('fpl_snapshots').select('*').eq('user_id', userId).maybeSingle(),
+      sb.from('club_events').select('*').eq('published', true).order('starts_at'),
+      loadEventsBlock(),
     ])
     let list = (p.data as Post[]) ?? []
     if (preview) list = list.filter((x) => x.audience === 'all') // admin sees what every member sees
     setPosts(list)
     setRsvps(Object.fromEntries(((r.data as Rsvp[]) ?? []).map((x) => [x.post_id, x])))
     setSnapshot((s.data as Snapshot) ?? null)
+    setEvents((ev.data as ClubEvent[]) ?? [])
+    setEventsBlock(block)
     setLoading(false)
   }, [userId, preview])
 
@@ -82,7 +91,7 @@ function useMemberData(userId: string, preview: boolean): MemberData {
     setRsvps((m) => ({ ...m, [postId]: { ...row, note: null } }))
   }, [userId])
 
-  return { posts, rsvps, snapshot, loading, syncing, reload, sync, answer }
+  return { posts, rsvps, snapshot, events, eventsBlock, loading, syncing, reload, sync, answer }
 }
 
 const tabs: { path: string; label: string; icon: IconName }[] = [
@@ -122,6 +131,8 @@ export default function ClientApp({ preview = false }: { preview?: boolean }) {
   const page = r[0] ?? ''
   const view = useMemo(() => {
     if (page === 'wpis' && r[1]) return <PostView id={r[1]} data={data} base={base} />
+    if (page === 'wydarzenia' && r[1]) return <EventView id={r[1]} data={data} base={base} />
+    if (page === 'wydarzenia') return <EventsPage data={data} base={base} />
     if (page === 'historia') return <History data={data} />
     if (page === 'oferty') return <Offers data={data} base={base} />
     if (page === 'profil') return <Profile data={data} onAbout={() => setWelcome(true)} />
@@ -158,7 +169,7 @@ export default function ClientApp({ preview = false }: { preview?: boolean }) {
 
       <nav className="tabbar" aria-label="Nawigacja">
         {tabs.map((t) => {
-          const active = t.path === '' ? page === '' || page === 'wpis' : page === t.path
+          const active = t.path === '' ? page === '' || page === 'wpis' || page === 'wydarzenia' : page === t.path
           return (
             <a key={t.label} href={href(base + t.path)} className={active ? 'on' : ''} aria-current={active ? 'page' : undefined}>
               <Icon name={t.icon} size={23} />

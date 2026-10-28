@@ -11,6 +11,8 @@ import PostEditor from './PostEditor'
 import Popups from './Popups'
 import PopupEditor from './PopupEditor'
 import Applications from './Applications'
+import Events from './Events'
+import EventEditor from './EventEditor'
 import { Splash } from '../ClubApp'
 
 // the visual editor (and its toolbar) loads only when an admin opens it
@@ -19,6 +21,7 @@ const SiteEditor = lazy(() => import('./site/SiteEditor'))
 const nav: { path: string; label: string; icon: IconName; mobile?: boolean }[] = [
   { path: '', label: 'Klienci', icon: 'users', mobile: true },
   { path: 'tresci', label: 'Treści', icon: 'feed', mobile: true },
+  { path: 'wydarzenia', label: 'Wydarzenia', icon: 'calendar', mobile: true },
   { path: 'popupy', label: 'Pop-upy', icon: 'bell', mobile: true },
   { path: 'zgloszenia', label: 'Zgłoszenia', icon: 'inbox', mobile: true },
   { path: 'strona', label: 'Strona', icon: 'edit' },
@@ -46,6 +49,8 @@ export default function AdminApp() {
   else if (page === 'tresci') view = <Posts />
   else if (page === 'popupy' && r[1]) view = <PopupEditor id={r[1]} />
   else if (page === 'popupy') view = <Popups />
+  else if (page === 'wydarzenia' && r[1]) view = <EventEditor id={r[1]} />
+  else if (page === 'wydarzenia') view = <Events />
   else if (page === 'zgloszenia') view = <Applications />
   else if (page === 'admini') view = <Admins />
   else view = <Clients />

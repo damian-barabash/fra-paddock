@@ -5,6 +5,7 @@ import InvitationCard from './InvitationCard'
 import OfferCard from './OfferCard'
 import NewsCard from './NewsCard'
 import { firstName } from '../ui/format'
+import { NextEvent } from './Events'
 
 const greeting = () => {
   const h = Number(new Intl.DateTimeFormat('pl-PL', { hour: 'numeric', hour12: false, timeZone: 'Europe/Warsaw' }).format(new Date()))
@@ -23,6 +24,7 @@ export default function Home({ data, base }: { data: MemberData; base: string })
 
   return (
     <div className="page">
+      <NextEvent data={data} base={base} />
       <h1 className="page-hello">
         {greeting()}{fn ? <>, <em>{fn}</em></> : null}.
       </h1>
