@@ -6,8 +6,10 @@ import { createClient, type SupabaseClient } from '@supabase/supabase-js'
 const DEFAULT_URL = 'https://qbhunabmsvwuyftfabms.supabase.co'
 const DEFAULT_ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFiaHVuYWJtc3Z3dXlmdGZhYm1zIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODQ4OTM2MDksImV4cCI6MjEwMDQ2OTYwOX0.10Vb9Yyl9_X5cghG-PgRpgF1WtB9VDgNVBrRKiOv3-Q'
 
-const url = import.meta.env.VITE_SUPABASE_URL || DEFAULT_URL
-const anon = import.meta.env.VITE_SUPABASE_ANON_KEY || DEFAULT_ANON
+export const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL || DEFAULT_URL
+export const SUPABASE_ANON = import.meta.env.VITE_SUPABASE_ANON_KEY || DEFAULT_ANON
+const url = SUPABASE_URL
+const anon = SUPABASE_ANON
 
 export const supabase: SupabaseClient | null = url && anon ? createClient(url, anon) : null
 

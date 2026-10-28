@@ -858,7 +858,7 @@
   letter-spacing: 0.2em;
   text-transform: uppercase;
 }
-.welcome-close span { font-size: 1.2rem; line-height: 0.6; letter-spacing: 0; }
+.welcome-close .welcome-x { font-size: 1.2rem; line-height: 0.6; letter-spacing: 0; }
 .welcome-hero {
   min-height: calc(88svh - 64px);
   display: grid;

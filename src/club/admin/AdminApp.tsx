@@ -1,3 +1,4 @@
+import { lazy, Suspense } from 'react'
 import { useSession } from '../session'
 import { href, useRoute } from '../router'
 import Icon, { type IconName } from '../ui/Icon'
@@ -10,12 +11,17 @@ import PostEditor from './PostEditor'
 import Popups from './Popups'
 import PopupEditor from './PopupEditor'
 import Applications from './Applications'
+import { Splash } from '../ClubApp'
+
+// the visual editor (and its toolbar) loads only when an admin opens it
+const SiteEditor = lazy(() => import('./site/SiteEditor'))
 
 const nav: { path: string; label: string; icon: IconName; mobile?: boolean }[] = [
   { path: '', label: 'Klienci', icon: 'users', mobile: true },
   { path: 'tresci', label: 'Treści', icon: 'feed', mobile: true },
   { path: 'popupy', label: 'Pop-upy', icon: 'bell', mobile: true },
   { path: 'zgloszenia', label: 'Zgłoszenia', icon: 'inbox', mobile: true },
+  { path: 'strona', label: 'Strona', icon: 'edit' },
   { path: 'admini', label: 'Administratorzy', icon: 'shield' },
   { path: 'podglad', label: 'Widok członka', icon: 'eye' },
 ]
@@ -24,6 +30,15 @@ export default function AdminApp() {
   const { profile, signOut } = useSession()
   const r = useRoute()
   const page = r[0] ?? ''
+
+  // full-screen editor of the site copy — outside the panel layout
+  if (page === 'strona') {
+    return (
+      <Suspense fallback={<Splash />}>
+        <SiteEditor page={r[1]} />
+      </Suspense>
+    )
+  }
 
   let view
   if (page === 'klienci' && r[1]) view = <ClientDetail id={r[1]} />
@@ -60,6 +75,7 @@ export default function AdminApp() {
       <header className="admin-top">
         <img src={asset('assets/logo.webp')} alt="Fastline Paddock Club" />
         <div>
+          <a href={href('strona')} aria-label="Edytor strony"><Icon name="edit" size={20} /></a>
           <a href={href('admini')} aria-label="Administratorzy"><Icon name="shield" size={20} /></a>
           <a href={href('podglad')} aria-label="Widok członka"><Icon name="eye" size={20} /></a>
           <button type="button" onClick={signOut} aria-label="Wyloguj"><Icon name="logout" size={20} /></button>

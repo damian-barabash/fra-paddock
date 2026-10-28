@@ -1,9 +1,41 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { motion } from 'framer-motion'
 import { asset } from '../lib/asset'
 import { prefersReducedMotion } from '../lib/hooks'
 import { copy } from '../content'
 import { clubUrl, openApply } from '../lib/links'
+import { usePublishedTexts, useEditing } from '../lib/texts'
+import { cleanHtml, escapeHtml } from '../lib/richtext'
+import E from './E'
+
+const TITLE = 'Wspólna <em>pasja</em> jest początkiem wyjątkowych relacji.'
+
+/** Split inline HTML into words for the staggered entrance; tags stay whole inside their word. */
+function words(html: string): string[] {
+  const doc = new DOMParser().parseFromString(`<body>${html}</body>`, 'text/html')
+  const out: string[] = []
+  let cur = ''
+  const flush = () => {
+    if (cur) out.push(cur)
+    cur = ''
+  }
+  doc.body.childNodes.forEach((n) => {
+    if (n.nodeType === Node.TEXT_NODE) {
+      ;(n.textContent ?? '').split(/(\s+)/).forEach((part) => {
+        if (!part) return
+        if (/^\s+$/.test(part)) flush()
+        else cur += escapeHtml(part)
+      })
+    } else if (n.nodeType === Node.ELEMENT_NODE) {
+      if ((n as Element).tagName === 'BR') {
+        flush()
+        out.push('<br>')
+      } else cur += (n as Element).outerHTML
+    }
+  })
+  flush()
+  return out
+}
 
 const ease = [0.22, 1, 0.36, 1] as const
 
@@ -20,11 +52,15 @@ type Props = {
 }
 
 export default function Hero({ intro, onDone }: Props) {
+  const editing = useEditing()
+  const texts = usePublishedTexts()
+  const title = useMemo(() => words(texts['hero.title'] ? cleanHtml(texts['hero.title']) : TITLE), [texts])
   const video = useRef<HTMLVideoElement>(null)
   const bar = useRef<HTMLElement>(null)
   const [shown, setShown] = useState(!intro)
-  // the lit final frame instead of the film (reduced motion, autoplay blocked, load failure)
-  const [still, setStill] = useState(() => prefersReducedMotion())
+  // the lit final frame instead of the film (reduced motion, autoplay blocked, load failure, the editor)
+  const [still, setStill] = useState(() => prefersReducedMotion() || editing)
+  const Btn = editing ? 'span' : 'button'
 
   useEffect(() => {
     const v = video.current
@@ -103,45 +139,54 @@ export default function Hero({ intro, onDone }: Props) {
 
       <div className="hero-side hero-side--l">
         <motion.span className="hero-eyebrow" {...rise(0)}>
-          {copy.heroEyebrow}
+          <E k="hero.eyebrow" def={copy.heroEyebrow} plain />
         </motion.span>
 
-        <h1>
-          {['Wspólna', 'pasja', 'jest', 'początkiem', 'wyjątkowych', 'relacji.'].map((w, i) => (
-            <motion.span
-              className="w"
-              key={w}
-              initial={false}
-              animate={
-                visible
-                  ? { opacity: 1, y: 0, filter: 'blur(0px)' }
-                  : { opacity: 0, y: '0.55em', filter: 'blur(5px)' }
-              }
-              transition={{ duration: 1, ease, delay: 0.12 + i * 0.08 }}
-            >
-              {w === 'pasja' ? <em>pasja</em> : w}
-            </motion.span>
-          )).flatMap((el, i) => (i < 5 ? [el, ' '] : [el]))}
-        </h1>
+        {editing ? (
+          <E as="h1" k="hero.title" html={TITLE} />
+        ) : (
+          <h1>
+            {title.map((w, i) =>
+              w === '<br>' ? (
+                <br key={i} />
+              ) : (
+                <motion.span
+                  className="w"
+                  key={i + w}
+                  initial={false}
+                  animate={
+                    visible
+                      ? { opacity: 1, y: 0, filter: 'blur(0px)' }
+                      : { opacity: 0, y: '0.55em', filter: 'blur(5px)' }
+                  }
+                  transition={{ duration: 1, ease, delay: 0.12 + i * 0.08 }}
+                  dangerouslySetInnerHTML={{ __html: w }}
+                />
+              ),
+            ).flatMap((el, i) => (i < title.length - 1 ? [el, ' '] : [el]))}
+          </h1>
+        )}
       </div>
 
       <div className="hero-side hero-side--r">
         <motion.p className="hero-claim" {...rise(0.4)}>
-          {copy.heroClaim}
+          <E k="hero.claim" def={copy.heroClaim} />
         </motion.p>
         <motion.p className="hero-sub" {...rise(0.52)}>
-          {copy.heroSub}
+          <E k="hero.sub" def={copy.heroSub} />
         </motion.p>
       </div>
 
       <motion.div className="hero-foot" {...rise(0.7)}>
-        <span className="hero-note">Est. MMXXVI</span>
-        <button type="button" className="btn btn-gold" onClick={openApply}>{copy.heroCta}</button>
+        <E className="hero-note" k="hero.noteLeft" def="Est. MMXXVI" plain />
+        <Btn type="button" className="btn btn-gold" onClick={editing ? undefined : openApply}>
+          <E k="hero.cta" def={copy.heroCta} plain />
+        </Btn>
         <i className="hero-foot-gap" aria-hidden="true" />
         <a className="link-line" href={clubUrl}>
-          Zaloguj <span className="btn-arrow">→</span>
+          <E k="hero.login" def="Zaloguj" plain /> <span className="btn-arrow">→</span>
         </a>
-        <span className="hero-note">Wyłącznie dla Członków</span>
+        <E className="hero-note" k="hero.noteRight" def="Wyłącznie dla Członków" plain />
       </motion.div>
 
       <span className="hero-progress" aria-hidden="true"><i ref={bar} /></span>

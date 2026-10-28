@@ -1,5 +1,6 @@
 import { useReveal } from '../lib/hooks'
 import Chapter from './Chapter'
+import E from './E'
 import { communityNums, copy } from '../content'
 
 export default function Community() {
@@ -7,13 +8,13 @@ export default function Community() {
   return (
     <section className="section community" id="spolecznosc">
       <div className="wrap">
-        <Chapter no="IV" label={copy.communityTitle} title={copy.communityH2} center />
+        <Chapter no="IV" k="community.ch" label={copy.communityTitle} title={copy.communityH2} center />
 
         <div className="com-grid reveal" ref={grid}>
           {communityNums.map((c, i) => (
             <div className="com-num" key={c.label} style={{ transitionDelay: `${i * 120}ms` }}>
-              <b>{c.n}</b>
-              <span>{c.label}</span>
+              <E as="b" k={`community.${i}.n`} def={c.n} plain />
+              <E k={`community.${i}.label`} def={c.label} />
             </div>
           ))}
         </div>

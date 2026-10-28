@@ -1,3 +1,4 @@
+import E from './E'
 import { useReveal } from '../lib/hooks'
 import { asset } from '../lib/asset'
 
@@ -10,8 +11,8 @@ export default function Plate() {
         <img src={asset('assets/car.webp')} alt="" aria-hidden="true" data-parallax="-40" />
       </div>
       <div className="plate-cap">
-        <span className="cap-main">Fastline Supercars</span>
-        <span className="cap-sub">Świat Fastline</span>
+        <E className="cap-main" k="plate.main" def="Fastline Supercars" plain />
+        <E className="cap-sub" k="plate.sub" def="Świat Fastline" plain />
       </div>
     </section>
   )

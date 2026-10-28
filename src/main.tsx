@@ -3,6 +3,10 @@ import ReactDOM from 'react-dom/client'
 import App from './App'
 import { openApply } from './lib/links'
 import './styles/global.css'
+import { loadTexts } from './lib/texts'
+
+// texts edited in Panel Klubu → „Strona”
+loadTexts()
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>

@@ -1,6 +1,7 @@
 import { useReveal } from '../lib/hooks'
 import { asset } from '../lib/asset'
 import Chapter from './Chapter'
+import E from './E'
 import { copy } from '../content'
 
 export default function Partners() {
@@ -8,7 +9,7 @@ export default function Partners() {
   return (
     <section className="section partners" id="partnerzy">
       <div className="wrap">
-        <Chapter no="VI" label={copy.partnersTitle} title={copy.partnersH2} />
+        <Chapter no="VI" k="partners.ch" label={copy.partnersTitle} title={copy.partnersH2} />
 
         <div className="partners-grid reveal" ref={grid}>
           <figure style={{ margin: 0 }}>
@@ -21,13 +22,13 @@ export default function Partners() {
                 aria-label="Kolekcjonerski garaż supersamochodów, auto pod pokrowcem"
               />
             </div>
-            <figcaption className="photo-cap">Garaż kolekcjonerski</figcaption>
+            <E as="figcaption" className="photo-cap" k="partners.cap" def="Garaż kolekcjonerski" plain />
           </figure>
           <div className="partners-copy">
-            <p>{copy.partners[0]}</p>
-            <p>{copy.partners[1]}</p>
+            <E as="p" k="partners.p1" def={copy.partners[0]} />
+            <E as="p" k="partners.p2" def={copy.partners[1]} />
             <a className="btn" href={copy.partnersMail}>
-              {copy.partnersCta} <span className="btn-arrow">→</span>
+              <E k="partners.cta" def={copy.partnersCta} plain /> <span className="btn-arrow">→</span>
             </a>
           </div>
         </div>

@@ -1,6 +1,7 @@
 import { useReveal } from '../lib/hooks'
 import { asset } from '../lib/asset'
 import Chapter from './Chapter'
+import E from './E'
 import { copy } from '../content'
 
 export default function Standards() {
@@ -15,10 +16,10 @@ export default function Standards() {
       />
       <div className="standards-scrim" aria-hidden="true" />
       <div className="wrap reveal" ref={ref}>
-        <Chapter no="V" label={copy.standardsTitle} center />
-        <blockquote className="standards-quote">{copy.standardsQuote}</blockquote>
-        <p className="standards-body">{copy.standards[0]}</p>
-        <p className="standards-body">{copy.standards[1]}</p>
+        <Chapter no="V" k="standards.ch" label={copy.standardsTitle} center />
+        <E as="blockquote" className="standards-quote" k="standards.quote" def={copy.standardsQuote} />
+        <E as="p" className="standards-body" k="standards.p1" def={copy.standards[0]} />
+        <E as="p" className="standards-body" k="standards.p2" def={copy.standards[1]} />
       </div>
     </section>
   )

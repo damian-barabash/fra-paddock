@@ -3,6 +3,7 @@ import { AnimatePresence, motion } from 'framer-motion'
 import { APPLY_EVENT } from '../lib/links'
 import { copy, CONTACT_EMAIL } from '../content'
 import ApplyForm from './ApplyForm'
+import E from './E'
 
 const ease = [0.22, 1, 0.36, 1] as const
 
@@ -52,20 +53,27 @@ export default function ApplyModal() {
             <button type="button" className="modal-close" aria-label="Zamknij" onClick={() => setOpen(false)}>
               <i /><i />
             </button>
-            <div className="apply-head">
-              <span className="eyebrow-line">{copy.applyTitle}</span>
-              <h2 id="apply-title">{copy.applyH2}</h2>
-              <p>{copy.applyLead}</p>
-              <div className="apply-meta">
-                <span>Rozpatrzenie 48h</span>
-                <span>Miejsca limitowane</span>
-                <span>{CONTACT_EMAIL}</span>
-              </div>
-            </div>
+            <ApplyHead />
             <ApplyForm />
           </motion.div>
         </motion.div>
       )}
     </AnimatePresence>
+  )
+}
+
+/** Heading of the application card (shared with the editor). */
+export function ApplyHead() {
+  return (
+    <div className="apply-head">
+      <E className="eyebrow-line" k="apply.eyebrow" def={copy.applyTitle} plain />
+      <E as="h2" id="apply-title" k="apply.title" def={copy.applyH2} />
+      <E as="p" k="apply.lead" def={copy.applyLead} />
+      <div className="apply-meta">
+        <E k="apply.meta1" def="Rozpatrzenie 48h" plain />
+        <E k="apply.meta2" def="Miejsca limitowane" plain />
+        <E k="apply.meta3" def={CONTACT_EMAIL} plain />
+      </div>
+    </div>
   )
 }

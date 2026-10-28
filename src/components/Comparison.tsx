@@ -20,7 +20,7 @@ export default function Comparison() {
   return (
     <section className="section comparison" id="zakres">
       <div className="wrap">
-        <Chapter no="VII" label={copy.zakresTitle} />
+        <Chapter no="VII" k="zakres.ch" label={copy.zakresTitle} />
 
         <div className="cmp reveal" ref={wrap}>
           <div className="cmp-scroll">

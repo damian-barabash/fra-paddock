@@ -1,6 +1,7 @@
 import { useReveal } from '../lib/hooks'
 import { asset } from '../lib/asset'
 import Chapter from './Chapter'
+import E from './E'
 import { copy, ecoTiles } from '../content'
 
 export default function Ecosystem() {
@@ -12,8 +13,8 @@ export default function Ecosystem() {
   return (
     <section className="section ecosystem" id="swiat">
       <div className="wrap">
-        <Chapter no="II" label={copy.ecoTitle} title={copy.ecoH2} />
-        <p className="eco-lead reveal" ref={lead}>{copy.ecoLead}</p>
+        <Chapter no="II" k="eco.ch" label={copy.ecoTitle} title={copy.ecoH2} />
+        <E as="p" className="eco-lead reveal" ref={lead} k="eco.lead" def={copy.ecoLead} />
       </div>
 
       <figure className="eco-band" ref={band as React.RefObject<HTMLElement>}>
@@ -29,7 +30,7 @@ export default function Ecosystem() {
         />
         <figcaption>
           <div className="wrap">
-            <span>Atelier · Karbon i aluminium</span>
+            <E k="eco.bandCap" def="Atelier · Karbon i aluminium" plain />
           </div>
         </figcaption>
       </figure>
@@ -38,8 +39,8 @@ export default function Ecosystem() {
         <div className="eco-tiles reveal" ref={tiles}>
           {ecoTiles.map((t, i) => (
             <article className="eco-tile" key={t.name} style={{ transitionDelay: `${i * 100}ms` }}>
-              <h3>{t.name}</h3>
-              <p>{t.desc}</p>
+              <E as="h3" k={`eco.tile${i}.name`} def={t.name} plain />
+              <E as="p" k={`eco.tile${i}.desc`} def={t.desc} />
             </article>
           ))}
         </div>
@@ -54,7 +55,7 @@ export default function Ecosystem() {
                 aria-label="Czarny karbonowy hypercar przed Pałacem Kultury i Nauki nocą"
               />
             </div>
-            <figcaption className="photo-cap">Warszawa · Pałac Kultury i Nauki</figcaption>
+            <E as="figcaption" className="photo-cap" k="eco.cap1" def="Warszawa · Pałac Kultury i Nauki" plain />
           </figure>
           <figure>
             <div className="frame frame--still" ref={duo2}>
@@ -65,7 +66,7 @@ export default function Ecosystem() {
                 aria-label="Granatowy prototyp Alpine Alpenglow w ciepłym świetle showroomu"
               />
             </div>
-            <figcaption className="photo-cap">Alpine · Alpenglow</figcaption>
+            <E as="figcaption" className="photo-cap" k="eco.cap2" def="Alpine · Alpenglow" plain />
           </figure>
         </div>
       </div>

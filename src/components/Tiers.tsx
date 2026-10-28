@@ -9,7 +9,7 @@ export default function Tiers() {
   return (
     <section className="section tiers" id="czlonkostwo">
       <div className="wrap">
-        <Chapter no="III" label={copy.tiersTitle} title={copy.tiersLead} />
+        <Chapter no="III" k="tiers.ch" label={copy.tiersTitle} title={copy.tiersLead} />
 
         <div className="tier-block reveal" ref={block}>
           {tiers.map((t) => {

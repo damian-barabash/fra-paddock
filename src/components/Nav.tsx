@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { usePastHero } from '../lib/hooks'
 import { asset } from '../lib/asset'
 import { clubUrl, openApply } from '../lib/links'
+import { useText } from './E'
 
 // `apply` opens the application pop-up instead of navigating
 const links = [
@@ -14,6 +15,7 @@ export default function Nav() {
   // the hero carries no menu — the bar slides in with the first chapter
   const past = usePastHero()
   const [open, setOpen] = useState(false)
+  const cta = useText('hero.cta', 'Złóż aplikację')
 
   useEffect(() => {
     if (!open) return
@@ -41,7 +43,7 @@ export default function Nav() {
           <a className="nav-brand" href="#top" aria-label="Fastline Paddock Club">
             <img src={asset('assets/logo.webp')} alt="Fastline Paddock Club" />
           </a>
-          <button type="button" className="nav-cta" onClick={openApply}>Złóż aplikację</button>
+          <button type="button" className="nav-cta" onClick={openApply}>{cta}</button>
         </div>
       </nav>
 

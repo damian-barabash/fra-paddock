@@ -4,6 +4,10 @@ import ClubApp from './ClubApp'
 import ErrorBoundary from './ErrorBoundary'
 import '../styles/global.css'
 import './club.css'
+import { loadTexts } from '../lib/texts'
+
+// texts edited in Panel Klubu → „Strona”
+loadTexts()
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>

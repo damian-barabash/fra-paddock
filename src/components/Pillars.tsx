@@ -1,6 +1,7 @@
 import { useReveal } from '../lib/hooks'
 import { asset } from '../lib/asset'
 import Chapter from './Chapter'
+import E from './E'
 import { pillars, copy } from '../content'
 
 const strip = [
@@ -18,13 +19,13 @@ export default function Pillars() {
   return (
     <section className="section pillars" id="przywileje">
       <div className="wrap">
-        <Chapter no="III" label={copy.pillarsTitle} title={copy.pillarsH2} />
+        <Chapter no="III" k="pillars.ch" label={copy.pillarsTitle} title={copy.pillarsH2} />
 
         <div className="pillar-grid reveal" ref={grid}>
           {pillars.map((p, i) => (
             <article className="pillar" key={p.title} style={{ transitionDelay: `${i * 100}ms` }}>
-              <h3>{p.title}</h3>
-              <p>{p.desc}</p>
+              <E as="h3" k={`pillars.${i}.title`} def={p.title} />
+              <E as="p" k={`pillars.${i}.desc`} def={p.desc} />
             </article>
           ))}
         </div>
@@ -41,7 +42,7 @@ export default function Pillars() {
                   aria-label={s.alt}
                 />
               </div>
-              <figcaption className="photo-cap">{s.cap}</figcaption>
+              <E as="figcaption" className="photo-cap" k={`pillars.cap${i}`} def={s.cap} plain />
             </figure>
           ))}
         </div>

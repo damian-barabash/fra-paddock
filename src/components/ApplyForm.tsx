@@ -1,6 +1,8 @@
 import { useState } from 'react'
 import { submitApplication, isSupabaseReady, type ApplicationInput } from '../lib/supabase'
 import { copy, interestOptions, CONTACT_EMAIL } from '../content'
+import { useEditing } from '../lib/texts'
+import E, { usePlaceholder, useText } from './E'
 
 const empty: ApplicationInput = {
   full_name: '',
@@ -15,6 +17,11 @@ const empty: ApplicationInput = {
 
 /** Membership application form (Fastline Paddock Pass) with its thank-you state. */
 export default function ApplyForm() {
+  const editing = useEditing()
+  // chip labels are also the stored answers, so an edited label is what lands in the application
+  const labels = [useText('apply.interest0', interestOptions[0]), useText('apply.interest1', interestOptions[1]), useText('apply.interest2', interestOptions[2]), useText('apply.interest3', interestOptions[3])]
+  const submit = useText('apply.submit', 'Złóż aplikację')
+  const sending = useText('apply.sending', 'Wysyłanie…')
   const [data, setData] = useState<ApplicationInput>(empty)
   const [status, setStatus] = useState<'idle' | 'sending' | 'done' | 'error'>('idle')
   const [err, setErr] = useState('')
@@ -40,7 +47,7 @@ export default function ApplyForm() {
 
   const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    if (status === 'sending') return
+    if (editing || status === 'sending') return
     setErr('')
     if (!isSupabaseReady) {
       mailtoFallback()
@@ -58,80 +65,100 @@ export default function ApplyForm() {
     }
   }
 
+  const Lab = editing ? 'span' : 'label'
+  const fid = (id: string) => (editing ? undefined : id)
+
   return (
     <>
     {status === 'done' ? (
-      <div className="form-success" role="status">
-        <div className="mark" aria-hidden="true">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6">
-            <path d="M20 6L9 17l-5-5" strokeLinecap="round" strokeLinejoin="round" />
-          </svg>
-        </div>
-        <h3>{copy.thanksTitle}</h3>
-        <p>{copy.applyNote}</p>
-      </div>
+      <ApplyThanks />
     ) : (
       <form className="form" onSubmit={onSubmit} noValidate>
         <div className="form-row">
           <div className="field">
-            <label htmlFor="fn">Imię i nazwisko <span className="req">*</span></label>
-            <input id="fn" required value={data.full_name} onChange={set('full_name')} placeholder="Jan Kowalski" autoComplete="name" />
+            <label htmlFor={fid('fn')}><E k="apply.f.name" def="Imię i nazwisko" plain /> <span className="req">*</span></label>
+            <input id="fn" required value={data.full_name} onChange={set('full_name')} autoComplete="name" {...usePlaceholder('apply.ph.name', 'Jan Kowalski')} />
           </div>
           <div className="field">
-            <label htmlFor="em">E-mail <span className="req">*</span></label>
-            <input id="em" type="email" required value={data.email} onChange={set('email')} placeholder="jan@domena.pl" autoComplete="email" />
-          </div>
-        </div>
-        <div className="form-row">
-          <div className="field">
-            <label htmlFor="ph">Telefon <span className="req">*</span></label>
-            <input id="ph" required value={data.phone} onChange={set('phone')} placeholder="+48 600 000 000" inputMode="tel" autoComplete="tel" />
-          </div>
-          <div className="field">
-            <label htmlFor="brand">Ulubiona marka motoryzacyjna</label>
-            <input id="brand" value={data.brand} onChange={set('brand')} placeholder="Porsche" />
+            <label htmlFor={fid('em')}><E k="apply.f.email" def="E-mail" plain /> <span className="req">*</span></label>
+            <input id="em" type={editing ? 'text' : 'email'} required value={data.email} onChange={set('email')} autoComplete="email" {...usePlaceholder('apply.ph.email', 'jan@domena.pl')} />
           </div>
         </div>
         <div className="form-row">
           <div className="field">
-            <label htmlFor="car">Samochód, który posiadasz</label>
-            <input id="car" value={data.car} onChange={set('car')} placeholder="Maserati MC20" />
+            <label htmlFor={fid('ph')}><E k="apply.f.phone" def="Telefon" plain /> <span className="req">*</span></label>
+            <input id="ph" required value={data.phone} onChange={set('phone')} inputMode="tel" autoComplete="tel" {...usePlaceholder('apply.ph.phone', '+48 600 000 000')} />
           </div>
           <div className="field">
-            <label htmlFor="ref">
-              Kto Cię rekomenduje <small>(Członek Klubu lub udział w wydarzeniach Fastline)</small>
+            <label htmlFor={fid('brand')}><E k="apply.f.brand" def="Ulubiona marka motoryzacyjna" plain /></label>
+            <input id="brand" value={data.brand} onChange={set('brand')} {...usePlaceholder('apply.ph.brand', 'Porsche')} />
+          </div>
+        </div>
+        <div className="form-row">
+          <div className="field">
+            <label htmlFor={fid('car')}><E k="apply.f.car" def="Samochód, który posiadasz" plain /></label>
+            <input id="car" value={data.car} onChange={set('car')} {...usePlaceholder('apply.ph.car', 'Maserati MC20')} />
+          </div>
+          <div className="field">
+            <label htmlFor={fid('ref')}>
+              <E k="apply.f.ref" def="Kto Cię rekomenduje" plain />{' '}
+              <E as="small" k="apply.f.refHint" def="(Członek Klubu lub udział w wydarzeniach Fastline)" plain />
             </label>
-            <input id="ref" value={data.reference} onChange={set('reference')} placeholder="Imię i nazwisko / wydarzenie" />
+            <input id="ref" value={data.reference} onChange={set('reference')} {...usePlaceholder('apply.ph.ref', 'Imię i nazwisko / wydarzenie')} />
           </div>
         </div>
         <div className="field">
-          <span className="field-label" id="int-label">Co najbardziej Cię interesuje</span>
+          <E className="field-label" id="int-label" k="apply.f.interests" def="Co najbardziej Cię interesuje" plain />
           <div className="chips" role="group" aria-labelledby="int-label">
-            {interestOptions.map((opt) => (
-              <label className="chip" key={opt}>
+            {interestOptions.map((opt, i) => (
+              <Lab className="chip" key={opt}>
                 <input
                   type="checkbox"
-                  checked={data.interests.includes(opt)}
-                  onChange={() => toggleInterest(opt)}
+                  checked={data.interests.includes(labels[i])}
+                  onChange={() => toggleInterest(labels[i])}
+                  tabIndex={editing ? -1 : undefined}
                 />
-                <span>{opt}</span>
-              </label>
+                <E k={`apply.interest${i}`} def={opt} plain />
+              </Lab>
             ))}
           </div>
         </div>
         <div className="field">
-          <label htmlFor="msg">Krótko o sobie <small>(opcjonalne)</small></label>
-          <textarea id="msg" value={data.message} onChange={set('message')} placeholder="Co Cię łączy z motoryzacją?" />
+          <label htmlFor={fid('msg')}>
+            <E k="apply.f.msg" def="Krótko o sobie" plain /> <E as="small" k="apply.f.msgHint" def="(opcjonalne)" plain />
+          </label>
+          <textarea id="msg" value={data.message} onChange={set('message')} {...usePlaceholder('apply.ph.msg', 'Co Cię łączy z motoryzacją?')} />
         </div>
         <div className="form-actions">
-          <button className="btn btn-gold" type="submit" disabled={status === 'sending'}>
-            {status === 'sending' ? 'Wysyłanie…' : 'Złóż aplikację'} <span className="btn-arrow">→</span>
-          </button>
+          {editing ? (
+            <span className="btn btn-gold">
+              <E k="apply.submit" def="Złóż aplikację" plain /> <span className="btn-arrow">→</span>
+            </span>
+          ) : (
+            <button className="btn btn-gold" type="submit" disabled={status === 'sending'}>
+              {status === 'sending' ? sending : submit} <span className="btn-arrow">→</span>
+            </button>
+          )}
           {status === 'error' && <span className="form-msg err">{err}</span>}
-          <p className="form-note">{copy.applyNote}</p>
+          <E as="p" className="form-note" k="apply.note" def={copy.applyNote} />
         </div>
       </form>
     )}
     </>
+  )
+}
+
+/** The thank-you state after sending (also shown on its own in the editor). */
+export function ApplyThanks() {
+  return (
+    <div className="form-success" role="status">
+      <div className="mark" aria-hidden="true">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6">
+          <path d="M20 6L9 17l-5-5" strokeLinecap="round" strokeLinejoin="round" />
+        </svg>
+      </div>
+      <E as="h3" k="apply.thanks.title" def={copy.thanksTitle} />
+      <E as="p" k="apply.thanks.text" def={copy.applyNote} />
+    </div>
   )
 }
