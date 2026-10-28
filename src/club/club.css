@@ -1448,3 +1448,19 @@
 .su-seen svg { color: var(--gold); }
 .seg .badge { margin-left: 0.5rem; }
 .su-list .alist-main small { white-space: normal; }
+
+/* sign-up already sent */
+.btn.btn-sent,
+.btn-gold.btn-sent {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.55rem;
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(255, 255, 255, 0.16);
+  color: var(--smoke);
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.04), 0 0 22px rgba(255, 255, 255, 0.07);
+  cursor: default;
+  pointer-events: none;
+}
+.btn-sent svg { color: var(--champagne); }

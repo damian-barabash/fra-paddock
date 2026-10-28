@@ -6,7 +6,7 @@ import RichContent from '../ui/RichContent'
 import { fmtDay, fmtMonth, fmtTime, fmtWeekday, fmtYear, plural } from '../ui/format'
 import { asset } from '../../lib/asset'
 import { useSession } from '../session'
-import { sendOff } from '../ui/SendOff'
+import SignupButton from './SignupButton'
 
 const tz = 'Europe/Warsaw'
 /** photo for events without their own: a car under a silk cover — „something is coming” */
@@ -111,13 +111,13 @@ export function NextEvent({ data, base }: { data: MemberData; base: string }) {
 
         <div className="nev-foot">
           {block.countdown && <span className="nev-count">{countdown(e)}</span>}
-          <a
-            className="btn btn-gold nev-cta"
-            href={go.href}
-            {...(go.external ? { target: '_blank', rel: 'noopener noreferrer', onClick: (ev: React.MouseEvent) => sendOff(ev, signUp(e, profile)) } : {})}
-          >
-            {go.label} <span className="btn-arrow">→</span>
-          </a>
+          {go.external ? (
+            <SignupButton data={data} info={signUp(e, profile)} label={go.label} className="btn btn-gold nev-cta" />
+          ) : (
+            <a className="btn btn-gold nev-cta" href={go.href}>
+              {go.label} <span className="btn-arrow">→</span>
+            </a>
+          )}
         </div>
       </div>
     </section>
@@ -232,15 +232,7 @@ export function EventView({ id, data, base }: { id: string; data: MemberData; ba
             </a>
           )}
           {(e.cta_url || e.cta_label) && (
-            <a
-              className={`btn${invite ? '' : ' btn-gold'}`}
-              href={e.cta_url || '#'}
-              target="_blank"
-              rel="noopener noreferrer"
-              onClick={(ev) => sendOff(ev, signUp(e, profile))}
-            >
-              {e.cta_label || 'Zapisz się'} <span className="btn-arrow">→</span>
-            </a>
+            <SignupButton data={data} info={signUp(e, profile)} label={e.cta_label || 'Zapisz się'} className={`btn${invite ? '' : ' btn-gold'}`} />
           )}
         </div>
       )}

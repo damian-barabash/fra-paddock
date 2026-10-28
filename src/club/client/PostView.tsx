@@ -7,7 +7,7 @@ import Icon from '../ui/Icon'
 import RichContent from '../ui/RichContent'
 import InvitationCard from './InvitationCard'
 import { fmtDate } from '../ui/format'
-import { sendOff } from '../ui/SendOff'
+import SignupButton from './SignupButton'
 
 export default function PostView({ id, data, base }: { id: string; data: MemberData; base: string }) {
   const { profile } = useSession()
@@ -56,12 +56,11 @@ export default function PostView({ id, data, base }: { id: string; data: MemberD
       <RichContent html={post.body_html} className="post-body" />
 
       {post.kind === 'offer' && post.cta_url && !expired && (
-        <a
+        <SignupButton
+          data={data}
           className="btn btn-gold post-cta"
-          href={post.cta_url}
-          target="_blank"
-          rel="noopener noreferrer"
-          onClick={(e) => sendOff(e, {
+          label={post.cta_label || 'Skorzystaj'}
+          info={{
             kicker: post.audience === 'selected' ? 'Oferta imienna' : 'Oferta dla Członków',
             title: post.title,
             meta: post.valid_until ? `Ważna do ${fmtDate(post.valid_until)}` : undefined,
@@ -70,10 +69,8 @@ export default function PostView({ id, data, base }: { id: string; data: MemberD
             url: post.cta_url!,
             kind: 'offer',
             ref: post.id,
-          })}
-        >
-          {post.cta_label || 'Skorzystaj'} <span className="btn-arrow">→</span>
-        </a>
+          }}
+        />
       )}
     </article>
   )

@@ -22,6 +22,9 @@ export type MemberData = {
   snapshot: Snapshot | null
   events: ClubEvent[]
   eventsBlock: EventsBlock
+  /** `event:<id>` / `offer:<id>` the member has already signed up for */
+  signups: Set<string>
+  markSigned: (kind: 'event' | 'offer', id: string) => void
   loading: boolean
   syncing: boolean
   reload: () => Promise<void>
@@ -37,18 +40,20 @@ function useMemberData(userId: string, preview: boolean): MemberData {
   const [snapshot, setSnapshot] = useState<Snapshot | null>(null)
   const [events, setEvents] = useState<ClubEvent[]>([])
   const [eventsBlock, setEventsBlock] = useState<EventsBlock>(EVENTS_BLOCK_DEFAULT)
+  const [signups, setSignups] = useState<Set<string>>(new Set())
   const [loading, setLoading] = useState(true)
   const [syncing, setSyncing] = useState(false)
 
   const reload = useCallback(async () => {
     const now = new Date().toISOString()
-    const [p, r, s, ev, block] = await Promise.all([
+    const [p, r, s, ev, block, su] = await Promise.all([
       sb.from('posts').select('*').eq('published', true).lte('published_at', now)
         .order('pinned', { ascending: false }).order('published_at', { ascending: false }).limit(100),
       sb.from('rsvps').select('*').eq('user_id', userId),
       sb.from('fpl_snapshots').select('*').eq('user_id', userId).maybeSingle(),
       sb.from('club_events').select('*').eq('published', true).order('starts_at'),
       loadEventsBlock(),
+      sb.from('signups').select('kind, event_id, post_id').eq('user_id', userId),
     ])
     let list = (p.data as Post[]) ?? []
     if (preview) list = list.filter((x) => x.audience === 'all') // admin sees what every member sees
@@ -57,6 +62,7 @@ function useMemberData(userId: string, preview: boolean): MemberData {
     setSnapshot((s.data as Snapshot) ?? null)
     setEvents((ev.data as ClubEvent[]) ?? [])
     setEventsBlock(block)
+    setSignups(new Set(((su.data as { kind: string; event_id: string | null; post_id: string | null }[]) ?? []).map((x) => `${x.kind}:${x.event_id ?? x.post_id}`)))
     setLoading(false)
   }, [userId, preview])
 
@@ -92,7 +98,9 @@ function useMemberData(userId: string, preview: boolean): MemberData {
     setRsvps((m) => ({ ...m, [postId]: { ...row, note: null } }))
   }, [userId])
 
-  return { posts, rsvps, snapshot, events, eventsBlock, loading, syncing, reload, sync, answer }
+  const markSigned = useCallback((kind: 'event' | 'offer', id: string) => setSignups((s) => new Set(s).add(`${kind}:${id}`)), [])
+
+  return { posts, rsvps, snapshot, events, eventsBlock, signups, markSigned, loading, syncing, reload, sync, answer }
 }
 
 const tabs: { path: string; label: string; icon: IconName }[] = [

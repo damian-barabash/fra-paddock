@@ -65,6 +65,14 @@ export function SessionProvider({ children }: { children: ReactNode }) {
   return <SessionCtx.Provider value={value}>{children}</SessionCtx.Provider>
 }
 
+/**
+ * Pins the session a screen was opened with. While the old screen fades out after „Wyloguj”,
+ * it keeps the profile it started with instead of crashing on the already-empty one.
+ */
+export function SessionSnapshot({ value, children }: { value: Ctx; children: ReactNode }) {
+  return <SessionCtx.Provider value={value}>{children}</SessionCtx.Provider>
+}
+
 export function useSession() {
   const c = useContext(SessionCtx)
   if (!c) throw new Error('useSession outside SessionProvider')

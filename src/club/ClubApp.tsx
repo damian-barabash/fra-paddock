@@ -1,6 +1,6 @@
 import { useRef } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
-import { SessionProvider, useSession } from './session'
+import { SessionProvider, SessionSnapshot, useSession } from './session'
 import Login from './Login'
 import ClientApp from './client/ClientApp'
 import AdminApp from './admin/AdminApp'
@@ -29,7 +29,8 @@ function Screen({ id, children }: { id: string; children: React.ReactNode }) {
 }
 
 function Gate() {
-  const { session, profile, loading, signOut } = useSession()
+  const ctx = useSession()
+  const { session, profile, loading, signOut } = ctx
   const route = useRoute()
   const last = useRef('')
 
@@ -69,7 +70,10 @@ function Gate() {
   last.current = id
   return (
     <AnimatePresence mode="wait" initial={false}>
-      <Screen id={id} key={id}>{view}</Screen>
+      <Screen id={id} key={id}>
+        {/* the leaving screen keeps its own session snapshot (see SessionSnapshot) */}
+        <SessionSnapshot value={ctx}>{view}</SessionSnapshot>
+      </Screen>
     </AnimatePresence>
   )
 }

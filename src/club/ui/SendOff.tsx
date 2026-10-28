@@ -44,9 +44,9 @@ export function openLink(url: string) {
 }
 
 /** Use as the button's onClick: plays the envelope, then follows the link. */
-export function sendOff(e: React.MouseEvent, info: SendInfo) {
-  if (e.metaKey || e.ctrlKey || e.shiftKey || e.button !== 0) return // let „open in new tab” work as usual
+export function sendOff(e: React.MouseEvent, info: SendInfo, onSent?: () => void) {
   e.preventDefault()
+  onSent?.() // the button turns grey under the overlay
   // the sign-up is saved right away (once per member and event/offer); the animation does not wait for it
   sb.rpc('club_signup', { p_kind: info.kind, p_ref: info.ref }).then(({ error }) => {
     if (error) console.warn('club_signup', error.message)
