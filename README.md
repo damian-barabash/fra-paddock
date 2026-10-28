@@ -42,7 +42,7 @@ do `main`.
 3. `git push origin main` — reszta dzieje się automatycznie.
 
 `base` w Vite jest względny (`./`), więc działa i na ścieżce projektu GH Pages,
-i na własnej domenie (np. `paddock.fastlineracingacademy.pl` — dodaj wtedy plik
+i na własnej domenie (np. `fastlinepaddockclub.pl` — dodaj wtedy plik
 `public/CNAME` z domeną).
 
 ## Assets
