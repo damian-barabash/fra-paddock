@@ -18,7 +18,7 @@ export default function MemberForm({
   const [f, setF] = useState({ full_name: '', email: '', phone: '', fpl_email: '', password: makePassword() })
   const [busy, setBusy] = useState(false)
   const [err, setErr] = useState('')
-  const [done, setDone] = useState<{ id: string; email: string; password: string } | null>(null)
+  const [done, setDone] = useState<{ id: string; login: string; password: string } | null>(null)
   const set = (k: keyof typeof f) => (e: React.ChangeEvent<HTMLInputElement>) => setF((x) => ({ ...x, [k]: e.target.value }))
 
   const close = () => {
@@ -34,7 +34,9 @@ export default function MemberForm({
     setBusy(true)
     try {
       const r = await callFn<{ id: string }>('admin-users', { action: 'create', role, ...f })
-      setDone({ id: r.id, email: f.email.trim().toLowerCase(), password: f.password })
+      const nine = f.phone.replace(/\D/g, '').slice(-9)
+      const login = [f.email.trim().toLowerCase(), nine.length === 9 ? nine : ''].filter(Boolean).join(' lub ')
+      setDone({ id: r.id, login, password: f.password })
       onCreated(r.id)
     } catch (e) {
       setErr((e as Error).message)
@@ -54,14 +56,14 @@ export default function MemberForm({
           <p className="muted">Przekaż je osobiście. Hasło widać tylko teraz — członek może je zmienić w profilu.</p>
           <dl className="facts">
             <div><dt>Adres strony</dt><dd>{window.location.origin + window.location.pathname}</dd></div>
-            <div><dt>E-mail</dt><dd>{done.email}</dd></div>
+            <div><dt>Login</dt><dd>{done.login}</dd></div>
             <div><dt>Hasło</dt><dd className="mono">{done.password}</dd></div>
           </dl>
           <div className="row-actions">
             <button
               type="button"
               className="btn"
-              onClick={() => navigator.clipboard?.writeText(`Fastline Paddock Club\n${window.location.origin + window.location.pathname}\nE-mail: ${done.email}\nHasło: ${done.password}`)}
+              onClick={() => navigator.clipboard?.writeText(`Fastline Paddock Club\n${window.location.origin + window.location.pathname}\nLogin: ${done.login}\nHasło: ${done.password}`)}
             >
               Kopiuj dane
             </button>
@@ -79,10 +81,10 @@ export default function MemberForm({
           <div className="form-row">
             <div className="field">
               <label htmlFor="mf-email">E-mail (login)</label>
-              <input id="mf-email" type="email" value={f.email} onChange={set('email')} required />
+              <input id="mf-email" type="email" value={f.email} onChange={set('email')} required={role === 'admin' || !f.phone.trim()} placeholder={role === 'client' ? 'albo tylko telefon' : undefined} />
             </div>
             <div className="field">
-              <label htmlFor="mf-phone">Telefon</label>
+              <label htmlFor="mf-phone">Telefon <small>(też login)</small></label>
               <input id="mf-phone" value={f.phone} onChange={set('phone')} inputMode="tel" />
             </div>
           </div>

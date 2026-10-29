@@ -3,7 +3,7 @@ import { callFn, sb, syncFpl, type Post, type Profile, type Rsvp, type Snapshot 
 import { go, href } from '../router'
 import Icon from '../ui/Icon'
 import GoldCoin from '../ui/GoldCoin'
-import { fmtDate, fmtNum, fmtShort, makePassword, memberNo } from '../ui/format'
+import { fmtDate, fmtNum, fmtShort, makePassword, memberNo, shownEmail } from '../ui/format'
 
 type RsvpRow = Rsvp & { posts: Pick<Post, 'id' | 'title' | 'event_at'> | null }
 
@@ -24,7 +24,7 @@ export default function ClientDetail({ id }: { id: string }) {
     ])
     const prof = (a.data as Profile) ?? null
     setP(prof)
-    if (prof) setF({ full_name: prof.full_name, email: prof.email, phone: prof.phone ?? '', fpl_email: prof.fpl_email ?? '' })
+    if (prof) setF({ full_name: prof.full_name, email: shownEmail(prof.email), phone: prof.phone ?? '', fpl_email: prof.fpl_email ?? '' })
     setSnap((b.data as Snapshot) ?? null)
     setRsvps((c.data as RsvpRow[]) ?? [])
   }
@@ -52,7 +52,9 @@ export default function ClientDetail({ id }: { id: string }) {
   const save = (e: React.FormEvent) => {
     e.preventDefault()
     run('save', async () => {
-      await callFn('admin-users', { action: 'update', id, ...f, email: f.email !== p.email ? f.email : undefined })
+      // phone-only member: an empty e-mail field keeps the internal login address
+      const email = f.email.trim() && f.email.trim() !== shownEmail(p.email) ? f.email : undefined
+      await callFn('admin-users', { action: 'update', id, ...f, email })
       await load()
       return 'Zapisano.'
     })
@@ -84,7 +86,7 @@ export default function ClientDetail({ id }: { id: string }) {
     })
 
   const remove = () => {
-    if (!window.confirm(`Usunąć konto ${p.full_name || p.email}? Tej operacji nie można cofnąć.`)) return
+    if (!window.confirm(`Usunąć konto ${p.full_name || shownEmail(p.email) || p.phone}? Tej operacji nie można cofnąć.`)) return
     run('del', async () => {
       await callFn('admin-users', { action: 'delete', id })
       go(p.role === 'admin' ? 'admini' : '')
@@ -97,7 +99,7 @@ export default function ClientDetail({ id }: { id: string }) {
       <header className="apage-head">
         <div>
           <span className="eyebrow-line">{p.role === 'admin' ? 'Administrator' : `Członek nr ${memberNo(p.member_no)}`}</span>
-          <h1>{p.full_name || p.email}</h1>
+          <h1>{p.full_name || shownEmail(p.email) || p.phone}</h1>
           <p className="muted">
             Od {fmtDate(p.member_since)} · {p.disabled ? 'zablokowany' : p.welcome_seen_at ? `pierwsze logowanie ${fmtShort(p.welcome_seen_at)}` : 'jeszcze się nie logował'}
           </p>
@@ -110,8 +112,8 @@ export default function ClientDetail({ id }: { id: string }) {
           <h2>Dane</h2>
           <form className="form" onSubmit={save}>
             <div className="field"><label htmlFor="cd-n">Imię i nazwisko</label><input id="cd-n" value={f.full_name} onChange={(e) => setF({ ...f, full_name: e.target.value })} /></div>
-            <div className="field"><label htmlFor="cd-e">E-mail (login)</label><input id="cd-e" type="email" value={f.email} onChange={(e) => setF({ ...f, email: e.target.value })} /></div>
-            <div className="field"><label htmlFor="cd-p">Telefon</label><input id="cd-p" value={f.phone} onChange={(e) => setF({ ...f, phone: e.target.value })} /></div>
+            <div className="field"><label htmlFor="cd-e">E-mail (login)</label><input id="cd-e" type="email" value={f.email} placeholder="brak — logowanie telefonem" onChange={(e) => setF({ ...f, email: e.target.value })} /></div>
+            <div className="field"><label htmlFor="cd-p">Telefon <small>(też login: 9 cyfr)</small></label><input id="cd-p" value={f.phone} onChange={(e) => setF({ ...f, phone: e.target.value })} /></div>
             {p.role === 'client' && (
               <div className="field"><label htmlFor="cd-f">E-mail w Performance Lab</label><input id="cd-f" type="email" value={f.fpl_email} placeholder="ten sam co login" onChange={(e) => setF({ ...f, fpl_email: e.target.value })} /></div>
             )}

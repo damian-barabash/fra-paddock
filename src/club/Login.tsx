@@ -1,11 +1,38 @@
 import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { sb } from './api'
+import { SUPABASE_ANON, SUPABASE_URL } from '../lib/supabase'
 import { asset } from '../lib/asset'
 import { home } from '../lib/links'
 import { CONTACT_EMAIL } from '../content'
 
 const ease = [0.22, 1, 0.36, 1] as const
+type Result = 'ok' | 'bad' | 'error'
+
+async function byEmail(email: string, password: string): Promise<Result> {
+  const { error } = await sb.auth.signInWithPassword({ email, password })
+  if (!error) return 'ok'
+  return /invalid/i.test(error.message) ? 'bad' : 'error'
+}
+
+/** Phone = the last 9 digits (with or without +48, spaces, dashes); the server finds the account. */
+async function byPhone(phone: string, password: string): Promise<Result> {
+  const digits = phone.replace(/\D/g, '')
+  if (digits.length < 9) return 'bad'
+  try {
+    const res = await fetch(`${SUPABASE_URL}/functions/v1/phone-login`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', apikey: SUPABASE_ANON, Authorization: `Bearer ${SUPABASE_ANON}` },
+      body: JSON.stringify({ phone: digits, password }),
+    })
+    const j = await res.json().catch(() => null)
+    if (!res.ok || !j?.access_token) return j?.error === 'invalid' ? 'bad' : 'error'
+    const { error } = await sb.auth.setSession({ access_token: j.access_token, refresh_token: j.refresh_token })
+    return error ? 'error' : 'ok'
+  } catch {
+    return 'error'
+  }
+}
 
 /** Members-only sign-in. There is no registration: accounts are created by the club. */
 export default function Login() {
@@ -20,9 +47,11 @@ export default function Login() {
     if (busy) return
     setErr('')
     setBusy(true)
-    const { error } = await sb.auth.signInWithPassword({ email: email.trim(), password })
+    const login = email.trim()
+    const r = login.includes('@') ? await byEmail(login, password) : await byPhone(login, password)
     setBusy(false)
-    if (error) setErr(/invalid/i.test(error.message) ? 'Nieprawidłowy e-mail lub hasło.' : 'Nie udało się zalogować. Spróbuj ponownie.')
+    if (r === 'bad') setErr('Nieprawidłowy login lub hasło.')
+    else if (r === 'error') setErr('Nie udało się zalogować. Spróbuj ponownie.')
   }
 
   return (
@@ -39,8 +68,8 @@ export default function Login() {
 
         <form className="form auth-form" onSubmit={submit} noValidate>
           <div className="field">
-            <label htmlFor="login-email">E-mail</label>
-            <input id="login-email" type="email" autoComplete="username" value={email} onChange={(e) => setEmail(e.target.value)} required />
+            <label htmlFor="login-email">E-mail lub telefon</label>
+            <input id="login-email" type="text" inputMode="email" autoCapitalize="none" autoCorrect="off" spellCheck={false} autoComplete="username" placeholder="np. 600 000 000" value={email} onChange={(e) => setEmail(e.target.value)} required />
           </div>
           <div className="field">
             <label htmlFor="login-pass">Hasło</label>

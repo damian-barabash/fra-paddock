@@ -31,8 +31,14 @@ export const fromLocalInput = (v: string) => (v ? new Date(v).toISOString() : nu
 export const firstName = (full: string) => full.trim().split(/\s+/)[0] || ''
 
 /** A memorable temporary password for a new member (no look-alike characters). */
+/** Starting password: 10 capital letters (no I / O, so nobody confuses them with 1 / 0). */
 export function makePassword() {
-  const a = 'ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz23456789'
-  const r = crypto.getRandomValues(new Uint32Array(12))
-  return 'FPC-' + Array.from(r, (x) => a[x % a.length]).join('').replace(/(.{4})(.{4})(.{4})/, '$1-$2-$3')
+  const a = 'ABCDEFGHJKLMNPQRSTUVWXYZ'
+  const r = crypto.getRandomValues(new Uint32Array(10))
+  return Array.from(r, (x) => a[x % a.length]).join('')
 }
+
+/** Internal login address of members who sign in only with a phone (see supabase/phone-login.sql). */
+export const isPhoneLogin = (email?: string | null) => !!email && email.endsWith('@telefon.fastlinepaddockclub.pl')
+/** E-mail for display: empty for phone-only members. */
+export const shownEmail = (email?: string | null) => (isPhoneLogin(email) ? '' : email ?? '')

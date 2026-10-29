@@ -3,7 +3,7 @@ import type { MemberData } from './ClientApp'
 import { sb } from '../api'
 import { useSession } from '../session'
 import Icon from '../ui/Icon'
-import { fmtDate, memberNo } from '../ui/format'
+import { fmtDate, memberNo, shownEmail } from '../ui/format'
 import { CONTACT_EMAIL } from '../../content'
 
 export default function Profile({ data, onAbout }: { data: MemberData; onAbout: () => void }) {
@@ -36,7 +36,7 @@ export default function Profile({ data, onAbout }: { data: MemberData; onAbout: 
       </header>
 
       <dl className="facts">
-        <div><dt><Icon name="mail" size={16} /> E-mail</dt><dd>{p.email}</dd></div>
+        {shownEmail(p.email) && <div><dt><Icon name="mail" size={16} /> E-mail</dt><dd>{p.email}</dd></div>}
         {p.phone && <div><dt><Icon name="phone" size={16} /> Telefon</dt><dd>{p.phone}</dd></div>}
         <div><dt><Icon name="shield" size={16} /> Członek od</dt><dd>{fmtDate(p.member_since)}</dd></div>
         <div>

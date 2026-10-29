@@ -3,7 +3,7 @@ import { sb, syncFpl, type Profile } from '../api'
 import { href } from '../router'
 import Icon from '../ui/Icon'
 import GoldCoin from '../ui/GoldCoin'
-import { fmtNum, fmtShort, memberNo } from '../ui/format'
+import { fmtNum, fmtShort, memberNo, shownEmail } from '../ui/format'
 import MemberForm from './MemberForm'
 
 type Row = Profile & { fpl_snapshots: { litres_balance: number; found: boolean; synced_at: string | null } | null }
@@ -76,8 +76,8 @@ export default function Clients() {
               <a href={href('klienci/' + r.id)} className={r.disabled ? 'off' : ''}>
                 <span className="alist-no">{memberNo(r.member_no)}</span>
                 <span className="alist-main">
-                  <b>{r.full_name || r.email}</b>
-                  <small>{r.email}{r.phone ? ` · ${r.phone}` : ''}</small>
+                  <b>{r.full_name || shownEmail(r.email) || r.phone}</b>
+                  <small>{[shownEmail(r.email), r.phone].filter(Boolean).join(' · ')}</small>
                 </span>
                 <span className="alist-gl" title={r.fpl_snapshots?.synced_at ? `Sync ${fmtShort(r.fpl_snapshots.synced_at)}` : 'Bez synchronizacji'}>
                   <GoldCoin size={18} shine={false} />

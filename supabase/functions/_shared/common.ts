@@ -31,3 +31,12 @@ export async function getCaller(req: Request, db: SupabaseClient): Promise<Calle
   if (!profile || profile.disabled) return null
   return profile as Caller
 }
+
+/** Members without an e-mail get an internal login address on this domain (never mailed). */
+export const PHONE_LOGIN_DOMAIN = 'telefon.fastlinepaddockclub.pl'
+
+/** Phone as a login key: the last 9 digits (Polish mobile without +48); null if too short. */
+export function phoneKey(s?: string | null): string | null {
+  const d = (s ?? '').replace(/\D/g, '')
+  return d.length >= 9 ? d.slice(-9) : null
+}
